@@ -1,0 +1,22 @@
+# Notification Bridge custom theme, format version 1
+# Edit hex colors, then import this file from Settings > Theme.
+version: 1
+name: Tokyo Night
+
+# Used when the app is in Light mode.
+light.foreground: #343B58
+light.background: #D5D6DB
+light.highlight: #2E7DE9
+light.highlight-foreground: #FFFFFF
+light.secondary: #9854F1
+light.surface: #E1E2E7
+light.error: #F52A65
+
+# Used when the app is in Dark mode.
+dark.foreground: #C0CAF5
+dark.background: #1A1B26
+dark.highlight: #7AA2F7
+dark.highlight-foreground: #1A1B26
+dark.secondary: #BB9AF7
+dark.surface: #24283B
+dark.error: #F7768E
