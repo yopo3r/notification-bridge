@@ -5,6 +5,8 @@ the **OBEX Object Push** profile — the same mechanism basic phones ("dumbphone
 receive files over Bluetooth for more than twenty years, with no companion app needed on the
 receiver.
 
+![description](img/banner.png)
+
 ## The problem it solves
 
 If you use (or went back to using) a basic phone with no apps and no Internet as a secondary
