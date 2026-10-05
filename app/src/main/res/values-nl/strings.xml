@@ -1,0 +1,177 @@
+<resources>
+    <string name="app_name">Notification Bridge</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Start</string>
+    <string name="tab_test">Test</string>
+    <string name="tab_settings">Instellingen</string>
+    <string name="tab_about">Over</string>
+
+    <!-- Home -->
+    <string name="home_bluetooth_label">Bluetooth</string>
+    <string name="home_no_device">Geen apparaat</string>
+    <string name="home_notifications_label">Meldingen</string>
+    <string name="home_service_enabled">Service ingeschakeld</string>
+    <string name="home_access_not_granted">Geen toegang verleend</string>
+    <string name="home_apps_label">Apps</string>
+    <string name="home_queue_label">Wachtrij</string>
+    <string name="home_setup_title">Installatie voltooien</string>
+    <string name="home_setup_body">Kies een gekoppelde ontvanger, geef toegang tot meldingen en schakel de bridge in.</string>
+    <string name="home_action_choose">Ontvanger kiezen</string>
+    <string name="test_description">Kies een gekoppeld Bluetooth-apparaat en stuur een testbericht om de verbinding te controleren.</string>
+    <string name="test_empty">Geen gekoppelde apparaten. Koppel de ontvangende telefoon in Android-instellingen en vernieuw de lijst.</string>
+    <string name="test_refresh_devices">Apparaten vernieuwen</string>
+    <string name="test_selected">Geselecteerde ontvanger</string>
+    <string name="settings_intro">Bepaal wat wordt doorgestuurd, wanneer het wordt verzonden en hoe de app eruitziet.</string>
+    <string name="settings_group_forwarding">Doorsturen</string>
+    <string name="settings_group_delivery">Verzending en onderhoud</string>
+    <string name="home_notification_access_button">Toegang tot meldingen</string>
+    <string name="home_settings_button">Instellingen</string>
+
+    <!-- Test -->
+    <string name="test_title">Bluetooth / OBEX</string>
+    <string name="test_send_button">Testbestand verzenden</string>
+
+    <!-- Settings -->
+    <string name="settings_bridge_enabled">Bridge inschakelen</string>
+    <string name="settings_auto_reconnect">Automatisch opnieuw verbinden</string>
+    <string name="settings_ignore_silent">Stille meldingen negeren</string>
+    <string name="settings_ignore_ongoing">Aanhoudende meldingen negeren</string>
+    <string name="settings_ignore_duplicates">Duplicaten negeren</string>
+    <string name="settings_notify_calls">Oproepen melden</string>
+    <string name="settings_allowed_apps_title">Toegestane apps</string>
+    <string name="settings_apps_show_more">Meer tonen</string>
+    <string name="settings_theme_title">Thema</string>
+    <string name="settings_theme_system">Systeem</string>
+    <string name="settings_theme_light">Licht</string>
+    <string name="settings_theme_dark">Donker</string>
+    <string name="settings_theme_builtin_active">Ingebouwd thema actief</string>
+    <string name="settings_theme_custom_active">Aangepast thema: %1$s</string>
+    <string name="settings_theme_import">Thema bestand importeren</string>
+    <string name="settings_theme_reset">Ingebouwd thema gebruiken</string>
+    <string name="settings_theme_imported">Thema “%1$s” geïmporteerd</string>
+    <string name="settings_theme_import_error">Thema niet geïmporteerd: %1$s</string>
+    <string name="settings_theme_format_help">Gebruik een v1-tekstbestand met light.- en dark.-kleuren voor foreground, background, highlight, highlight-foreground, secondary, surface en error.</string>
+    <string name="settings_language_title">Taal</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_english">English</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Deutsch</string>
+
+
+    <!-- Dialogs / results -->
+    <string name="dialog_result_title">Resultaat</string>
+    <string name="dialog_ok">OK</string>
+    <string name="transfer_success">Overdracht voltooid</string>
+    <string name="transfer_error">Fout: %1$s</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step_indicator">Stap %1$d van %2$d</string>
+    <string name="onboarding_next">Volgende</string>
+    <string name="onboarding_back">Terug</string>
+    <string name="onboarding_skip">Overslaan</string>
+    <string name="onboarding_finish">Beginnen</string>
+    <string name="onboarding_step1_title">Wat deze app doet</string>
+    <string name="onboarding_step1_desc">Notification Bridge stuurt de meldingen van deze telefoon via Bluetooth door naar een ander apparaat (bijv. een eenvoudige telefoon), zonder internet en zonder app op de ontvanger.</string>
+    <string name="onboarding_step2_title">Koppel het andere apparaat</string>
+    <string name="onboarding_step2_desc">Koppel de ontvangende telefoon vóór gebruik via de Bluetooth-instellingen van Android — net zoals je een koptelefoon koppelt.</string>
+    <string name="onboarding_step3_title">Kies het Bluetooth-apparaat</string>
+    <string name="onboarding_step3_desc">Kies op het tabblad Test van deze app het al gekoppelde apparaat uit de lijst dat de meldingen zal ontvangen.</string>
+    <string name="onboarding_step4_title">Toegang tot meldingen verlenen</string>
+    <string name="onboarding_step4_desc">Tik op Start op \"Toegang tot meldingen\" en schakel de toestemming voor deze app in bij de systeeminstellingen. Zonder deze stap kan geen enkele melding worden gelezen.</string>
+    <string name="onboarding_step5_title">Kies welke apps worden doorgestuurd</string>
+    <string name="onboarding_step5_desc">Vink bij Instellingen de apps aan waarvan je meldingen wilt doorsturen (WhatsApp, e-mail, enz.) en schakel \"Bridge inschakelen\" in.</string>
+    <string name="onboarding_step6_title">Stuur een test</string>
+    <string name="onboarding_step6_desc">Tik op het tabblad Test op \"Testbestand verzenden\" om te bevestigen dat de Bluetooth-overdracht werkt voordat je op echte meldingen vertrouwt.</string>
+
+    <!-- About -->
+    <string name="settings_show_tutorial_button">Tutorial bekijken</string>
+    <string name="about_version">Versie %1$s</string>
+    <string name="about_description">Stuurt Android-meldingen via Bluetooth (OBEX Object Push) door naar een ander apparaat, bedoeld voor gebruik naast een eenvoudige telefoon zonder eigen apps.</string>
+    <string name="about_purpose_title">Doel van het project</string>
+    <string name="about_purpose_body">Een persoonlijk open source project om te zien wie er belt of schrijft, zonder afhankelijk te zijn van een smartphone met internet als hoofdapparaat.</string>
+    <string name="about_technical_title">Technische samenvatting</string>
+    <string name="about_technical_body">NotificationListenerService + wachtrij in het geheugen + zelfgeschreven OBEX Object Push-client via een RFCOMM Bluetooth-socket. Getest met een Alcatel 3080A als ontvanger.</string>
+    <string name="about_technologies_title">Gebruikte technologieën</string>
+    <string name="about_technologies_body">Kotlin • Jetpack Compose • Material 3 • Jetpack DataStore • Bluetooth Classic (RFCOMM) • OBEX Object Push</string>
+    <string name="about_license_title">Licentie</string>
+    <string name="about_license_body">MIT — zie het LICENSE-bestand in de repository.</string>
+
+    <!-- History, diagnostics, dumbphone mode, system notifications -->
+    <string name="tab_history">Geschiedenis</string>
+    <string name="tab_diagnostics">Diagnose</string>
+    <string name="history_title">Recente overdrachten</string>
+    <string name="history_privacy_note">Alleen de app-naam en de titel worden bewaard, alleen in het geheugen; ze gaan verloren zodra de app volledig wordt afgesloten.</string>
+    <string name="history_empty">Nog geen overdrachten.</string>
+    <string name="history_clear">Geschiedenis wissen</string>
+    <string name="history_status_sent">Verzonden</string>
+    <string name="history_status_failed">Mislukt</string>
+    <string name="diagnostics_title">Diagnose</string>
+    <string name="diagnostics_intro">Het rapport bevat de app- en Android-versie, het telefoonmodel, instellingen en technische status. Foutdetails en het logboek zijn weggelaten omdat ze persoonlijke gegevens kunnen bevatten. Controleer het rapport voordat u het deelt. Meldingsinhoud, de naam en het adres van de ontvanger en namen van toegestane apps zijn uitgesloten.</string>
+    <string name="diagnostics_copy_button">Diagnose-informatie kopiëren</string>
+    <string name="diagnostics_copied">Informatie gekopieerd</string>
+    <string name="settings_dumbphone_mode">Dumbphone-modus</string>
+    <string name="settings_dumbphone_mode_desc">Werkt op de achtergrond: minimale statusmelding, automatisch opnieuw verbinden en alleen een waarschuwing als een overdracht mislukt.</string>
+    <string name="channel_status_name">Bridge-status</string>
+    <string name="channel_status_quiet_name">Bridge-status (stil)</string>
+    <string name="channel_error_name">Overdrachtsfouten</string>
+    <string name="foreground_notification_title">Notification Bridge is actief</string>
+    <string name="foreground_notification_text">Luistert naar meldingen om via Bluetooth door te sturen</string>
+    <string name="error_notification_title">Een melding kon niet worden doorgestuurd</string>
+    <string name="error_notification_text">Controleer of het ontvangende apparaat aan staat, gekoppeld is en dichtbij is. Tik om de app te openen.</string>
+
+    <!-- Text length limit, test-content kinds -->
+    <string name="settings_text_length_title">Maximale tekstlengte</string>
+    <string name="settings_text_length_short">Kort (200 tekens)</string>
+    <string name="settings_text_length_medium">Gemiddeld (700 tekens)</string>
+    <string name="settings_text_length_long">Lang (1500 tekens)</string>
+    <string name="settings_text_length_xlong">Zeer lang (3000 tekens)</string>
+    <string name="test_kind_title">Testinhoud</string>
+    <string name="test_kind_short">Korte tekst</string>
+    <string name="test_kind_long">Lange tekst</string>
+    <string name="test_kind_special">Speciale tekens</string>
+    <string name="test_kind_emoji">Emoji</string>
+
+    <!-- Message batching / cooldown -->
+    <string name="settings_batching_enabled">Berichten bundelen (wachttijd)</string>
+    <string name="settings_batching_desc">Wacht voor het verzenden, zodat meerdere opeenvolgende berichten van hetzelfde contact in één bestand worden gebundeld.</string>
+    <string name="settings_batching_seconds">Wacht %1$d s voor verzenden</string>
+
+    <!-- Pagination -->
+
+    <!-- Auto-clear (retention) -->
+    <string name="settings_auto_clear_title">Automatisch wissen</string>
+    <string name="settings_auto_clear_enabled">Geschiedenis automatisch wissen</string>
+    <string name="settings_auto_clear_desc">Verwijdert items die ouder zijn dan de ingestelde tijd.</string>
+    <string name="settings_auto_clear_1h">Na 1 uur</string>
+    <string name="settings_auto_clear_6h">Na 6 uur</string>
+    <string name="settings_auto_clear_24h">Na 24 uur</string>
+    <string name="settings_auto_clear_72h">Na 3 dagen</string>
+    <string name="settings_auto_clear_7d">Na 7 dagen</string>
+
+    <!-- Localized Bluetooth test-message samples -->
+    <string name="sample_source_name">Testvoorbeeld</string>
+    <string name="sample_short_title">Korte test</string>
+    <string name="sample_short_text">Test.</string>
+    <string name="sample_long_title">Lange test</string>
+    <string name="sample_long_text">Deze testtekst controleert de overdracht van lange berichten via Bluetooth. De tekst bevat meerdere zinnen en veelvoorkomende tekens. Dit is geen echt gesprek. Het doel is het verzenden, coderen en weergeven van tekst op het ontvangende apparaat te controleren. Einde van de testtekst.</string>
+    <string name="sample_special_title">Accenten en symbolen</string>
+    <string name="sample_special_text">Testtekens: á, é, í, ó, ú, ñ, ¿?, ¡!, €, —, nr. 42.</string>
+    <string name="sample_emoji_title">Emojitest</string>
+    <string name="sample_emoji_text">Testemoji: 😀 🎉 🌍 🚀 🍕.</string>
+    <plurals name="home_apps_selected">
+        <item quantity="one">%1$d app geselecteerd</item>
+        <item quantity="other">%1$d apps geselecteerd</item>
+    </plurals>
+    <plurals name="home_queue_pending">
+        <item quantity="one">%1$d wachtend</item>
+        <item quantity="other">%1$d wachtend</item>
+    </plurals>
+    <plurals name="action_show_more">
+        <item quantity="one">%1$d meer tonen</item>
+        <item quantity="other">%1$d meer tonen</item>
+    </plurals>
+</resources>

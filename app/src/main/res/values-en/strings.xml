@@ -1,0 +1,177 @@
+<resources>
+    <string name="app_name">Notification Bridge</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Home</string>
+    <string name="tab_test">Test</string>
+    <string name="tab_settings">Settings</string>
+    <string name="tab_about">About</string>
+
+    <!-- Home -->
+    <string name="home_bluetooth_label">Bluetooth</string>
+    <string name="home_no_device">No device</string>
+    <string name="home_notifications_label">Notifications</string>
+    <string name="home_service_enabled">Service enabled</string>
+    <string name="home_access_not_granted">Access not granted</string>
+    <string name="home_apps_label">Apps</string>
+    <string name="home_queue_label">Queue</string>
+    <string name="home_setup_title">Finish setup</string>
+    <string name="home_setup_body">Choose a paired receiver, grant notification access, and enable the bridge.</string>
+    <string name="home_action_choose">Choose receiver</string>
+    <string name="test_description">Choose a paired Bluetooth device and send a test message to check the connection.</string>
+    <string name="test_empty">No paired devices found. Pair the receiving phone in Android Settings, then refresh the list.</string>
+    <string name="test_refresh_devices">Refresh devices</string>
+    <string name="test_selected">Selected receiver</string>
+    <string name="settings_intro">Control what gets forwarded, when it is sent, and how the app looks.</string>
+    <string name="settings_group_forwarding">Forwarding</string>
+    <string name="settings_group_delivery">Delivery and maintenance</string>
+    <string name="home_notification_access_button">Notification access</string>
+    <string name="home_settings_button">Settings</string>
+
+    <!-- Test -->
+    <string name="test_title">Bluetooth / OBEX</string>
+    <string name="test_send_button">Send test file</string>
+
+    <!-- Settings -->
+    <string name="settings_bridge_enabled">Enable bridge</string>
+    <string name="settings_auto_reconnect">Auto-reconnect</string>
+    <string name="settings_ignore_silent">Ignore silent notifications</string>
+    <string name="settings_ignore_ongoing">Ignore ongoing notifications</string>
+    <string name="settings_ignore_duplicates">Ignore duplicates</string>
+    <string name="settings_notify_calls">Notify calls</string>
+    <string name="settings_allowed_apps_title">Allowed apps</string>
+    <string name="settings_apps_show_more">Show more</string>
+    <string name="settings_theme_title">Theme</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_builtin_active">Built-in theme active</string>
+    <string name="settings_theme_custom_active">Custom theme: %1$s</string>
+    <string name="settings_theme_import">Import theme file</string>
+    <string name="settings_theme_reset">Use built-in theme</string>
+    <string name="settings_theme_imported">Imported “%1$s” theme</string>
+    <string name="settings_theme_import_error">Theme not imported: %1$s</string>
+    <string name="settings_theme_format_help">Use a v1 text file with light. and dark. colors for foreground, background, highlight, highlight-foreground, secondary, surface, and error.</string>
+    <string name="settings_language_title">Language</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_english">English</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Deutsch</string>
+
+
+    <!-- Dialogs / results -->
+    <string name="dialog_result_title">Result</string>
+    <string name="dialog_ok">OK</string>
+    <string name="transfer_success">Transfer completed</string>
+    <string name="transfer_error">Error: %1$s</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step_indicator">Step %1$d of %2$d</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_finish">Get started</string>
+    <string name="onboarding_step1_title">What this app does</string>
+    <string name="onboarding_step1_desc">Notification Bridge forwards this phone\'s notifications to another device (e.g. a basic phone) over Bluetooth, with no Internet and no app needed on the receiver.</string>
+    <string name="onboarding_step2_title">Pair the other device</string>
+    <string name="onboarding_step2_desc">Before using the app, pair the receiving phone from Android\'s Bluetooth settings — just like pairing a pair of headphones.</string>
+    <string name="onboarding_step3_title">Pick the Bluetooth device</string>
+    <string name="onboarding_step3_desc">In the Test tab of this app, pick the already-paired device from the list that will receive the notifications.</string>
+    <string name="onboarding_step4_title">Grant notification access</string>
+    <string name="onboarding_step4_desc">From Home, tap \"Notification access\" and enable the permission for this app in the system settings. Without this step, no notification can be read.</string>
+    <string name="onboarding_step5_title">Choose which apps to forward</string>
+    <string name="onboarding_step5_desc">In Settings, check the apps whose notifications you want forwarded (WhatsApp, email, etc.), and turn on \"Enable bridge\".</string>
+    <string name="onboarding_step6_title">Send a test</string>
+    <string name="onboarding_step6_desc">In the Test tab, tap \"Send test file\" to confirm the Bluetooth transfer works before relying on real notifications.</string>
+
+    <!-- About -->
+    <string name="settings_show_tutorial_button">Show tutorial</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_description">Forwards Android notifications to another device over Bluetooth (OBEX Object Push), designed to use alongside a basic phone with no apps of its own.</string>
+    <string name="about_purpose_title">Project purpose</string>
+    <string name="about_purpose_body">A personal open-source project to see who\'s texting or calling without depending on a smartphone with Internet as your main device.</string>
+    <string name="about_technical_title">Technical summary</string>
+    <string name="about_technical_body">NotificationListenerService + in-memory queue + a hand-written OBEX Object Push client over an RFCOMM Bluetooth socket. Tested against an Alcatel 3080A as the receiver.</string>
+    <string name="about_technologies_title">Technologies used</string>
+    <string name="about_technologies_body">Kotlin • Jetpack Compose • Material 3 • Jetpack DataStore • Bluetooth Classic (RFCOMM) • OBEX Object Push</string>
+    <string name="about_license_title">License</string>
+    <string name="about_license_body">MIT — see the LICENSE file in the repository.</string>
+
+    <!-- History, diagnostics, dumbphone mode, system notifications -->
+    <string name="tab_history">History</string>
+    <string name="tab_diagnostics">Diagnostics</string>
+    <string name="history_title">Recent transfers</string>
+    <string name="history_privacy_note">Only the app name and title are kept, in memory only; they are lost when the app is fully closed.</string>
+    <string name="history_empty">No transfers yet.</string>
+    <string name="history_clear">Clear history</string>
+    <string name="history_status_sent">Sent</string>
+    <string name="history_status_failed">Failed</string>
+    <string name="diagnostics_title">Diagnostics</string>
+    <string name="diagnostics_intro">The report includes the app version, Android version, phone model, settings, and technical status. Error details and the log are omitted because they may contain personal data. Review the report before sharing. It excludes notification content, the receiver\'s name and address, and allowed app names.</string>
+    <string name="diagnostics_copy_button">Copy diagnostic info</string>
+    <string name="diagnostics_copied">Diagnostic info copied</string>
+    <string name="settings_dumbphone_mode">Dumbphone mode</string>
+    <string name="settings_dumbphone_mode_desc">Runs quietly: minimal status notification, automatic reconnection, and an alert only if a transfer fails.</string>
+    <string name="channel_status_name">Bridge status</string>
+    <string name="channel_status_quiet_name">Bridge status (quiet)</string>
+    <string name="channel_error_name">Transfer errors</string>
+    <string name="foreground_notification_title">Notification Bridge is active</string>
+    <string name="foreground_notification_text">Listening for notifications to forward over Bluetooth</string>
+    <string name="error_notification_title">A notification couldn\'t be forwarded</string>
+    <string name="error_notification_text">Check that the receiving device is on, paired and nearby. Tap to open the app.</string>
+
+    <!-- Text length limit, test-content kinds -->
+    <string name="settings_text_length_title">Maximum text length</string>
+    <string name="settings_text_length_short">Short (200 characters)</string>
+    <string name="settings_text_length_medium">Medium (700 characters)</string>
+    <string name="settings_text_length_long">Long (1500 characters)</string>
+    <string name="settings_text_length_xlong">Very long (3000 characters)</string>
+    <string name="test_kind_title">Test content</string>
+    <string name="test_kind_short">Short text</string>
+    <string name="test_kind_long">Long text</string>
+    <string name="test_kind_special">Special characters</string>
+    <string name="test_kind_emoji">Emoji</string>
+
+    <!-- Message batching / cooldown -->
+    <string name="settings_batching_enabled">Batch messages (cooldown)</string>
+    <string name="settings_batching_desc">Waits before sending, so several messages from the same contact in a row are combined into one file.</string>
+    <string name="settings_batching_seconds">Wait %1$d s before sending</string>
+
+    <!-- Pagination -->
+
+    <!-- Auto-clear (retention) -->
+    <string name="settings_auto_clear_title">Auto-clear</string>
+    <string name="settings_auto_clear_enabled">Automatically clear history</string>
+    <string name="settings_auto_clear_desc">Removes entries older than the configured time.</string>
+    <string name="settings_auto_clear_1h">After 1 hour</string>
+    <string name="settings_auto_clear_6h">After 6 hours</string>
+    <string name="settings_auto_clear_24h">After 24 hours</string>
+    <string name="settings_auto_clear_72h">After 3 days</string>
+    <string name="settings_auto_clear_7d">After 7 days</string>
+
+    <!-- Localized Bluetooth test-message samples -->
+    <string name="sample_source_name">Test sample</string>
+    <string name="sample_short_title">Short test</string>
+    <string name="sample_short_text">Test.</string>
+    <string name="sample_long_title">Long test</string>
+    <string name="sample_long_text">This is a test text for checking long message transfer over Bluetooth. It includes several sentences and common characters. This content is not a real conversation. Its purpose is to check sending, encoding, and text display on the receiving device. End of test text.</string>
+    <string name="sample_special_title">Accents and symbols</string>
+    <string name="sample_special_text">Test characters: á, é, í, ó, ú, ñ, ¿?, ¡!, €, —, No. 42.</string>
+    <string name="sample_emoji_title">Emoji test</string>
+    <string name="sample_emoji_text">Test emojis: 😀 🎉 🌍 🚀 🍕.</string>
+    <plurals name="home_apps_selected">
+        <item quantity="one">%1$d app selected</item>
+        <item quantity="other">%1$d apps selected</item>
+    </plurals>
+    <plurals name="home_queue_pending">
+        <item quantity="one">%1$d pending</item>
+        <item quantity="other">%1$d pending</item>
+    </plurals>
+    <plurals name="action_show_more">
+        <item quantity="one">Show %1$d more</item>
+        <item quantity="other">Show %1$d more</item>
+    </plurals>
+</resources>

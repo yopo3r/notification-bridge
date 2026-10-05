@@ -1,0 +1,177 @@
+<resources>
+    <string name="app_name">Notification Bridge</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Inicio</string>
+    <string name="tab_test">Prueba</string>
+    <string name="tab_settings">Ajustes</string>
+    <string name="tab_about">Acerca de</string>
+
+    <!-- Home -->
+    <string name="home_bluetooth_label">Bluetooth</string>
+    <string name="home_no_device">Sin dispositivo</string>
+    <string name="home_notifications_label">Notificaciones</string>
+    <string name="home_service_enabled">Servicio habilitado</string>
+    <string name="home_access_not_granted">Acceso no concedido</string>
+    <string name="home_apps_label">Aplicaciones</string>
+    <string name="home_queue_label">Cola</string>
+    <string name="home_setup_title">Completa la configuración</string>
+    <string name="home_setup_body">Elige un receptor emparejado, concede acceso a notificaciones y activa el bridge.</string>
+    <string name="home_action_choose">Elegir receptor</string>
+    <string name="test_description">Elige un dispositivo Bluetooth emparejado y envía un mensaje de prueba para comprobar la conexión.</string>
+    <string name="test_empty">No hay dispositivos emparejados. Empareja el teléfono receptor en los ajustes de Android y actualiza la lista.</string>
+    <string name="test_refresh_devices">Actualizar dispositivos</string>
+    <string name="test_selected">Receptor seleccionado</string>
+    <string name="settings_intro">Controla qué se reenvía, cuándo se envía y cómo se ve la aplicación.</string>
+    <string name="settings_group_forwarding">Reenvío</string>
+    <string name="settings_group_delivery">Entrega y mantenimiento</string>
+    <string name="home_notification_access_button">Acceso a notificaciones</string>
+    <string name="home_settings_button">Configuración</string>
+
+    <!-- Test -->
+    <string name="test_title">Prueba de Bluetooth / OBEX</string>
+    <string name="test_send_button">Enviar archivo único</string>
+
+    <!-- Settings -->
+    <string name="settings_bridge_enabled">Activar bridge</string>
+    <string name="settings_auto_reconnect">Reconectar</string>
+    <string name="settings_ignore_silent">Ignorar silenciosas</string>
+    <string name="settings_ignore_ongoing">Ignorar persistentes</string>
+    <string name="settings_ignore_duplicates">Ignorar duplicados</string>
+    <string name="settings_notify_calls">Notificar llamadas</string>
+    <string name="settings_allowed_apps_title">Aplicaciones permitidas</string>
+    <string name="settings_apps_show_more">Ver más</string>
+    <string name="settings_theme_title">Tema</string>
+    <string name="settings_theme_system">Sistema</string>
+    <string name="settings_theme_light">Claro</string>
+    <string name="settings_theme_dark">Oscuro</string>
+    <string name="settings_theme_builtin_active">Tema integrado activo</string>
+    <string name="settings_theme_custom_active">Tema personalizado: %1$s</string>
+    <string name="settings_theme_import">Importar archivo de tema</string>
+    <string name="settings_theme_reset">Usar tema integrado</string>
+    <string name="settings_theme_imported">Tema “%1$s” importado</string>
+    <string name="settings_theme_import_error">No se importó el tema: %1$s</string>
+    <string name="settings_theme_format_help">Usa un archivo de texto v1 con colores light. y dark. para foreground, background, highlight, highlight-foreground, secondary, surface y error.</string>
+    <string name="settings_language_title">Idioma</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_english">English</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Deutsch</string>
+
+
+    <!-- Dialogs / results -->
+    <string name="dialog_result_title">Resultado</string>
+    <string name="dialog_ok">OK</string>
+    <string name="transfer_success">Transferencia completada</string>
+    <string name="transfer_error">Error: %1$s</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step_indicator">Paso %1$d de %2$d</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_back">Atrás</string>
+    <string name="onboarding_skip">Saltar</string>
+    <string name="onboarding_finish">Empezar</string>
+    <string name="onboarding_step1_title">Qué hace esta aplicación</string>
+    <string name="onboarding_step1_desc">Notification Bridge reenvía las notificaciones de este teléfono a otro dispositivo (por ejemplo, un teléfono básico) mediante Bluetooth, sin necesidad de conexión a Internet ni de instalar una aplicación en el receptor.</string>
+    <string name="onboarding_step2_title">Emparejar el otro dispositivo</string>
+    <string name="onboarding_step2_desc">Antes de usar la aplicación, empareja el teléfono receptor desde la configuración de Bluetooth de Android, igual que harías con unos auriculares.</string>
+    <string name="onboarding_step3_title">Elegir el dispositivo Bluetooth</string>
+    <string name="onboarding_step3_desc">En la pestaña Prueba, elige de la lista el dispositivo emparejado que recibirá las notificaciones.</string>
+    <string name="onboarding_step4_title">Dar acceso a notificaciones</string>
+    <string name="onboarding_step4_desc">Desde Inicio, toca «Acceso a notificaciones» y concede el permiso a esta aplicación en la configuración del sistema. Sin este paso, la aplicación no puede leer las notificaciones.</string>
+    <string name="onboarding_step5_title">Seleccionar aplicaciones para reenviar</string>
+    <string name="onboarding_step5_desc">En Ajustes, selecciona las aplicaciones cuyas notificaciones quieres reenviar (por ejemplo, mensajería o correo) y activa el interruptor «Activar bridge».</string>
+    <string name="onboarding_step6_title">Probar el envío</string>
+    <string name="onboarding_step6_desc">En la pestaña Prueba, toca «Enviar archivo único» para confirmar que la transferencia por Bluetooth funciona antes de reenviar notificaciones.</string>
+
+    <!-- About -->
+    <string name="settings_show_tutorial_button">Ver tutorial</string>
+    <string name="about_version">Versión %1$s</string>
+    <string name="about_description">Reenvía notificaciones de Android a otro dispositivo mediante Bluetooth (OBEX Object Push), para usarlo junto a un teléfono básico sin aplicaciones propias.</string>
+    <string name="about_purpose_title">Propósito del proyecto</string>
+    <string name="about_purpose_body">Proyecto personal de código abierto para saber quién escribe o llama sin depender de un teléfono inteligente con conexión a Internet como dispositivo principal.</string>
+    <string name="about_technical_title">Información técnica</string>
+    <string name="about_technical_body">NotificationListenerService + cola en memoria + cliente OBEX Object Push propio sobre un socket Bluetooth RFCOMM. Probado con un Alcatel 3080A como receptor.</string>
+    <string name="about_technologies_title">Tecnologías utilizadas</string>
+    <string name="about_technologies_body">Kotlin • Jetpack Compose • Material 3 • Jetpack DataStore • Bluetooth Classic (RFCOMM) • OBEX Object Push</string>
+    <string name="about_license_title">Licencia</string>
+    <string name="about_license_body">MIT — ver el archivo LICENSE en el repositorio.</string>
+
+    <!-- History, diagnostics, dumbphone mode, system notifications -->
+    <string name="tab_history">Historial</string>
+    <string name="tab_diagnostics">Diagnóstico</string>
+    <string name="history_title">Transferencias recientes</string>
+    <string name="history_privacy_note">Solo se guardan en memoria el nombre de la aplicación y el título de la notificación; se eliminan al cerrar la aplicación por completo.</string>
+    <string name="history_empty">Todavía no hay transferencias.</string>
+    <string name="history_clear">Limpiar historial</string>
+    <string name="history_status_sent">Enviado</string>
+    <string name="history_status_failed">Error</string>
+    <string name="diagnostics_title">Diagnóstico</string>
+    <string name="diagnostics_intro">El informe incluye versión, versión de Android, modelo del teléfono, ajustes y estados técnicos. Omite los detalles de errores y el registro, que pueden contener datos personales. Revísalo antes de compartirlo. No incluye el contenido de notificaciones, el nombre ni la dirección del receptor, ni los nombres de las aplicaciones permitidas.</string>
+    <string name="diagnostics_copy_button">Copiar información de diagnóstico</string>
+    <string name="diagnostics_copied">Información copiada</string>
+    <string name="settings_dumbphone_mode">Modo dumbphone</string>
+    <string name="settings_dumbphone_mode_desc">Funciona en silencio: notificación de estado mínima, reconexión automática y un aviso solo si falla una transferencia.</string>
+    <string name="channel_status_name">Estado del bridge</string>
+    <string name="channel_status_quiet_name">Estado del bridge (silencioso)</string>
+    <string name="channel_error_name">Errores de transferencia</string>
+    <string name="foreground_notification_title">Notification Bridge activo</string>
+    <string name="foreground_notification_text">Escuchando notificaciones para reenviarlas por Bluetooth</string>
+    <string name="error_notification_title">No se pudo reenviar una notificación</string>
+    <string name="error_notification_text">Comprueba que el dispositivo receptor esté encendido, emparejado y cerca. Toca para abrir la aplicación.</string>
+
+    <!-- Text length limit, test-content kinds -->
+    <string name="settings_text_length_title">Longitud máxima del texto</string>
+    <string name="settings_text_length_short">Breve (200 caracteres)</string>
+    <string name="settings_text_length_medium">Medio (700 caracteres)</string>
+    <string name="settings_text_length_long">Extenso (1500 caracteres)</string>
+    <string name="settings_text_length_xlong">Muy largo (3000 caracteres)</string>
+    <string name="test_kind_title">Contenido de prueba</string>
+    <string name="test_kind_short">Texto breve</string>
+    <string name="test_kind_long">Texto extenso</string>
+    <string name="test_kind_special">Acentos y símbolos</string>
+    <string name="test_kind_emoji">Emoji</string>
+
+    <!-- Message batching / cooldown -->
+    <string name="settings_batching_enabled">Agrupar mensajes (cooldown)</string>
+    <string name="settings_batching_desc">Espera antes de enviar para agrupar en un solo archivo varios mensajes seguidos de una misma conversación.</string>
+    <string name="settings_batching_seconds">Esperar %1$d s antes de enviar</string>
+
+    <!-- Pagination -->
+
+    <!-- Auto-clear (retention) -->
+    <string name="settings_auto_clear_title">Borrado automático</string>
+    <string name="settings_auto_clear_enabled">Borrar historial automáticamente</string>
+    <string name="settings_auto_clear_desc">Elimina las entradas más antiguas que el tiempo configurado.</string>
+    <string name="settings_auto_clear_1h">Después de 1 hora</string>
+    <string name="settings_auto_clear_6h">Después de 6 horas</string>
+    <string name="settings_auto_clear_24h">Después de 24 horas</string>
+    <string name="settings_auto_clear_72h">Después de 3 días</string>
+    <string name="settings_auto_clear_7d">Después de 7 días</string>
+
+    <!-- Localized Bluetooth test-message samples -->
+    <string name="sample_source_name">Muestra de prueba</string>
+    <string name="sample_short_title">Prueba breve</string>
+    <string name="sample_short_text">Prueba.</string>
+    <string name="sample_long_title">Prueba extensa</string>
+    <string name="sample_long_text">Este es un texto de prueba para comprobar la transferencia de mensajes largos por Bluetooth. Incluye varias frases y caracteres comunes. El contenido no corresponde a una conversación real. Su propósito es verificar el envío, la codificación y la visualización del texto en el dispositivo receptor. Fin del texto de prueba.</string>
+    <string name="sample_special_title">Acentos y símbolos</string>
+    <string name="sample_special_text">Caracteres de prueba: á, é, í, ó, ú, ñ, ¿?, ¡!, €, —, n.º 42.</string>
+    <string name="sample_emoji_title">Prueba de emojis</string>
+    <string name="sample_emoji_text">Emojis de prueba: 😀 🎉 🌍 🚀 🍕.</string>
+    <plurals name="home_apps_selected">
+        <item quantity="one">%1$d app seleccionada</item>
+        <item quantity="other">%1$d aplicaciones seleccionadas</item>
+    </plurals>
+    <plurals name="home_queue_pending">
+        <item quantity="one">%1$d pendiente</item>
+        <item quantity="other">%1$d pendientes</item>
+    </plurals>
+    <plurals name="action_show_more">
+        <item quantity="one">Mostrar %1$d más</item>
+        <item quantity="other">Mostrar %1$d más</item>
+    </plurals>
+</resources>
