@@ -318,6 +318,24 @@ app/src/test/java/...   Unit tests (plain JVM): formatter, duplicates, rate limi
 To report an issue not covered here, open an Issue following the guide in
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Disclaimer
+
+Notification Bridge is provided **as is**, without warranties or guarantees of reliability,
+availability, or fitness for a particular purpose. Notification forwarding depends on Android,
+Bluetooth, the source app, the receiving device, system permissions, battery-management settings,
+and other factors outside the developer's control. Transfers may be delayed, duplicated, incomplete,
+or fail entirely.
+
+**Do not rely on this app as the only way to receive urgent, emergency, safety-critical, medical,
+work-related, or otherwise important communications.** The developer is not responsible for missed
+or delayed calls, messages, notifications, alarms, reminders, or other communications, nor for any
+resulting loss, damage, cost, or inconvenience arising from use of, or inability to use, the app.
+You are responsible for testing the app with your own devices, reviewing transfer history and
+diagnostics, maintaining alternative communication methods, and deciding whether the app is
+appropriate for your use.
+
+Nothing in this disclaimer excludes or limits liability where doing so is prohibited by applicable law.
+
 ## Privacy
 
 These statements were checked against the code:
