@@ -337,9 +337,9 @@ To report an issue not covered here, open an Issue following the guide in
 
 ## Screenshots
 
-![description](img/screenshot1.jpeg)
-
 ![description](img/screenshot2.jpeg)
+
+![description](img/screenshot1.jpeg)
 
 ## Disclaimer
 
