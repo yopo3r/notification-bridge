@@ -40,7 +40,7 @@ knows how to receive out of the box.
 - The **Test** tab sends a fixed sample so the Bluetooth/OBEX path gets a real check, not just a
   happy-path one; which of four kinds it sends (short text, long text, special/accented
   characters, emoji) is configured in **Settings**.
-- Transfer history can be **cleared automatically by age** (Settings → Privacy),
+- Transfer history can be **cleared automatically by time** (Settings → Privacy),
   defaulting to after 24 hours, configurable from 1 hour to 7 days.
 - The six sections are swipeable (`HorizontalPager`), and the section tab bar fills the full
   width on tablet-sized screens instead of leaving a gap. Long lists (Home, Settings, History,
@@ -334,6 +334,12 @@ app/src/test/java/...   Unit tests (plain JVM): formatter, duplicates, rate limi
 
 To report an issue not covered here, open an Issue following the guide in
 [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Screenshots
+
+![description](img/screenshot1.png)
+
+![description](img/screenshot2.png)
 
 ## Disclaimer
 
