@@ -24,9 +24,39 @@
     <string name="test_selected">Selected receiver</string>
     <string name="settings_intro">Control what gets forwarded, when it is sent, and how the app looks.</string>
     <string name="settings_group_forwarding">Forwarding</string>
-    <string name="settings_group_delivery">Delivery and maintenance</string>
+    <string name="settings_section_connection">Connection</string>
+    <string name="settings_section_connection_desc">Turn the bridge on and reconnect to the receiver.</string>
+    <string name="settings_section_forwarding_desc">Which apps and notifications are forwarded, and how much text.</string>
+    <string name="settings_section_privacy">Privacy</string>
+    <string name="settings_section_privacy_desc">How long the history is kept on this phone.</string>
+    <string name="settings_section_reliability">Reliability</string>
+    <string name="settings_section_reliability_desc">Group bursts of messages and alert you when a transfer fails.</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_section_appearance_desc">Theme, colors and language.</string>
+    <string name="settings_section_advanced">Advanced</string>
+    <string name="settings_section_advanced_desc">Test message, configuration backup and tutorial.</string>
+    <string name="settings_section_expanded">Expanded</string>
+    <string name="settings_section_collapsed">Collapsed</string>
     <string name="home_notification_access_button">Notification access</string>
     <string name="home_settings_button">Settings</string>
+    <string name="home_readiness_title">Readiness</string>
+    <string name="home_readiness_all_set">All set</string>
+    <string name="home_readiness_fix">Fix</string>
+    <string name="readiness_notification_access">Notification access granted</string>
+    <string name="readiness_listener_connected">Listener connected</string>
+    <string name="readiness_bluetooth_enabled">Bluetooth enabled</string>
+    <string name="readiness_receiver_selected">Receiver selected</string>
+    <string name="readiness_receiver_paired">Receiver paired</string>
+    <string name="readiness_bridge_enabled">Bridge enabled</string>
+    <string name="readiness_battery_optimization">Battery optimization</string>
+    <string name="readiness_last_transfer">Last successful transfer</string>
+    <string name="readiness_yes">Yes</string>
+    <string name="readiness_no">No</string>
+    <string name="readiness_unknown">Unknown</string>
+    <string name="readiness_none_yet">None yet</string>
+    <string name="readiness_select_receiver_first">Select a receiver</string>
+    <string name="readiness_battery_unrestricted">Unrestricted</string>
+    <string name="readiness_battery_optimized">Optimized</string>
 
     <!-- Test -->
     <string name="test_title">Bluetooth / OBEX</string>
@@ -65,6 +95,27 @@
     <!-- Dialogs / results -->
     <string name="dialog_result_title">Result</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="settings_backup_title">Configuration file</string>
+    <string name="settings_backup_intro">Save your settings to a file to restore them after reinstalling, on a new build or on another phone. The bridge switch and notification history are not included, and importing never turns the bridge on.</string>
+    <string name="settings_backup_export">Export configuration</string>
+    <string name="settings_backup_import">Import configuration</string>
+    <string name="backup_export_title">Export configuration</string>
+    <string name="backup_export_receiver_hint">Choose what to save about the receiver. The Bluetooth address lets another phone select the same receiver directly, but it identifies the device: leave it out if you will share the file.</string>
+    <string name="backup_export_receiver_name">Receiver name only (recommended)</string>
+    <string name="backup_export_receiver_none">No receiver</string>
+    <string name="backup_export_receiver_address">Name and Bluetooth address</string>
+    <string name="backup_export_confirm">Choose location</string>
+    <string name="backup_exported">Configuration saved.</string>
+    <string name="backup_export_error">Configuration not saved: %1$s</string>
+    <string name="backup_import_title">Import this configuration?</string>
+    <string name="backup_import_body">This replaces your allowed apps, filters, batching, maximum text length, theme, language and dumbphone mode with the values in the file. The bridge switch is not changed.</string>
+    <string name="backup_import_receiver">Receiver: %1$s</string>
+    <string name="backup_import_confirm">Import</string>
+    <string name="backup_imported">Configuration imported.</string>
+    <string name="backup_import_error">Configuration not imported: %1$s</string>
+    <string name="backup_import_receiver_selected">Receiver selected: %1$s.</string>
+    <string name="backup_import_receiver_missing">Receiver “%1$s” was not selected automatically. Pair it in Android’s Bluetooth settings, then choose it in the Test tab.</string>
     <string name="transfer_success">Transfer completed</string>
     <string name="transfer_error">Error: %1$s</string>
 
@@ -107,8 +158,50 @@
     <string name="history_privacy_note">Only the app name and title are kept, in memory only; they are lost when the app is fully closed.</string>
     <string name="history_empty">No transfers yet.</string>
     <string name="history_clear">Clear history</string>
-    <string name="history_status_sent">Sent</string>
     <string name="history_status_failed">Failed</string>
+    <string name="history_status_queued">Queued</string>
+    <string name="history_status_connecting">Connecting</string>
+    <string name="history_status_transferred">Transferred to device</string>
+    <string name="history_status_dropped">Dropped by filter</string>
+    <string name="history_status_rate_limited">Rate-limited</string>
+    <string name="history_status_batched">Combined into batch</string>
+    <string name="history_drop_ongoing">Ongoing notification skipped by filter</string>
+    <string name="history_drop_silent">Silent notification skipped by filter</string>
+    <string name="history_drop_calls_disabled">Call notifications are turned off</string>
+    <string name="history_detail_rate_limited">Too many notifications from this app in one minute</string>
+    <string name="history_status_note">“Transferred to device” means the receiver accepted the file over Bluetooth. It does not confirm that anyone saw the notification.</string>
+    <string name="failure_short_no_receiver">No receiver selected</string>
+    <string name="failure_short_bluetooth_unavailable">Bluetooth unavailable</string>
+    <string name="failure_short_bluetooth_off">Bluetooth is off</string>
+    <string name="failure_short_permission_missing">Bluetooth permission missing</string>
+    <string name="failure_short_not_paired">Receiver not paired</string>
+    <string name="failure_short_receiver_unavailable">Receiver unavailable</string>
+    <string name="failure_short_timed_out">Timed out</string>
+    <string name="failure_short_receiver_rejected">Receiver rejected file</string>
+    <string name="failure_short_paused">Paused after failures</string>
+    <string name="failure_short_unknown">Unexpected error</string>
+    <string name="failure_explain_no_receiver">No receiver is selected, so there was nowhere to send this.</string>
+    <string name="failure_explain_bluetooth_unavailable">This phone does not report Bluetooth support.</string>
+    <string name="failure_explain_bluetooth_off">Bluetooth is turned off on this phone.</string>
+    <string name="failure_explain_permission_missing">The app does not have permission to use Bluetooth.</string>
+    <string name="failure_explain_not_paired">The receiver is no longer paired with this phone.</string>
+    <string name="failure_explain_receiver_unavailable">Could not reach the receiver. Check that it is on, nearby and has Bluetooth enabled.</string>
+    <string name="failure_explain_timed_out">The receiver did not answer in time.</string>
+    <string name="failure_explain_receiver_rejected">The receiver refused the file or could not understand it.</string>
+    <string name="failure_explain_paused">Sending is paused for a few minutes after repeated failures.</string>
+    <string name="failure_explain_unknown">Something unexpected went wrong. Diagnostics has more details.</string>
+    <string name="failure_action_open_bluetooth_settings">Open Bluetooth settings</string>
+    <string name="failure_action_grant_permission">Grant permission</string>
+    <string name="failure_action_turn_on_bluetooth">Turn on Bluetooth</string>
+    <string name="failure_action_compatibility_test">Send compatibility test</string>
+    <string name="failure_action_retry_now">Retry now</string>
+    <string name="failure_action_open_diagnostics">Open diagnostics</string>
+    <string name="failure_action_open_notification_access">Open notification-access settings</string>
+    <string name="history_attempt">Attempt %1$d of %2$d</string>
+    <string name="history_attempt_reason">Attempt %1$d of %2$d · %3$s</string>
+    <string name="history_listener_disconnected">Android has disconnected the notification listener, so new notifications are not reaching the bridge.</string>
+    <string name="history_listener_no_access">Notification access is off, so no notifications can reach the bridge.</string>
+    <string name="history_retry_unavailable">This notification can no longer be retried. It is only kept for a few minutes.</string>
     <string name="diagnostics_title">Diagnostics</string>
     <string name="diagnostics_intro">The report includes the app version, Android version, phone model, settings, and technical status. Error details and the log are omitted because they may contain personal data. Review the report before sharing. It excludes notification content, the receiver\'s name and address, and allowed app names.</string>
     <string name="diagnostics_copy_button">Copy diagnostic info</string>
@@ -143,7 +236,6 @@
     <!-- Pagination -->
 
     <!-- Auto-clear (retention) -->
-    <string name="settings_auto_clear_title">Auto-clear</string>
     <string name="settings_auto_clear_enabled">Automatically clear history</string>
     <string name="settings_auto_clear_desc">Removes entries older than the configured time.</string>
     <string name="settings_auto_clear_1h">After 1 hour</string>
@@ -173,5 +265,21 @@
     <plurals name="action_show_more">
         <item quantity="one">Show %1$d more</item>
         <item quantity="other">Show %1$d more</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="one">%1$d to fix</item>
+        <item quantity="other">%1$d to fix</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="one">%1$d message waiting</item>
+        <item quantity="other">%1$d messages waiting</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="one">%1$d message combined</item>
+        <item quantity="other">%1$d messages combined</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="one">%1$d allowed app</item>
+        <item quantity="other">%1$d allowed apps</item>
     </plurals>
 </resources>

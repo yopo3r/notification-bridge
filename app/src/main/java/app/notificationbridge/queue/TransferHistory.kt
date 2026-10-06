@@ -26,7 +26,32 @@ object TransferHistory {
         return safe + "…"
     }
 
-    /** Returns a new list with [record] first, capped at [MAX_ENTRIES] (oldest entries drop off). */
+    /** Returns a new list with [record] first, capped at [MAX_ENTRIES] (see [trim]). */
     fun append(history: List<TransferRecord>, record: TransferRecord): List<TransferRecord> =
-        (listOf(record) + history).take(MAX_ENTRIES)
+        trim(listOf(record) + history)
+
+    /**
+     * Replaces the record with the same [TransferRecord.id] in place (keeping its position), or
+     * adds [record] first if there is none. Records with id `0` are never matched.
+     */
+    fun upsert(history: List<TransferRecord>, record: TransferRecord): List<TransferRecord> {
+        val index = if (record.id == 0L) -1 else history.indexOfFirst { it.id == record.id }
+        if (index < 0) return append(history, record)
+        return history.toMutableList().also { it[index] = record }
+    }
+
+    /**
+     * Enforces [MAX_ENTRIES]. Records that were never sent (dropped, rate-limited) go first,
+     * oldest first, so a chatty filtered app can't push real transfers out of the list; only
+     * when there are none does the oldest record go.
+     */
+    private fun trim(history: List<TransferRecord>): List<TransferRecord> {
+        if (history.size <= MAX_ENTRIES) return history
+        val result = history.toMutableList()
+        while (result.size > MAX_ENTRIES) {
+            val notForwarded = result.indexOfLast { it.status.isNotForwarded }
+            result.removeAt(if (notForwarded >= 0) notForwarded else result.lastIndex)
+        }
+        return result
+    }
 }

@@ -26,8 +26,13 @@ knows how to receive out of the box.
   and time).
 - Transfers it over Bluetooth to the paired receiving device, using OBEX Object Push.
 - Retries on connection failures, with a real timeout so it never hangs indefinitely.
-- Keeps a **history of recent transfers** (app, short title, time, sent/failed, error) that you
+- Keeps a **history of recent transfers** (app, short title, time, status — queued, connecting, transferred to device, failed, dropped by filter, rate-limited or combined into batch — and error) that you
   can clear at any time.
+- Can **export and import its configuration** (Settings → Advanced → Configuration file) as a small text
+  file: allowed apps, filters, batching, maximum length, theme, language, dumbphone mode and,
+  optionally, the receiver. The receiver's Bluetooth address is left out unless you choose to
+  include it, so the file is safe to keep in a repo or move between phones; importing never turns
+  the bridge on.
 - Has a **Diagnostics** screen with a copyable technical report. Review its device and settings
   details before sharing it publicly (see [Privacy](#privacy)).
 - Has an optional **dumbphone mode** for unattended use: a minimal status notification,
@@ -35,15 +40,17 @@ knows how to receive out of the box.
 - The **Test** tab sends a fixed sample so the Bluetooth/OBEX path gets a real check, not just a
   happy-path one; which of four kinds it sends (short text, long text, special/accented
   characters, emoji) is configured in **Settings**.
-- Transfer history can be **cleared automatically by age** (Settings → Borrado automático),
+- Transfer history can be **cleared automatically by age** (Settings → Privacy),
   defaulting to after 24 hours, configurable from 1 hour to 7 days.
 - The six sections are swipeable (`HorizontalPager`), and the section tab bar fills the full
   width on tablet-sized screens instead of leaving a gap. Long lists (Home, Settings, History,
   and About) show a thin scrollbar, and History pages its content with a "show more" button
   rather than rendering everything at once.
+- Settings are grouped into six collapsible sections: **Connection**, **Forwarding**, **Privacy**,
+  **Reliability**, **Appearance** and **Advanced**.
 - The maximum length of a forwarded notification body is configurable in Settings (100 to
   5000 characters).
-- Custom color themes can be imported from a small `.theme` text file in Settings → Theme. The
+- Custom color themes can be imported from a small `.theme` text file in Settings → Appearance → Theme. The
   bundled [Tokyo Night example](examples/tokyo-night.theme) shows the supported format; invalid,
   incomplete, or newer unsupported files are rejected without changing the current theme.
 - Optional **message batching / cooldown**: wait a user-set number of seconds (5-60) after the
@@ -58,9 +65,11 @@ knows how to receive out of the box.
 
 ### Custom themes
 
+Looking for ready-made themes? Visit the [Notification Bridge Themes repository](https://github.com/yopo3r/notification-bridge-themes), which provides additional light and dark themes that can be imported into the app.
+
 Theme files use `key: value` lines. Blank lines and lines beginning with `#` are comments. Version
 1 requires a name and all seven colors for both light and dark appearance. Colors accept `#RRGGBB`
-or `#AARRGGBB`; unknown or duplicate keys reject the whole file. Import it in Settings → Theme.
+or `#AARRGGBB`; unknown or duplicate keys reject the whole file. Import it in Settings → Appearance → Theme.
 The System/Light/Dark options continue to select which palette is shown. Use **Use built-in theme**
 to remove the custom palette and return to the app's original colors.
 
@@ -221,7 +230,8 @@ Bluetooth pairing happens **from the system settings**, not from the app:
 1. Open Notification Bridge → **Home** tab → "Notification access" button (takes you straight
    to the system settings).
 2. Turn on the switch for Notification Bridge.
-3. Go back to the app; Home should show "Service enabled".
+3. Go back to the app; Home should show "Service enabled" and the readiness checklist's
+   first row should read "Yes".
 
 > **Note:** if you reinstall the app (e.g. a new debug build), Android may not automatically
 > reconnect the listener even though the permission is still listed as granted. If forwarding
@@ -232,7 +242,7 @@ Bluetooth pairing happens **from the system settings**, not from the app:
 
 1. **Test** tab → "Grant permission / refresh" (this also turns on Bluetooth if it was off).
 2. Pick the receiving device from the list and try "Send test file".
-3. Check the **History** tab (did it say "Sent"?) and the **Diagnostics** tab to confirm the
+3. Check the **History** tab (did it say "Transferred to device"? That means the receiver accepted the file over Bluetooth, not that anyone saw it) and the **Diagnostics** tab to confirm the
    connection and OBEX responses look right, and that the file arrived at the receiver.
 4. Only then: grant notification access (previous step), choose which apps to forward in
    **Settings**, and turn on "Enable bridge" (off by default, on purpose).
@@ -250,11 +260,14 @@ a diagnostics screen and an optional dumbphone mode.
 
 ```
 app/src/main/java/app/notificationbridge/
+├── config/ConfigFile.kt         Export/import text format for the configuration (pure JVM, unit tested)
+├── readiness/                   Home readiness checklist model (pure JVM, unit tested)
 ├── MainActivity.kt              Compose UI shell (swipeable, responsive tab bar) + Home, Test, Settings screens
 ├── MainViewModel.kt             UI ↔ Settings/BridgeRuntime adapter
 ├── OnboardingScreen.kt          First-run walkthrough (skippable, reopenable from Settings)
 ├── AboutScreen.kt               About tab: version, purpose, license
-├── HistoryScreen.kt             Recent transfers
+├── HistoryScreen.kt             Recent transfers, plain-language failures and their action
+├── FailureText.kt               Failure reason/action → string resources
 ├── DiagnosticsScreen.kt         Technical report and copy button
 ├── diagnostics/DiagnosticsReport.kt  Allow-listed, privacy-filtered report (pure JVM)
 ├── BridgeApplication.kt         Initializes BridgeRuntime when the process starts
@@ -276,7 +289,9 @@ app/src/main/java/app/notificationbridge/
     ├── DuplicateDetector.kt     Repost suppression
     ├── RateLimiter.kt           Per-app burst protection
     ├── RetentionPolicy.kt       Age-based pruning for transfer history
-    └── TransferHistory.kt       History list helpers
+    ├── TransferHistory.kt       History list helpers
+    ├── FailureClassifier.kt     Exception → FailureReason
+    └── RetryBuffer.kt           Short-lived in-memory store behind "Retry now"
 
 app/src/main/res/values*/strings.xml   UI strings in 7 languages (es/en/fr/pt/it/nl/de)
 app/src/main/res/xml/locales_config.xml  Declares supported locales for Android 13+

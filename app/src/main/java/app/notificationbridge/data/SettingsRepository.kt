@@ -23,8 +23,10 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import app.notificationbridge.config.ConfigSnapshot
 import app.notificationbridge.format.NotificationFormatter
 import app.notificationbridge.model.BridgeSettings
+import app.notificationbridge.model.PairedDevice
 import app.notificationbridge.model.TestSampleKind
 import app.notificationbridge.model.ThemeMode
 import kotlinx.coroutines.flow.Flow
@@ -151,6 +153,34 @@ class SettingsRepository(context: Context) {
 
     suspend fun setAllowedPackages(v: Set<String>) {
         appContext.dataStore.edit { it[K.packages] = v }
+    }
+
+    /**
+     * Applies an imported configuration in a single DataStore transaction, so a reader never
+     * sees half of it. Deliberately leaves the bridge switch, onboarding state, auto-reconnect,
+     * auto-clear and the Test sample alone (see [app.notificationbridge.config.ConfigFile]).
+     * A `null` [receiver] keeps the current selection; a non-null one replaces it.
+     */
+    suspend fun applyConfig(config: ConfigSnapshot, receiver: PairedDevice?) {
+        appContext.dataStore.edit { p ->
+            p[K.packages] = config.allowedPackages
+            p[K.ignoreSilent] = config.ignoreSilent
+            p[K.ignoreOngoing] = config.ignoreOngoing
+            p[K.ignoreUpdates] = config.ignoreUpdates
+            p[K.notifyOnCalls] = config.notifyOnCalls
+            p[K.batchingEnabled] = config.batchingEnabled
+            p[K.batchingCooldownSeconds] = config.batchingCooldownSeconds
+                .coerceIn(MIN_BATCHING_COOLDOWN_SECONDS, MAX_BATCHING_COOLDOWN_SECONDS)
+            p[K.maxTextChars] = config.maxTextChars.coerceIn(MIN_TEXT_CHARS, MAX_TEXT_CHARS)
+            p[K.themeMode] = config.themeMode.name
+            val theme = config.customThemeSource
+            if (theme == null) p.remove(K.customThemeSource) else p[K.customThemeSource] = theme
+            p[K.dumbphoneMode] = config.dumbphoneMode
+            if (receiver != null) {
+                p[K.address] = receiver.address
+                p[K.name] = receiver.name
+            }
+        }
     }
 
     private suspend fun edit(key: Preferences.Key<Boolean>, value: Boolean) {

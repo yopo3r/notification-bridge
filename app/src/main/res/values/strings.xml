@@ -24,9 +24,39 @@
     <string name="test_selected">Receptor seleccionado</string>
     <string name="settings_intro">Controla qué se reenvía, cuándo se envía y cómo se ve la aplicación.</string>
     <string name="settings_group_forwarding">Reenvío</string>
-    <string name="settings_group_delivery">Entrega y mantenimiento</string>
+    <string name="settings_section_connection">Conexión</string>
+    <string name="settings_section_connection_desc">Activar el bridge y reconectar con el receptor.</string>
+    <string name="settings_section_forwarding_desc">Qué aplicaciones y notificaciones se reenvían, y cuánto texto.</string>
+    <string name="settings_section_privacy">Privacidad</string>
+    <string name="settings_section_privacy_desc">Cuánto tiempo se conserva el historial en este teléfono.</string>
+    <string name="settings_section_reliability">Fiabilidad</string>
+    <string name="settings_section_reliability_desc">Agrupar ráfagas de mensajes y avisar si un envío falla.</string>
+    <string name="settings_section_appearance">Apariencia</string>
+    <string name="settings_section_appearance_desc">Tema, colores e idioma.</string>
+    <string name="settings_section_advanced">Avanzado</string>
+    <string name="settings_section_advanced_desc">Mensaje de prueba, copia de la configuración y tutorial.</string>
+    <string name="settings_section_expanded">Expandido</string>
+    <string name="settings_section_collapsed">Contraído</string>
     <string name="home_notification_access_button">Acceso a notificaciones</string>
     <string name="home_settings_button">Configuración</string>
+    <string name="home_readiness_title">Estado de preparación</string>
+    <string name="home_readiness_all_set">Todo listo</string>
+    <string name="home_readiness_fix">Corregir</string>
+    <string name="readiness_notification_access">Acceso a notificaciones concedido</string>
+    <string name="readiness_listener_connected">Servicio de escucha conectado</string>
+    <string name="readiness_bluetooth_enabled">Bluetooth activado</string>
+    <string name="readiness_receiver_selected">Receptor seleccionado</string>
+    <string name="readiness_receiver_paired">Receptor emparejado</string>
+    <string name="readiness_bridge_enabled">Bridge activado</string>
+    <string name="readiness_battery_optimization">Optimización de batería</string>
+    <string name="readiness_last_transfer">Última transferencia correcta</string>
+    <string name="readiness_yes">Sí</string>
+    <string name="readiness_no">No</string>
+    <string name="readiness_unknown">Desconocido</string>
+    <string name="readiness_none_yet">Aún ninguna</string>
+    <string name="readiness_select_receiver_first">Elige un receptor</string>
+    <string name="readiness_battery_unrestricted">Sin restricciones</string>
+    <string name="readiness_battery_optimized">Optimizada</string>
 
     <!-- Test -->
     <string name="test_title">Prueba de Bluetooth / OBEX</string>
@@ -65,6 +95,27 @@
     <!-- Dialogs / results -->
     <string name="dialog_result_title">Resultado</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="settings_backup_title">Archivo de configuración</string>
+    <string name="settings_backup_intro">Guarda tus ajustes en un archivo para restaurarlos tras reinstalar, en una versión nueva o en otro teléfono. El interruptor del bridge y el historial no se incluyen, y importar nunca activa el bridge.</string>
+    <string name="settings_backup_export">Exportar configuración</string>
+    <string name="settings_backup_import">Importar configuración</string>
+    <string name="backup_export_title">Exportar configuración</string>
+    <string name="backup_export_receiver_hint">Elige qué guardar del receptor. La dirección Bluetooth permite que otro teléfono seleccione directamente el mismo receptor, pero identifica al dispositivo: omítela si vas a compartir el archivo.</string>
+    <string name="backup_export_receiver_name">Solo el nombre del receptor (recomendado)</string>
+    <string name="backup_export_receiver_none">Sin receptor</string>
+    <string name="backup_export_receiver_address">Nombre y dirección Bluetooth</string>
+    <string name="backup_export_confirm">Elegir ubicación</string>
+    <string name="backup_exported">Configuración guardada.</string>
+    <string name="backup_export_error">No se guardó la configuración: %1$s</string>
+    <string name="backup_import_title">¿Importar esta configuración?</string>
+    <string name="backup_import_body">Esto reemplaza las aplicaciones permitidas, los filtros, el agrupamiento, la longitud máxima del texto, el tema, el idioma y el modo dumbphone por los valores del archivo. El interruptor del bridge no cambia.</string>
+    <string name="backup_import_receiver">Receptor: %1$s</string>
+    <string name="backup_import_confirm">Importar</string>
+    <string name="backup_imported">Configuración importada.</string>
+    <string name="backup_import_error">No se importó la configuración: %1$s</string>
+    <string name="backup_import_receiver_selected">Receptor seleccionado: %1$s.</string>
+    <string name="backup_import_receiver_missing">El receptor «%1$s» no se seleccionó automáticamente. Empareja el dispositivo en los ajustes Bluetooth de Android y elígelo en la pestaña Prueba.</string>
     <string name="transfer_success">Transferencia completada</string>
     <string name="transfer_error">Error: %1$s</string>
 
@@ -107,8 +158,50 @@
     <string name="history_privacy_note">Solo se guardan en memoria el nombre de la aplicación y el título de la notificación; se eliminan al cerrar la aplicación por completo.</string>
     <string name="history_empty">Todavía no hay transferencias.</string>
     <string name="history_clear">Limpiar historial</string>
-    <string name="history_status_sent">Enviado</string>
     <string name="history_status_failed">Error</string>
+    <string name="history_status_queued">En cola</string>
+    <string name="history_status_connecting">Conectando</string>
+    <string name="history_status_transferred">Transferido al dispositivo</string>
+    <string name="history_status_dropped">Descartado por filtro</string>
+    <string name="history_status_rate_limited">Limitado por frecuencia</string>
+    <string name="history_status_batched">Combinado en lote</string>
+    <string name="history_drop_ongoing">Notificación en curso omitida por el filtro</string>
+    <string name="history_drop_silent">Notificación silenciosa omitida por el filtro</string>
+    <string name="history_drop_calls_disabled">Las notificaciones de llamadas están desactivadas</string>
+    <string name="history_detail_rate_limited">Demasiadas notificaciones de esta aplicación en un minuto</string>
+    <string name="history_status_note">“Transferido al dispositivo” significa que el receptor aceptó el archivo por Bluetooth. No confirma que alguien haya visto la notificación.</string>
+    <string name="failure_short_no_receiver">Sin receptor seleccionado</string>
+    <string name="failure_short_bluetooth_unavailable">Bluetooth no disponible</string>
+    <string name="failure_short_bluetooth_off">Bluetooth desactivado</string>
+    <string name="failure_short_permission_missing">Falta el permiso de Bluetooth</string>
+    <string name="failure_short_not_paired">Receptor no emparejado</string>
+    <string name="failure_short_receiver_unavailable">Receptor no disponible</string>
+    <string name="failure_short_timed_out">Tiempo agotado</string>
+    <string name="failure_short_receiver_rejected">El receptor rechazó el archivo</string>
+    <string name="failure_short_paused">En pausa tras fallos</string>
+    <string name="failure_short_unknown">Error inesperado</string>
+    <string name="failure_explain_no_receiver">No hay un receptor seleccionado, así que no había adónde enviar esto.</string>
+    <string name="failure_explain_bluetooth_unavailable">Este teléfono no indica compatibilidad con Bluetooth.</string>
+    <string name="failure_explain_bluetooth_off">El Bluetooth está desactivado en este teléfono.</string>
+    <string name="failure_explain_permission_missing">La aplicación no tiene permiso para usar Bluetooth.</string>
+    <string name="failure_explain_not_paired">El receptor ya no está emparejado con este teléfono.</string>
+    <string name="failure_explain_receiver_unavailable">No se pudo contactar con el receptor. Comprueba que esté encendido, cerca y con el Bluetooth activado.</string>
+    <string name="failure_explain_timed_out">El receptor no respondió a tiempo.</string>
+    <string name="failure_explain_receiver_rejected">El receptor rechazó el archivo o no pudo entenderlo.</string>
+    <string name="failure_explain_paused">El envío está en pausa unos minutos tras varios fallos.</string>
+    <string name="failure_explain_unknown">Ocurrió algo inesperado. Diagnóstico tiene más detalles.</string>
+    <string name="failure_action_open_bluetooth_settings">Abrir ajustes de Bluetooth</string>
+    <string name="failure_action_grant_permission">Conceder permiso</string>
+    <string name="failure_action_turn_on_bluetooth">Activar Bluetooth</string>
+    <string name="failure_action_compatibility_test">Enviar prueba de compatibilidad</string>
+    <string name="failure_action_retry_now">Reintentar ahora</string>
+    <string name="failure_action_open_diagnostics">Abrir diagnóstico</string>
+    <string name="failure_action_open_notification_access">Abrir ajustes de acceso a notificaciones</string>
+    <string name="history_attempt">Intento %1$d de %2$d</string>
+    <string name="history_attempt_reason">Intento %1$d de %2$d · %3$s</string>
+    <string name="history_listener_disconnected">Android desconectó el servicio de escucha de notificaciones, así que las notificaciones nuevas no llegan al bridge.</string>
+    <string name="history_listener_no_access">El acceso a notificaciones está desactivado, así que ninguna notificación puede llegar al bridge.</string>
+    <string name="history_retry_unavailable">Esta notificación ya no se puede reintentar. Solo se conserva unos minutos.</string>
     <string name="diagnostics_title">Diagnóstico</string>
     <string name="diagnostics_intro">El informe incluye versión, versión de Android, modelo del teléfono, ajustes y estados técnicos. Omite los detalles de errores y el registro, que pueden contener datos personales. Revísalo antes de compartirlo. No incluye el contenido de notificaciones, el nombre ni la dirección del receptor, ni los nombres de las aplicaciones permitidas.</string>
     <string name="diagnostics_copy_button">Copiar información de diagnóstico</string>
@@ -143,7 +236,6 @@
     <!-- Pagination -->
 
     <!-- Auto-clear (retention) -->
-    <string name="settings_auto_clear_title">Borrado automático</string>
     <string name="settings_auto_clear_enabled">Borrar historial automáticamente</string>
     <string name="settings_auto_clear_desc">Elimina las entradas más antiguas que el tiempo configurado.</string>
     <string name="settings_auto_clear_1h">Después de 1 hora</string>
@@ -173,5 +265,21 @@
     <plurals name="action_show_more">
         <item quantity="one">Mostrar %1$d más</item>
         <item quantity="other">Mostrar %1$d más</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="one">%1$d por resolver</item>
+        <item quantity="other">%1$d por resolver</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="one">%1$d mensaje en espera</item>
+        <item quantity="other">%1$d mensajes en espera</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="one">%1$d mensaje combinado</item>
+        <item quantity="other">%1$d mensajes combinados</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="one">%1$d aplicación permitida</item>
+        <item quantity="other">%1$d aplicaciones permitidas</item>
     </plurals>
 </resources>

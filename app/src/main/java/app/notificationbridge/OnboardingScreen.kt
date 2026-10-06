@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -45,8 +46,14 @@ fun OnboardingScreen(onFinished: () -> Unit) {
     val isLast = stepIndex == ONBOARDING_STEPS.lastIndex
     val scrollState = rememberScrollState()
 
+    // The activity is edge-to-edge and this screen is drawn outside a Scaffold, so nothing else
+    // reserves room for the status bar, the on-screen navigation buttons or a display cutout.
+    // Without this, the bottom row (Back / Next) sits underneath the system buttons.
     Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .safeDrawingPadding()
+            .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         Row(

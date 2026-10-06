@@ -26,6 +26,7 @@ package app.notificationbridge.bluetooth
 import android.annotation.SuppressLint
 import android.bluetooth.*
 import android.content.Context
+import app.notificationbridge.model.FailureReason
 import app.notificationbridge.model.PairedDevice
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -34,7 +35,7 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.UUID
 import kotlin.math.min
-class ObexException(message:String,val responseCode:Int?=null,cause:Throwable?=null):IOException(message,cause)
+class ObexException(message:String,val responseCode:Int?=null,cause:Throwable?=null,val reason:FailureReason=FailureReason.UNKNOWN):IOException(message,cause)
 class ObexObjectPushClient(private val context:Context,private val log:(String)->Unit){
  companion object{
   val OPP_UUID:UUID=UUID.fromString("00001105-0000-1000-8000-00805F9B34FB")
@@ -43,10 +44,10 @@ class ObexObjectPushClient(private val context:Context,private val log:(String)-
  private val adapter get()=context.getSystemService(BluetoothManager::class.java)?.adapter
  @SuppressLint("MissingPermission") fun pairedDevices()=adapter?.bondedDevices.orEmpty().map{PairedDevice(it.name?:"(Sin nombre)",it.address)}.sortedBy{it.name.lowercase()}
  @SuppressLint("MissingPermission") suspend fun push(address:String,fileName:String,mimeType:String,content:ByteArray,timeoutMillis:Long=DEFAULT_TIMEOUT_MS)=withContext(Dispatchers.IO){
-  val a=adapter?:throw ObexException("Bluetooth no disponible")
-  if(!a.isEnabled)throw ObexException("Bluetooth desactivado")
+  val a=adapter?:throw ObexException("Bluetooth no disponible",reason=FailureReason.BLUETOOTH_UNAVAILABLE)
+  if(!a.isEnabled)throw ObexException("Bluetooth desactivado",reason=FailureReason.BLUETOOTH_OFF)
   val d=a.getRemoteDevice(address)
-  if(d.bondState!=BluetoothDevice.BOND_BONDED)throw ObexException("Dispositivo no emparejado")
+  if(d.bondState!=BluetoothDevice.BOND_BONDED)throw ObexException("Dispositivo no emparejado",reason=FailureReason.NOT_PAIRED)
   log("Bluetooth device found: ${d.address}")
   log("OBEX object name: $fileName")
   log("OBEX object size: ${content.size} bytes")
@@ -71,7 +72,7 @@ class ObexObjectPushClient(private val context:Context,private val log:(String)-
    log("OBEX CONNECT sent")
    val cr=ObexProtocol.readResponse(i)
    log("OBEX CONNECT response received: 0x%02X %s".format(cr.code,cr.label))
-   if(cr.code!=ObexProtocol.SUCCESS)throw ObexException("CONNECT rejected",cr.code)
+   if(cr.code!=ObexProtocol.SUCCESS)throw ObexException("CONNECT rejected",cr.code,reason=FailureReason.RECEIVER_REJECTED)
    val max=ObexProtocol.serverMaxPacket(cr).coerceIn(255,65535)
    val id=ObexProtocol.connectionId(cr)
    sendPut(o,i,max,id,fileName,mimeType,content)
@@ -89,13 +90,21 @@ class ObexObjectPushClient(private val context:Context,private val log:(String)-
   }catch(e:ObexException){
    throw e
   }catch(e:Exception){
-   if(timedOut)throw ObexException("Bluetooth/OBEX timeout after ${timeoutMillis}ms",null,e)
-   throw ObexException("Bluetooth/OBEX failure: ${e.message}",null,e)
+   if(timedOut)throw ObexException("Bluetooth/OBEX timeout after ${timeoutMillis}ms",null,e,FailureReason.TIMED_OUT)
+   // Classified here, from the exception type only, so the rest of the app never parses messages.
+   val reason=when(e){
+    is SecurityException->FailureReason.PERMISSION_MISSING
+    is IOException->FailureReason.RECEIVER_UNAVAILABLE
+    // A reply the parser cannot read (ObexProtocol uses require()): an incompatible receiver.
+    is IllegalArgumentException->FailureReason.RECEIVER_REJECTED
+    else->FailureReason.UNKNOWN
+   }
+   throw ObexException("Bluetooth/OBEX failure: ${e.message}",null,e,reason)
   }finally{
    watchdog.cancel()
    try{s.close()}catch(_:Exception){}
    log("BluetoothSocket closed")
   }
  }
- private fun sendPut(o:java.io.OutputStream,i:java.io.InputStream,max:Int,id:Long?,name:String,type:String,content:ByteArray){val meta=buildList{id?.let{add(ObexProtocol.connectionHeader(it))};add(ObexProtocol.nameHeader(name));add(ObexProtocol.typeHeader(type));add(ObexProtocol.lengthHeader(content.size))};var off=0;var first=true;do{val fixed=if(first)meta.sumOf{it.size}else(if(id!=null)5 else 0);val avail=max-3-fixed-3;if(avail<=0)throw ObexException("MTU too small");val count=min(avail,content.size-off);val final=off+count>=content.size;val h=mutableListOf<ByteArray>();if(first)h.addAll(meta)else id?.let{h.add(ObexProtocol.connectionHeader(it))};h.add(ObexProtocol.bodyHeader(content.copyOfRange(off,off+count),final));ObexProtocol.write(o,ObexProtocol.packet(if(final)ObexProtocol.PUT_FINAL else ObexProtocol.PUT,*h.toTypedArray()));log("OBEX PUT${if(final)" FINAL" else ""} sent: $count bytes, file=$name");val r=ObexProtocol.readResponse(i);log("OBEX PUT response received: 0x%02X %s".format(r.code,r.label));if(r.code!=(if(final)ObexProtocol.SUCCESS else ObexProtocol.CONTINUE))throw ObexException("Unexpected PUT response",r.code);off+=count;first=false}while(off<content.size||first);log("Transfer completed: $name (${content.size} bytes)")}
+ private fun sendPut(o:java.io.OutputStream,i:java.io.InputStream,max:Int,id:Long?,name:String,type:String,content:ByteArray){val meta=buildList{id?.let{add(ObexProtocol.connectionHeader(it))};add(ObexProtocol.nameHeader(name));add(ObexProtocol.typeHeader(type));add(ObexProtocol.lengthHeader(content.size))};var off=0;var first=true;do{val fixed=if(first)meta.sumOf{it.size}else(if(id!=null)5 else 0);val avail=max-3-fixed-3;if(avail<=0)throw ObexException("MTU too small",reason=FailureReason.RECEIVER_REJECTED);val count=min(avail,content.size-off);val final=off+count>=content.size;val h=mutableListOf<ByteArray>();if(first)h.addAll(meta)else id?.let{h.add(ObexProtocol.connectionHeader(it))};h.add(ObexProtocol.bodyHeader(content.copyOfRange(off,off+count),final));ObexProtocol.write(o,ObexProtocol.packet(if(final)ObexProtocol.PUT_FINAL else ObexProtocol.PUT,*h.toTypedArray()));log("OBEX PUT${if(final)" FINAL" else ""} sent: $count bytes, file=$name");val r=ObexProtocol.readResponse(i);log("OBEX PUT response received: 0x%02X %s".format(r.code,r.label));if(r.code!=(if(final)ObexProtocol.SUCCESS else ObexProtocol.CONTINUE))throw ObexException("Unexpected PUT response",r.code,reason=FailureReason.RECEIVER_REJECTED);off+=count;first=false}while(off<content.size||first);log("Transfer completed: $name (${content.size} bytes)")}
 }

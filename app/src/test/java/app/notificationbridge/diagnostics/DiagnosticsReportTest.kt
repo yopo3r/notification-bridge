@@ -3,6 +3,7 @@ package app.notificationbridge.diagnostics
 import app.notificationbridge.model.BridgeSettings
 import app.notificationbridge.model.BridgeUiState
 import app.notificationbridge.model.TransferRecord
+import app.notificationbridge.model.TransferStatus
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -27,10 +28,10 @@ class DiagnosticsReportTest {
         notificationAccess = true,
         listenerConnected = true,
         queueCount = 2,
-        lastTransfer = TransferRecord("Chat", 1_700_000_000_000, false, "boom", "Secret Person"),
+        lastTransfer = TransferRecord("Chat", 1_700_000_000_000, TransferStatus.FAILED, "boom", "Secret Person"),
         history = listOf(
-            TransferRecord("Chat", 1_700_000_000_000, false, "failed to connect to AA:BB:CC:DD:EE:FF", "Secret Person"),
-            TransferRecord("Chat", 1_699_999_999_000, true, "0xA0 Success", "Another Contact")
+            TransferRecord("Chat", 1_700_000_000_000, TransferStatus.FAILED, "failed to connect to AA:BB:CC:DD:EE:FF", "Secret Person"),
+            TransferRecord("Chat", 1_699_999_999_000, TransferStatus.TRANSFERRED, "0xA0 Success", "Another Contact")
         ),
         lastObexResponse = "OBEX PUT response received: 0xA0 Success"
     )
@@ -117,5 +118,32 @@ class DiagnosticsReportTest {
         val cleaned = DiagnosticsReport.sanitize("line one\nline two " + "x".repeat(500))
         assertFalse(cleaned.contains("\n"))
         assertTrue(cleaned.length <= 200)
+    }
+
+    @Test
+    fun `reports failure reasons by name and count without any detail text`() {
+        val failing = state.copy(
+            lastTransfer = TransferRecord(
+                "Chat", 1, TransferStatus.FAILED, "failed to connect to AA:BB:CC:DD:EE:FF",
+                failure = app.notificationbridge.model.FailureReason.TIMED_OUT, attempt = 3, maxAttempts = 3
+            ),
+            history = listOf(
+                TransferRecord("Chat", 1, TransferStatus.FAILED, "x", failure = app.notificationbridge.model.FailureReason.TIMED_OUT),
+                TransferRecord("Chat", 2, TransferStatus.FAILED, "y", failure = app.notificationbridge.model.FailureReason.NOT_PAIRED),
+                TransferRecord("Chat", 3, TransferStatus.TRANSFERRED, "ok")
+            )
+        )
+        val text = DiagnosticsReport.build(env, settings, failing, true, true)
+        assertTrue(text.contains("Last failure: timed_out (attempt 3 of 3)"))
+        assertTrue(text.contains("Failures by reason: timed_out=1, not_paired=1"))
+        assertFalse(text.contains("AA:BB:CC:DD:EE:FF"))
+    }
+
+    @Test
+    fun `failure lines say none when nothing failed`() {
+        val ok = state.copy(lastTransfer = null, history = emptyList())
+        val text = DiagnosticsReport.build(env, settings, ok, true, true)
+        assertTrue(text.contains("Last failure: none"))
+        assertTrue(text.contains("Failures by reason: none"))
     }
 }

@@ -6,7 +6,8 @@
  * Deliberately conservative: at most one alert per [MIN_INTERVAL_MS] so a dead receiver doesn't
  * produce one alert per queued notification, and nothing is posted if the notification
  * permission (Android 13+) or the app's notifications are disabled. The alert contains no
- * notification content - only a generic "check the receiver" message.
+ * notification content - only the plain-language reason for the failure (the same sentence
+ * History shows), or a generic "check the receiver" message when there is none.
  *
  * Note: this app's own notifications never loop back into the bridge, because
  * [NotificationBridgeService] ignores anything posted by its own package.
@@ -25,6 +26,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import app.notificationbridge.MainActivity
 import app.notificationbridge.R
+import app.notificationbridge.explanationRes
+import app.notificationbridge.model.FailureReason
 
 object ErrorNotifier {
     private const val MIN_INTERVAL_MS = 10 * 60 * 1000L
@@ -34,7 +37,7 @@ object ErrorNotifier {
 
     // The permission is checked in canPostNotifications(); lint can't see through that helper.
     @SuppressLint("MissingPermission")
-    fun notifyTransferFailed(context: Context) {
+    fun notifyTransferFailed(context: Context, reason: FailureReason? = null) {
         val now = System.currentTimeMillis()
         if (now - lastPostedAt < MIN_INTERVAL_MS) return
         if (!canPostNotifications(context)) return
@@ -46,11 +49,12 @@ object ErrorNotifier {
             Intent(context, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE
         )
+        val text = context.getString(reason?.explanationRes() ?: R.string.error_notification_text)
         val notification = NotificationCompat.Builder(context, NotificationChannels.ERRORS)
             .setSmallIcon(android.R.drawable.stat_notify_error)
             .setContentTitle(context.getString(R.string.error_notification_title))
-            .setContentText(context.getString(R.string.error_notification_text))
-            .setStyle(NotificationCompat.BigTextStyle().bigText(context.getString(R.string.error_notification_text)))
+            .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setContentIntent(openApp)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

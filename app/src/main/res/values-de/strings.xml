@@ -24,9 +24,39 @@
     <string name="test_selected">Ausgewählter Empfänger</string>
     <string name="settings_intro">Lege fest, was weitergeleitet wird, wann es gesendet wird und wie die App aussieht.</string>
     <string name="settings_group_forwarding">Weiterleitung</string>
-    <string name="settings_group_delivery">Übertragung und Wartung</string>
+    <string name="settings_section_connection">Verbindung</string>
+    <string name="settings_section_connection_desc">Bridge einschalten und erneut mit dem Empfänger verbinden.</string>
+    <string name="settings_section_forwarding_desc">Welche Apps und Benachrichtigungen weitergeleitet werden und wie viel Text.</string>
+    <string name="settings_section_privacy">Datenschutz</string>
+    <string name="settings_section_privacy_desc">Wie lange der Verlauf auf diesem Telefon gespeichert bleibt.</string>
+    <string name="settings_section_reliability">Zuverlässigkeit</string>
+    <string name="settings_section_reliability_desc">Nachrichtenschübe bündeln und bei fehlgeschlagener Übertragung warnen.</string>
+    <string name="settings_section_appearance">Darstellung</string>
+    <string name="settings_section_appearance_desc">Design, Farben und Sprache.</string>
+    <string name="settings_section_advanced">Erweitert</string>
+    <string name="settings_section_advanced_desc">Testnachricht, Konfigurationssicherung und Tutorial.</string>
+    <string name="settings_section_expanded">Aufgeklappt</string>
+    <string name="settings_section_collapsed">Zugeklappt</string>
     <string name="home_notification_access_button">Benachrichtigungszugriff</string>
     <string name="home_settings_button">Einstellungen</string>
+    <string name="home_readiness_title">Bereitschaft</string>
+    <string name="home_readiness_all_set">Alles bereit</string>
+    <string name="home_readiness_fix">Beheben</string>
+    <string name="readiness_notification_access">Benachrichtigungszugriff erteilt</string>
+    <string name="readiness_listener_connected">Listener verbunden</string>
+    <string name="readiness_bluetooth_enabled">Bluetooth aktiviert</string>
+    <string name="readiness_receiver_selected">Empfänger ausgewählt</string>
+    <string name="readiness_receiver_paired">Empfänger gekoppelt</string>
+    <string name="readiness_bridge_enabled">Bridge aktiviert</string>
+    <string name="readiness_battery_optimization">Akku-Optimierung</string>
+    <string name="readiness_last_transfer">Letzte erfolgreiche Übertragung</string>
+    <string name="readiness_yes">Ja</string>
+    <string name="readiness_no">Nein</string>
+    <string name="readiness_unknown">Unbekannt</string>
+    <string name="readiness_none_yet">Noch keine</string>
+    <string name="readiness_select_receiver_first">Empfänger wählen</string>
+    <string name="readiness_battery_unrestricted">Uneingeschränkt</string>
+    <string name="readiness_battery_optimized">Optimiert</string>
 
     <!-- Test -->
     <string name="test_title">Bluetooth / OBEX</string>
@@ -65,6 +95,27 @@
     <!-- Dialogs / results -->
     <string name="dialog_result_title">Ergebnis</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Abbrechen</string>
+    <string name="settings_backup_title">Konfigurationsdatei</string>
+    <string name="settings_backup_intro">Speichere deine Einstellungen in einer Datei, um sie nach einer Neuinstallation, mit einem neuen Build oder auf einem anderen Telefon wiederherzustellen. Der Bridge-Schalter und der Verlauf sind nicht enthalten, und ein Import schaltet die Bridge nie ein.</string>
+    <string name="settings_backup_export">Konfiguration exportieren</string>
+    <string name="settings_backup_import">Konfiguration importieren</string>
+    <string name="backup_export_title">Konfiguration exportieren</string>
+    <string name="backup_export_receiver_hint">Wähle, was zum Empfänger gespeichert wird. Mit der Bluetooth-Adresse kann ein anderes Telefon denselben Empfänger direkt auswählen, sie identifiziert aber das Gerät: Lass sie weg, wenn du die Datei teilst.</string>
+    <string name="backup_export_receiver_name">Nur Empfängername (empfohlen)</string>
+    <string name="backup_export_receiver_none">Kein Empfänger</string>
+    <string name="backup_export_receiver_address">Name und Bluetooth-Adresse</string>
+    <string name="backup_export_confirm">Speicherort wählen</string>
+    <string name="backup_exported">Konfiguration gespeichert.</string>
+    <string name="backup_export_error">Konfiguration nicht gespeichert: %1$s</string>
+    <string name="backup_import_title">Diese Konfiguration importieren?</string>
+    <string name="backup_import_body">Dies ersetzt erlaubte Apps, Filter, Bündelung, maximale Textlänge, Design, Sprache und Dumbphone-Modus durch die Werte aus der Datei. Der Bridge-Schalter bleibt unverändert.</string>
+    <string name="backup_import_receiver">Empfänger: %1$s</string>
+    <string name="backup_import_confirm">Importieren</string>
+    <string name="backup_imported">Konfiguration importiert.</string>
+    <string name="backup_import_error">Konfiguration nicht importiert: %1$s</string>
+    <string name="backup_import_receiver_selected">Empfänger ausgewählt: %1$s.</string>
+    <string name="backup_import_receiver_missing">Der Empfänger „%1$s“ wurde nicht automatisch ausgewählt. Koppele ihn in den Bluetooth-Einstellungen von Android und wähle ihn dann im Tab „Test“.</string>
     <string name="transfer_success">Übertragung abgeschlossen</string>
     <string name="transfer_error">Fehler: %1$s</string>
 
@@ -107,8 +158,50 @@
     <string name="history_privacy_note">Es werden nur App-Name und Titel gespeichert, ausschließlich im Arbeitsspeicher; sie gehen verloren, wenn die App vollständig beendet wird.</string>
     <string name="history_empty">Noch keine Übertragungen.</string>
     <string name="history_clear">Verlauf löschen</string>
-    <string name="history_status_sent">Gesendet</string>
     <string name="history_status_failed">Fehler</string>
+    <string name="history_status_queued">In Warteschlange</string>
+    <string name="history_status_connecting">Verbindet</string>
+    <string name="history_status_transferred">An Gerät übertragen</string>
+    <string name="history_status_dropped">Durch Filter verworfen</string>
+    <string name="history_status_rate_limited">Ratenbegrenzt</string>
+    <string name="history_status_batched">Zusammengefasst</string>
+    <string name="history_drop_ongoing">Laufende Benachrichtigung vom Filter übersprungen</string>
+    <string name="history_drop_silent">Stumme Benachrichtigung vom Filter übersprungen</string>
+    <string name="history_drop_calls_disabled">Anrufbenachrichtigungen sind ausgeschaltet</string>
+    <string name="history_detail_rate_limited">Zu viele Benachrichtigungen dieser App innerhalb einer Minute</string>
+    <string name="history_status_note">„An Gerät übertragen“ bedeutet, dass der Empfänger die Datei per Bluetooth angenommen hat. Es bestätigt nicht, dass jemand die Benachrichtigung gesehen hat.</string>
+    <string name="failure_short_no_receiver">Kein Empfänger gewählt</string>
+    <string name="failure_short_bluetooth_unavailable">Bluetooth nicht verfügbar</string>
+    <string name="failure_short_bluetooth_off">Bluetooth ist aus</string>
+    <string name="failure_short_permission_missing">Bluetooth-Berechtigung fehlt</string>
+    <string name="failure_short_not_paired">Empfänger nicht gekoppelt</string>
+    <string name="failure_short_receiver_unavailable">Empfänger nicht erreichbar</string>
+    <string name="failure_short_timed_out">Zeitüberschreitung</string>
+    <string name="failure_short_receiver_rejected">Empfänger hat Datei abgelehnt</string>
+    <string name="failure_short_paused">Nach Fehlern pausiert</string>
+    <string name="failure_short_unknown">Unerwarteter Fehler</string>
+    <string name="failure_explain_no_receiver">Es ist kein Empfänger ausgewählt, daher gab es kein Ziel für diese Übertragung.</string>
+    <string name="failure_explain_bluetooth_unavailable">Dieses Telefon meldet keine Bluetooth-Unterstützung.</string>
+    <string name="failure_explain_bluetooth_off">Bluetooth ist auf diesem Telefon ausgeschaltet.</string>
+    <string name="failure_explain_permission_missing">Die App hat keine Berechtigung, Bluetooth zu verwenden.</string>
+    <string name="failure_explain_not_paired">Der Empfänger ist nicht mehr mit diesem Telefon gekoppelt.</string>
+    <string name="failure_explain_receiver_unavailable">Der Empfänger war nicht erreichbar. Prüfe, ob er eingeschaltet und in der Nähe ist und Bluetooth aktiviert hat.</string>
+    <string name="failure_explain_timed_out">Der Empfänger hat nicht rechtzeitig geantwortet.</string>
+    <string name="failure_explain_receiver_rejected">Der Empfänger hat die Datei abgelehnt oder konnte sie nicht verstehen.</string>
+    <string name="failure_explain_paused">Das Senden ist nach wiederholten Fehlern für einige Minuten pausiert.</string>
+    <string name="failure_explain_unknown">Etwas Unerwartetes ist schiefgelaufen. Die Diagnose enthält mehr Details.</string>
+    <string name="failure_action_open_bluetooth_settings">Bluetooth-Einstellungen öffnen</string>
+    <string name="failure_action_grant_permission">Berechtigung erteilen</string>
+    <string name="failure_action_turn_on_bluetooth">Bluetooth einschalten</string>
+    <string name="failure_action_compatibility_test">Kompatibilitätstest senden</string>
+    <string name="failure_action_retry_now">Jetzt erneut versuchen</string>
+    <string name="failure_action_open_diagnostics">Diagnose öffnen</string>
+    <string name="failure_action_open_notification_access">Einstellungen für Benachrichtigungszugriff öffnen</string>
+    <string name="history_attempt">Versuch %1$d von %2$d</string>
+    <string name="history_attempt_reason">Versuch %1$d von %2$d · %3$s</string>
+    <string name="history_listener_disconnected">Android hat den Benachrichtigungs-Listener getrennt, daher erreichen neue Benachrichtigungen die Bridge nicht.</string>
+    <string name="history_listener_no_access">Der Benachrichtigungszugriff ist aus, daher kann keine Benachrichtigung die Bridge erreichen.</string>
+    <string name="history_retry_unavailable">Diese Benachrichtigung kann nicht mehr erneut gesendet werden. Sie wird nur wenige Minuten aufbewahrt.</string>
     <string name="diagnostics_title">Diagnose</string>
     <string name="diagnostics_intro">Der Bericht enthält App- und Android-Version, Telefonmodell, Einstellungen und technischen Status. Fehlerdetails und Protokoll werden ausgelassen, da sie personenbezogene Daten enthalten können. Prüfen Sie den Bericht vor dem Teilen. Benachrichtigungsinhalte, Name und Adresse des Empfängers sowie Namen erlaubter Apps sind ausgeschlossen.</string>
     <string name="diagnostics_copy_button">Diagnoseinformationen kopieren</string>
@@ -143,7 +236,6 @@
     <!-- Pagination -->
 
     <!-- Auto-clear (retention) -->
-    <string name="settings_auto_clear_title">Automatisches Löschen</string>
     <string name="settings_auto_clear_enabled">Verlauf automatisch löschen</string>
     <string name="settings_auto_clear_desc">Entfernt Einträge, die älter als die eingestellte Zeit sind.</string>
     <string name="settings_auto_clear_1h">Nach 1 Stunde</string>
@@ -173,5 +265,21 @@
     <plurals name="action_show_more">
         <item quantity="one">%1$d weitere anzeigen</item>
         <item quantity="other">%1$d weitere anzeigen</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="one">%1$d zu beheben</item>
+        <item quantity="other">%1$d zu beheben</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="one">%1$d Nachricht wartet</item>
+        <item quantity="other">%1$d Nachrichten warten</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="one">%1$d Nachricht zusammengefasst</item>
+        <item quantity="other">%1$d Nachrichten zusammengefasst</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="one">%1$d erlaubte App</item>
+        <item quantity="other">%1$d erlaubte Apps</item>
     </plurals>
 </resources>

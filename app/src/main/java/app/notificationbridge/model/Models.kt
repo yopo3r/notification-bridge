@@ -78,20 +78,73 @@ data class BridgeSettings(
 )
 
 /**
- * One finished transfer attempt (after all retries).
+ * Where one notification (or one batch of notifications) is in its journey. Deliberately worded
+ * to claim no more than the app knows: [TRANSFERRED] means the receiving device's OBEX server
+ * accepted the file, not that anyone saw the notification.
+ *
+ * - [QUEUED] accepted by the filters, waiting for its turn on the Bluetooth link.
+ * - [CONNECTING] the worker is opening the connection and pushing the file (includes retries).
+ * - [TRANSFERRED] the receiver accepted the file.
+ * - [FAILED] every attempt failed, or the transfer could not be tried.
+ * - [DROPPED] a user-configurable filter excluded it; see [DropReason].
+ * - [RATE_LIMITED] the app exceeded its per-minute budget, so this notification was skipped.
+ * - [BATCHED] held in a batching cooldown; it will be sent combined with others from the same
+ *   conversation, and the same record then moves on to [QUEUED] and the later states.
+ */
+enum class TransferStatus {
+    QUEUED, CONNECTING, TRANSFERRED, FAILED, DROPPED, RATE_LIMITED, BATCHED;
+
+    /** The transfer was attempted and has a result. Only these update [BridgeUiState.lastTransfer]. */
+    val isOutcome: Boolean get() = this == TRANSFERRED || this == FAILED
+
+    /** Never sent because of a policy decision; the first thing to evict from a full history. */
+    val isNotForwarded: Boolean get() = this == DROPPED || this == RATE_LIMITED
+
+    /** Not final yet: the record will still change. */
+    val isInFlight: Boolean get() = this == QUEUED || this == CONNECTING || this == BATCHED
+}
+
+/** Why a notification ended as [TransferStatus.DROPPED]. */
+enum class DropReason { ONGOING, SILENT, CALLS_DISABLED }
+
+/**
+ * One row of the history: a single notification, or a batch sent as one file. The same record
+ * (same [id]) is updated in place as it moves through [TransferStatus], with [timestamp] set to
+ * the latest change.
  *
  * @property title Short summary of the notification title (see
  *   [app.notificationbridge.queue.TransferHistory.summarizeTitle]); the notification body is
  *   deliberately never stored here.
- * @property detail Error message for a failed transfer, or a generic success marker.
+ * @property detail Technical error text for a [TransferStatus.FAILED] record; empty otherwise. It is
+ *   never shown in History (which uses [failure]) nor copied into the diagnostics report.
+ * @property id Identity used to update the record in place; `0` means "not tracked".
+ * @property dropReason Only for [TransferStatus.DROPPED].
+ * @property messageCount How many messages the record stands for: more than 1 only for a batch.
+ * @property failure Why it failed ([TransferStatus.FAILED]), or, while [TransferStatus.CONNECTING]
+ *   after a failed attempt, why the previous attempt failed.
+ * @property attempt Which attempt the record is on (while connecting) or ended on (when failed);
+ *   `0` when not applicable.
+ * @property maxAttempts How many attempts this transfer may use; `0` when not applicable.
+ * @property retryUntil While set and in the future, the notification is still held in memory and
+ *   "Retry now" can resend it (see [app.notificationbridge.queue.RetryBuffer]).
  */
 data class TransferRecord(
     val appName: String,
     val timestamp: Long,
-    val success: Boolean,
+    val status: TransferStatus,
     val detail: String,
-    val title: String? = null
-)
+    val title: String? = null,
+    val id: Long = 0,
+    val dropReason: DropReason? = null,
+    val messageCount: Int = 1,
+    val failure: FailureReason? = null,
+    val attempt: Int = 0,
+    val maxAttempts: Int = 0,
+    val retryUntil: Long? = null
+) {
+    /** The receiver accepted the file. */
+    val success: Boolean get() = status == TransferStatus.TRANSFERRED
+}
 
 enum class ConnectionState { DISCONNECTED, CONNECTING, CONNECTED, ERROR }
 
@@ -99,7 +152,9 @@ enum class ConnectionState { DISCONNECTED, CONNECTING, CONNECTED, ERROR }
  * @property notificationAccess The permission is listed in system settings.
  * @property listenerConnected Android has actually bound the notification listener. Can be false
  *   even when [notificationAccess] is true (e.g. right after reinstalling a debug build).
- * @property history Most recent transfers, newest first, bounded in size.
+ * @property lastTransfer The most recent transfer with a result (transferred or failed); in-flight
+ *   and filtered records never replace it.
+ * @property history Most recent records, newest first, bounded in size.
  * @property batchedMessageCount Messages currently held in a batching cooldown, not yet sent as
  *   a file. Only non-zero while [app.notificationbridge.model.BridgeSettings.batchingEnabled].
  */

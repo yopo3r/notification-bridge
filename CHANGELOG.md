@@ -3,6 +3,84 @@
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning roughly follows [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- **Settings reorganised** into six collapsible sections, all collapsed at first, each with a
+  one-line description: **Connection** (bridge on/off, auto-reconnect), **Forwarding** (silent,
+  ongoing and duplicate filters, calls, maximum text length, allowed apps), **Privacy**
+  (automatic history clearing), **Reliability** (batching and its interval, dumbphone mode),
+  **Appearance** (theme, custom theme, language) and **Advanced** (test message, configuration
+  file, tutorial). No setting was removed or renamed; which sections are open survives rotation
+  and language changes. Strings in all seven locales (the old "Delivery and maintenance" heading
+  and "Automatic clearing" sub-heading are gone).
+- The scrollbar now fades in quickly and fades out slowly while sliding back into the edge,
+  instead of the default spring.
+
+### Fixed
+- Scrollbar on Home, Diagnostics and About: Home's thumb was drawn inside the scrolling content
+  (so it moved with it); Diagnostics and About, which have a few very different-height items,
+  got a jumpy thumb because the list height was guessed from visible items only. The thumb now
+  uses the heights of every item seen so far.
+
+## [0.14.0] — Readiness checklist, precise history, config file, clearer failures (2026-10-05)
+
+### Added
+- **Home readiness checklist**: a compact panel listing notification access, listener
+  connection, Bluetooth, receiver selected/paired, bridge enabled, battery-optimization status
+  and the last successful transfer, with an "N to fix" / "All set" summary. A row that needs
+  attention is tappable and opens the screen that fixes it (listener settings, Bluetooth
+  prompt, Test, Settings, or the system battery-optimization list). Values that cannot be
+  determined (e.g. no Bluetooth permission yet) show "Unknown" rather than a guess.
+- New pure `readiness/ReadinessChecklist` (unit tested); strings added in all seven locales.
+
+- **Configuration file** (Settings → Configuration file): export your setup to a plain-text
+  `key: value` file and import it on another build or phone. It carries allowed apps, the four
+  filters, batching (on/off and interval), maximum text length, theme (mode and any custom
+  palette), language and dumbphone mode, plus the preferred receiver at your choice: **name only
+  (default)**, **none**, or **name and Bluetooth address**. The address is left out by default
+  because it identifies the device. Importing shows what will be replaced and asks first, applies
+  everything in one transaction, rejects the whole file on any unknown, duplicate or out-of-range
+  value, and never changes the bridge switch. Without an address, the receiver is selected on
+  import only if exactly one paired device has that name. Not included: bridge on/off,
+  onboarding, history, auto-clear, auto-reconnect, Test sample. Pure `config/ConfigFile`
+  (unit tested); strings in all seven locales.
+
+- **Clearer failures** in History: a retrying transfer reads "Attempt 2 of 3 · Receiver
+  unavailable", and a failed one shows a short plain-language explanation plus one action:
+  receiver not paired → *Open Bluetooth settings*; Bluetooth permission missing → *Grant
+  permission*; receiver rejected the file → *Send compatibility test*; timed out or receiver
+  unavailable → *Retry now*. Also handled: Bluetooth off, no receiver chosen, and an
+  unclassified failure (→ Diagnostics). A banner on History opens notification-access settings
+  when the listener is disconnected. Problems only you can fix stop after one attempt (no
+  pointless backoff) and no longer trigger the 5-minute pause. The dumbphone-mode alert states the
+  same reason. Diagnostics keeps the technical side as reason names and counts only.
+  **Privacy note:** "Retry now" needs the original notification, so the last 5 failed items are
+  held in memory only, for at most 10 minutes, and are discarded on retry or "Clear history".
+  New pure `FailureReason`, `FailureClassifier`, `RetryBuffer` (unit tested); strings in all
+  seven locales.
+
+### Fixed
+- The tutorial's Back/Next buttons are no longer covered by the on-screen system buttons on
+  phones with three-button navigation (and the top row clears the status bar and cutouts): the
+  screen now applies the system-bar insets, which the edge-to-edge activity does not do on its own
+  outside a Scaffold.
+
+### Changed
+- **History statuses no longer overstate delivery.** "Sent" is now **Transferred to device**
+  (the receiver's OBEX server accepted the file; it does not mean anyone saw the notification),
+  and a one-line note on the History screen says so. Records now move through **Queued →
+  Connecting → Transferred to device / Failed** in place, and notifications that never left the
+  phone are recorded too: **Dropped by filter** (ongoing, silent, or call notifications turned
+  off, with the reason), **Rate-limited**, and **Combined into batch** (one row per batch while
+  its cooldown runs, then it continues as a normal transfer with its message count).
+- Not recorded, on purpose: bridge disabled, app not in the allowed list, and re-posted
+  duplicates. They would flood the list and keep titles from apps you never allowed. Never-sent
+  rows are evicted first when the 50-entry history is full, so they cannot push out transfers.
+- Diagnostics reports the last transfer as "transferred to device" instead of "success".
+- State is re-read every time the app resumes, so returning from a system settings screen
+  updates Home without a restart.
+
 ## [0.13.1] — Privacy, SDK, and release maintenance (2026-10-04)
 
 ### Changed

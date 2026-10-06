@@ -15,6 +15,8 @@ package app.notificationbridge.diagnostics
 
 import app.notificationbridge.model.BridgeSettings
 import app.notificationbridge.model.BridgeUiState
+import app.notificationbridge.model.FailureReason
+import app.notificationbridge.model.TransferStatus
 
 data class DiagnosticsEnvironment(
     val appVersion: String,
@@ -43,8 +45,11 @@ object DiagnosticsReport {
     ): String {
         // Exception text can contain notification-derived names or other user data. Report only
         // whether a failure exists; arbitrary exception details are deliberately excluded.
-        val hasError = state.history.any { !it.success }
-        val lastTransfer = state.lastTransfer?.let { if (it.success) "success" else "failed" }
+        val hasError = state.history.any { it.status == TransferStatus.FAILED }
+        // "Transferred" only means the receiver accepted the file, never that it was seen.
+        val lastTransfer = state.lastTransfer?.let {
+            if (it.success) "transferred to device" else "failed"
+        }
         return listOf(
             "Notification Bridge diagnostics",
             "",
@@ -74,6 +79,8 @@ object DiagnosticsReport {
             "Transfers in history: ${state.history.size}",
             "Last transfer: ${lastTransfer ?: "none"}",
             "Transfer errors recorded: ${if (hasError) "yes (details omitted)" else "no"}",
+            "Last failure: ${lastFailure(state)}",
+            "Failures by reason: ${failuresByReason(state)}",
             "",
             "[Settings]",
             "Bridge enabled: ${yesNo(settings.bridgeEnabled)}",
@@ -88,6 +95,23 @@ object DiagnosticsReport {
             "Allowed apps: ${settings.allowedPackages.size}"
         ).joinToString("\n")
     }
+
+    /**
+     * Only enum names and counts: they say what went wrong in a way that helps a bug report
+     * without carrying exception text, which may contain names or addresses.
+     */
+    private fun lastFailure(state: BridgeUiState): String {
+        val record = state.lastTransfer?.takeIf { it.status == TransferStatus.FAILED } ?: return "none"
+        val reason = record.failure?.name?.lowercase() ?: "unknown"
+        return if (record.maxAttempts > 0) "$reason (attempt ${record.attempt} of ${record.maxAttempts})" else reason
+    }
+
+    private fun failuresByReason(state: BridgeUiState): String =
+        state.history.filter { it.status == TransferStatus.FAILED }
+            .groupingBy { it.failure ?: FailureReason.UNKNOWN }.eachCount()
+            .entries.sortedBy { it.key.ordinal }
+            .joinToString(", ") { "${it.key.name.lowercase()}=${it.value}" }
+            .ifEmpty { "none" }
 
     /** Single line, MAC-shaped tokens redacted, length-capped. */
     fun sanitize(text: String): String {

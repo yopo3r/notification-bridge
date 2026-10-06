@@ -24,9 +24,39 @@
     <string name="test_selected">Geselecteerde ontvanger</string>
     <string name="settings_intro">Bepaal wat wordt doorgestuurd, wanneer het wordt verzonden en hoe de app eruitziet.</string>
     <string name="settings_group_forwarding">Doorsturen</string>
-    <string name="settings_group_delivery">Verzending en onderhoud</string>
+    <string name="settings_section_connection">Verbinding</string>
+    <string name="settings_section_connection_desc">Schakel de brug in en maak opnieuw verbinding met de ontvanger.</string>
+    <string name="settings_section_forwarding_desc">Welke apps en meldingen worden doorgestuurd en hoeveel tekst.</string>
+    <string name="settings_section_privacy">Privacy</string>
+    <string name="settings_section_privacy_desc">Hoe lang de geschiedenis op deze telefoon bewaard blijft.</string>
+    <string name="settings_section_reliability">Betrouwbaarheid</string>
+    <string name="settings_section_reliability_desc">Berichtenreeksen bundelen en waarschuwen als een overdracht mislukt.</string>
+    <string name="settings_section_appearance">Weergave</string>
+    <string name="settings_section_appearance_desc">Thema, kleuren en taal.</string>
+    <string name="settings_section_advanced">Geavanceerd</string>
+    <string name="settings_section_advanced_desc">Testbericht, configuratieback-up en tutorial.</string>
+    <string name="settings_section_expanded">Uitgeklapt</string>
+    <string name="settings_section_collapsed">Ingeklapt</string>
     <string name="home_notification_access_button">Toegang tot meldingen</string>
     <string name="home_settings_button">Instellingen</string>
+    <string name="home_readiness_title">Gereedheid</string>
+    <string name="home_readiness_all_set">Alles klaar</string>
+    <string name="home_readiness_fix">Oplossen</string>
+    <string name="readiness_notification_access">Toegang tot meldingen verleend</string>
+    <string name="readiness_listener_connected">Listener verbonden</string>
+    <string name="readiness_bluetooth_enabled">Bluetooth ingeschakeld</string>
+    <string name="readiness_receiver_selected">Ontvanger geselecteerd</string>
+    <string name="readiness_receiver_paired">Ontvanger gekoppeld</string>
+    <string name="readiness_bridge_enabled">Bridge ingeschakeld</string>
+    <string name="readiness_battery_optimization">Batterijoptimalisatie</string>
+    <string name="readiness_last_transfer">Laatste geslaagde overdracht</string>
+    <string name="readiness_yes">Ja</string>
+    <string name="readiness_no">Nee</string>
+    <string name="readiness_unknown">Onbekend</string>
+    <string name="readiness_none_yet">Nog geen</string>
+    <string name="readiness_select_receiver_first">Kies een ontvanger</string>
+    <string name="readiness_battery_unrestricted">Onbeperkt</string>
+    <string name="readiness_battery_optimized">Geoptimaliseerd</string>
 
     <!-- Test -->
     <string name="test_title">Bluetooth / OBEX</string>
@@ -65,6 +95,27 @@
     <!-- Dialogs / results -->
     <string name="dialog_result_title">Resultaat</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Annuleren</string>
+    <string name="settings_backup_title">Configuratiebestand</string>
+    <string name="settings_backup_intro">Sla je instellingen op in een bestand om ze te herstellen na een herinstallatie, met een nieuwe build of op een andere telefoon. De bridge-schakelaar en de geschiedenis zijn niet inbegrepen, en importeren zet de bridge nooit aan.</string>
+    <string name="settings_backup_export">Configuratie exporteren</string>
+    <string name="settings_backup_import">Configuratie importeren</string>
+    <string name="backup_export_title">Configuratie exporteren</string>
+    <string name="backup_export_receiver_hint">Kies wat er over de ontvanger wordt opgeslagen. Met het Bluetooth-adres kan een andere telefoon dezelfde ontvanger direct selecteren, maar het identificeert het apparaat: laat het weg als je het bestand deelt.</string>
+    <string name="backup_export_receiver_name">Alleen naam van de ontvanger (aanbevolen)</string>
+    <string name="backup_export_receiver_none">Geen ontvanger</string>
+    <string name="backup_export_receiver_address">Naam en Bluetooth-adres</string>
+    <string name="backup_export_confirm">Locatie kiezen</string>
+    <string name="backup_exported">Configuratie opgeslagen.</string>
+    <string name="backup_export_error">Configuratie niet opgeslagen: %1$s</string>
+    <string name="backup_import_title">Deze configuratie importeren?</string>
+    <string name="backup_import_body">Dit vervangt toegestane apps, filters, bundelen, maximale tekstlengte, thema, taal en dumbphone-modus door de waarden uit het bestand. De bridge-schakelaar blijft ongewijzigd.</string>
+    <string name="backup_import_receiver">Ontvanger: %1$s</string>
+    <string name="backup_import_confirm">Importeren</string>
+    <string name="backup_imported">Configuratie geïmporteerd.</string>
+    <string name="backup_import_error">Configuratie niet geïmporteerd: %1$s</string>
+    <string name="backup_import_receiver_selected">Ontvanger geselecteerd: %1$s.</string>
+    <string name="backup_import_receiver_missing">De ontvanger “%1$s” is niet automatisch geselecteerd. Koppel hem in de Bluetooth-instellingen van Android en kies hem daarna op het tabblad Test.</string>
     <string name="transfer_success">Overdracht voltooid</string>
     <string name="transfer_error">Fout: %1$s</string>
 
@@ -107,8 +158,50 @@
     <string name="history_privacy_note">Alleen de app-naam en de titel worden bewaard, alleen in het geheugen; ze gaan verloren zodra de app volledig wordt afgesloten.</string>
     <string name="history_empty">Nog geen overdrachten.</string>
     <string name="history_clear">Geschiedenis wissen</string>
-    <string name="history_status_sent">Verzonden</string>
     <string name="history_status_failed">Mislukt</string>
+    <string name="history_status_queued">In wachtrij</string>
+    <string name="history_status_connecting">Verbinden</string>
+    <string name="history_status_transferred">Overgedragen naar apparaat</string>
+    <string name="history_status_dropped">Door filter geblokkeerd</string>
+    <string name="history_status_rate_limited">Snelheidsbeperkt</string>
+    <string name="history_status_batched">Gebundeld</string>
+    <string name="history_drop_ongoing">Lopende melding overgeslagen door filter</string>
+    <string name="history_drop_silent">Stille melding overgeslagen door filter</string>
+    <string name="history_drop_calls_disabled">Oproepmeldingen staan uit</string>
+    <string name="history_detail_rate_limited">Te veel meldingen van deze app in één minuut</string>
+    <string name="history_status_note">“Overgedragen naar apparaat” betekent dat de ontvanger het bestand via Bluetooth heeft geaccepteerd. Het bevestigt niet dat iemand de melding heeft gezien.</string>
+    <string name="failure_short_no_receiver">Geen ontvanger gekozen</string>
+    <string name="failure_short_bluetooth_unavailable">Bluetooth niet beschikbaar</string>
+    <string name="failure_short_bluetooth_off">Bluetooth staat uit</string>
+    <string name="failure_short_permission_missing">Bluetooth-toestemming ontbreekt</string>
+    <string name="failure_short_not_paired">Ontvanger niet gekoppeld</string>
+    <string name="failure_short_receiver_unavailable">Ontvanger onbereikbaar</string>
+    <string name="failure_short_timed_out">Time-out</string>
+    <string name="failure_short_receiver_rejected">Ontvanger weigerde bestand</string>
+    <string name="failure_short_paused">Gepauzeerd na fouten</string>
+    <string name="failure_short_unknown">Onverwachte fout</string>
+    <string name="failure_explain_no_receiver">Er is geen ontvanger geselecteerd, dus er was geen bestemming.</string>
+    <string name="failure_explain_bluetooth_unavailable">Deze telefoon meldt geen Bluetooth-ondersteuning.</string>
+    <string name="failure_explain_bluetooth_off">Bluetooth staat uit op deze telefoon.</string>
+    <string name="failure_explain_permission_missing">De app heeft geen toestemming om Bluetooth te gebruiken.</string>
+    <string name="failure_explain_not_paired">De ontvanger is niet meer gekoppeld aan deze telefoon.</string>
+    <string name="failure_explain_receiver_unavailable">De ontvanger was niet te bereiken. Controleer of hij aanstaat, dichtbij is en Bluetooth heeft ingeschakeld.</string>
+    <string name="failure_explain_timed_out">De ontvanger antwoordde niet op tijd.</string>
+    <string name="failure_explain_receiver_rejected">De ontvanger weigerde het bestand of kon het niet begrijpen.</string>
+    <string name="failure_explain_paused">Verzenden is enkele minuten gepauzeerd na herhaalde fouten.</string>
+    <string name="failure_explain_unknown">Er ging iets onverwachts mis. Diagnostiek bevat meer details.</string>
+    <string name="failure_action_open_bluetooth_settings">Bluetooth-instellingen openen</string>
+    <string name="failure_action_grant_permission">Toestemming verlenen</string>
+    <string name="failure_action_turn_on_bluetooth">Bluetooth inschakelen</string>
+    <string name="failure_action_compatibility_test">Compatibiliteitstest verzenden</string>
+    <string name="failure_action_retry_now">Nu opnieuw proberen</string>
+    <string name="failure_action_open_diagnostics">Diagnostiek openen</string>
+    <string name="failure_action_open_notification_access">Instellingen voor toegang tot meldingen openen</string>
+    <string name="history_attempt">Poging %1$d van %2$d</string>
+    <string name="history_attempt_reason">Poging %1$d van %2$d · %3$s</string>
+    <string name="history_listener_disconnected">Android heeft de meldingenlistener losgekoppeld, dus nieuwe meldingen bereiken de bridge niet.</string>
+    <string name="history_listener_no_access">Toegang tot meldingen staat uit, dus geen enkele melding kan de bridge bereiken.</string>
+    <string name="history_retry_unavailable">Deze melding kan niet meer opnieuw worden verstuurd. Hij wordt maar enkele minuten bewaard.</string>
     <string name="diagnostics_title">Diagnose</string>
     <string name="diagnostics_intro">Het rapport bevat de app- en Android-versie, het telefoonmodel, instellingen en technische status. Foutdetails en het logboek zijn weggelaten omdat ze persoonlijke gegevens kunnen bevatten. Controleer het rapport voordat u het deelt. Meldingsinhoud, de naam en het adres van de ontvanger en namen van toegestane apps zijn uitgesloten.</string>
     <string name="diagnostics_copy_button">Diagnose-informatie kopiëren</string>
@@ -143,7 +236,6 @@
     <!-- Pagination -->
 
     <!-- Auto-clear (retention) -->
-    <string name="settings_auto_clear_title">Automatisch wissen</string>
     <string name="settings_auto_clear_enabled">Geschiedenis automatisch wissen</string>
     <string name="settings_auto_clear_desc">Verwijdert items die ouder zijn dan de ingestelde tijd.</string>
     <string name="settings_auto_clear_1h">Na 1 uur</string>
@@ -173,5 +265,21 @@
     <plurals name="action_show_more">
         <item quantity="one">%1$d meer tonen</item>
         <item quantity="other">%1$d meer tonen</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="one">%1$d op te lossen</item>
+        <item quantity="other">%1$d op te lossen</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="one">%1$d bericht wacht</item>
+        <item quantity="other">%1$d berichten wachten</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="one">%1$d bericht gebundeld</item>
+        <item quantity="other">%1$d berichten gebundeld</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="one">%1$d toegestane app</item>
+        <item quantity="other">%1$d toegestane apps</item>
     </plurals>
 </resources>
