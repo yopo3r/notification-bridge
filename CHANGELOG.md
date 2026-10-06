@@ -3,26 +3,6 @@
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning roughly follows [SemVer](https://semver.org/).
 
-## [Unreleased]
-
-### Changed
-- **Settings reorganised** into six collapsible sections, all collapsed at first, each with a
-  one-line description: **Connection** (bridge on/off, auto-reconnect), **Forwarding** (silent,
-  ongoing and duplicate filters, calls, maximum text length, allowed apps), **Privacy**
-  (automatic history clearing), **Reliability** (batching and its interval, dumbphone mode),
-  **Appearance** (theme, custom theme, language) and **Advanced** (test message, configuration
-  file, tutorial). No setting was removed or renamed; which sections are open survives rotation
-  and language changes. Strings in all seven locales (the old "Delivery and maintenance" heading
-  and "Automatic clearing" sub-heading are gone).
-- The scrollbar now fades in quickly and fades out slowly while sliding back into the edge,
-  instead of the default spring.
-
-### Fixed
-- Scrollbar on Home, Diagnostics and About: Home's thumb was drawn inside the scrolling content
-  (so it moved with it); Diagnostics and About, which have a few very different-height items,
-  got a jumpy thumb because the list height was guessed from visible items only. The thumb now
-  uses the heights of every item seen so far.
-
 ## [0.14.0] — Readiness checklist, precise history, config file, clearer failures (2026-10-05)
 
 ### Added
@@ -65,6 +45,10 @@ Versioning roughly follows [SemVer](https://semver.org/).
   phones with three-button navigation (and the top row clears the status bar and cutouts): the
   screen now applies the system-bar insets, which the edge-to-edge activity does not do on its own
   outside a Scaffold.
+  - Scrollbar on Home, Diagnostics and About: Home's thumb was drawn inside the scrolling content
+  (so it moved with it); Diagnostics and About, which have a few very different-height items,
+  got a jumpy thumb because the list height was guessed from visible items only. The thumb now
+  uses the heights of every item seen so far.
 
 ### Changed
 - **History statuses no longer overstate delivery.** "Sent" is now **Transferred to device**
@@ -80,6 +64,16 @@ Versioning roughly follows [SemVer](https://semver.org/).
 - Diagnostics reports the last transfer as "transferred to device" instead of "success".
 - State is re-read every time the app resumes, so returning from a system settings screen
   updates Home without a restart.
+  - **Settings reorganised** into six collapsible sections, all collapsed at first, each with a
+  one-line description: **Connection** (bridge on/off, auto-reconnect), **Forwarding** (silent,
+  ongoing and duplicate filters, calls, maximum text length, allowed apps), **Privacy**
+  (automatic history clearing), **Reliability** (batching and its interval, dumbphone mode),
+  **Appearance** (theme, custom theme, language) and **Advanced** (test message, configuration
+  file, tutorial). No setting was removed or renamed; which sections are open survives rotation
+  and language changes. Strings in all seven locales (the old "Delivery and maintenance" heading
+  and "Automatic clearing" sub-heading are gone).
+- The scrollbar now fades in quickly and fades out slowly while sliding back into the edge,
+  instead of the default spring.
 
 ## [0.13.1] — Privacy, SDK, and release maintenance (2026-10-04)
 
