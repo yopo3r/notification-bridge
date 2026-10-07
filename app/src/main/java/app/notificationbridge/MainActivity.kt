@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.format.DateUtils
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -346,11 +347,12 @@ fun BridgeApp(vm: MainViewModel) {
         stringResource(R.string.tab_about)
     )
 
-    if (!s.onboardingCompleted || showOnboardingManually) {
-        OnboardingScreen(onFinished = {
-            if (!s.onboardingCompleted) vm.setOnboardingCompleted(true)
-            showOnboardingManually = false
-        })
+    // First run: the tutorial replaces the whole UI, and finishing it lands on Home (the pager
+    // below is created fresh at page 0). A tutorial reopened from Settings is instead drawn as
+    // an overlay on top of the live UI (see the end of the Scaffold), so the user comes back to
+    // exactly the section, scroll position and expanded groups they left.
+    if (!s.onboardingCompleted) {
+        OnboardingScreen(onFinished = { vm.setOnboardingCompleted(true) })
         return
     }
 
@@ -360,148 +362,161 @@ fun BridgeApp(vm: MainViewModel) {
         coroutineScope.launch { pagerState.animateScrollToPage(index) }
     }
 
-    Scaffold(
-        topBar = {
-            Column {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.app_name)) },
-                    actions = { LinksMenu() }
-                )
-                BoxWithConstraints {
-                    val tabRowContent: @Composable () -> Unit = {
-                        tabLabels.forEachIndexed { index, label ->
-                            Tab(
-                                selected = pagerState.currentPage == index,
-                                onClick = { goToTab(index) },
-                                text = {
-                                    Text(
-                                        label,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                        style = MaterialTheme.typography.labelLarge
-                                    )
-                                }
+    Box(Modifier.fillMaxSize()) {
+        Scaffold(
+            topBar = {
+                Column {
+                    TopAppBar(
+                        title = { Text(stringResource(R.string.app_name)) },
+                        actions = { LinksMenu() }
+                    )
+                    BoxWithConstraints {
+                        val tabRowContent: @Composable () -> Unit = {
+                            tabLabels.forEachIndexed { index, label ->
+                                Tab(
+                                    selected = pagerState.currentPage == index,
+                                    onClick = { goToTab(index) },
+                                    text = {
+                                        Text(
+                                            label,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            style = MaterialTheme.typography.labelLarge
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                        if (maxWidth >= WIDE_LAYOUT_BREAKPOINT) {
+                            PrimaryTabRow(selectedTabIndex = pagerState.currentPage, tabs = tabRowContent)
+                        } else {
+                            PrimaryScrollableTabRow(
+                                selectedTabIndex = pagerState.currentPage,
+                                edgePadding = 8.dp,
+                                tabs = tabRowContent
                             )
                         }
                     }
-                    if (maxWidth >= WIDE_LAYOUT_BREAKPOINT) {
-                        PrimaryTabRow(selectedTabIndex = pagerState.currentPage, tabs = tabRowContent)
-                    } else {
-                        PrimaryScrollableTabRow(
-                            selectedTabIndex = pagerState.currentPage,
-                            edgePadding = 8.dp,
-                            tabs = tabRowContent
+                }
+            }
+        ) { padding ->
+            HorizontalPager(state = pagerState, modifier = Modifier.padding(padding)) { page ->
+                Box(Modifier.padding(16.dp)) {
+                    when (page) {
+                        0 -> Home(
+                            s = s,
+                            u = vm.homeState.collectAsState(initial = HomeRuntimeState(false, 0)).value,
+                            readiness = vm.readiness.collectAsState().value,
+                            onTest = { goToTab(1) },
+                            onNotificationAccess = {
+                                context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+                            },
+                            onSettings = { goToTab(3) },
+                            onReadinessAction = { item ->
+                                when (item) {
+                                    ReadinessItem.NOTIFICATION_ACCESS,
+                                    ReadinessItem.LISTENER_CONNECTED ->
+                                        openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+                                    ReadinessItem.BLUETOOTH_ENABLED -> requestPermissionsAndBluetooth()
+                                    ReadinessItem.RECEIVER_SELECTED,
+                                    ReadinessItem.RECEIVER_PAIRED,
+                                    ReadinessItem.LAST_TRANSFER -> goToTab(1)
+                                    ReadinessItem.BRIDGE_ENABLED -> goToTab(3)
+                                    ReadinessItem.BATTERY_OPTIMIZATION ->
+                                        openSystemScreen(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
+                                }
+                            }
                         )
+                        1 -> TestScreen(
+                            devices = devices,
+                            selected = s.selectedAddress,
+                            onLoadDevices = vm::loadPairedDevices,
+                            onSelect = vm::selectDevice,
+                            onTest = { device ->
+                                vm.test(context, device, s.testSampleKind) { result ->
+                                    resultMessage = result.fold(
+                                        onSuccess = { successText },
+                                        onFailure = { e ->
+                                            errorTemplate.format(context.getString(FailureClassifier.classify(e).explanationRes()))
+                                        }
+                                    )
+                                }
+                            },
+                            onRequestPermission = ::requestPermissionsAndBluetooth
+                        )
+                        2 -> HistoryScreen(
+                            state = vm.historyState.collectAsState(initial = HistoryRuntimeState(emptyList(), false, false)).value,
+                            bridgeEnabled = s.bridgeEnabled,
+                            hasReceiver = s.selectedAddress != null,
+                            onClear = vm::clearHistory,
+                            onAction = { action, record ->
+                                when (action) {
+                                    FailureAction.OPEN_BLUETOOTH_SETTINGS -> openSystemScreen(Settings.ACTION_BLUETOOTH_SETTINGS)
+                                    FailureAction.GRANT_PERMISSION ->
+                                        if (Build.VERSION.SDK_INT >= 31) {
+                                            grantLauncher.launch(
+                                                arrayOf(Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN)
+                                            )
+                                        } else vm.refresh()
+                                    FailureAction.TURN_ON_BLUETOOTH -> requestPermissionsAndBluetooth()
+                                    FailureAction.CHOOSE_RECEIVER -> goToTab(1)
+                                    FailureAction.SEND_COMPATIBILITY_TEST -> {
+                                        val address = s.selectedAddress
+                                        if (address == null) goToTab(1)
+                                        else vm.compatibilityTest(context, address) { result ->
+                                            resultMessage = result.fold(
+                                                onSuccess = { successText },
+                                                onFailure = { e ->
+                                                    errorTemplate.format(
+                                                        context.getString(FailureClassifier.classify(e).explanationRes())
+                                                    )
+                                                }
+                                            )
+                                        }
+                                    }
+                                    FailureAction.RETRY_NOW ->
+                                        if (record == null || !vm.retry(record.id)) resultMessage = retryUnavailableText
+                                    FailureAction.OPEN_DIAGNOSTICS -> goToTab(4)
+                                    FailureAction.OPEN_NOTIFICATION_ACCESS ->
+                                        openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+                                }
+                            }
+                        )
+                        3 -> SettingsScreen(
+                            s = s,
+                            apps = apps,
+                            vm = vm,
+                            onLoadApps = vm::loadApps,
+                            onShowTutorial = { showOnboardingManually = true },
+                            onExportConfig = { showExportDialog = true },
+                            onRestoreDefaults = { showRestoreDefaultsDialog = true },
+                            onImportConfig = {
+                                importPicker.launch(arrayOf("text/plain", "application/octet-stream"))
+                            },
+                            onImportCustomTheme = {
+                                customThemePicker.launch(arrayOf("text/plain", "application/octet-stream"))
+                            },
+                            onResetCustomTheme = vm::clearCustomTheme
+                        )
+                        4 -> {
+                            val diagnosticsState = vm.state.collectAsState(initial = BridgeUiState()).value
+                            val report = remember(diagnosticsState, s) { vm.buildDiagnosticsReport(s, diagnosticsState) }
+                            DiagnosticsScreen(report = report)
+                        }
+                        else -> AboutScreen()
                     }
                 }
             }
         }
-    ) { padding ->
-        HorizontalPager(state = pagerState, modifier = Modifier.padding(padding)) { page ->
-            Box(Modifier.padding(16.dp)) {
-                when (page) {
-                    0 -> Home(
-                        s = s,
-                        u = vm.homeState.collectAsState(initial = HomeRuntimeState(false, 0)).value,
-                        readiness = vm.readiness.collectAsState().value,
-                        onTest = { goToTab(1) },
-                        onNotificationAccess = {
-                            context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
-                        },
-                        onSettings = { goToTab(3) },
-                        onReadinessAction = { item ->
-                            when (item) {
-                                ReadinessItem.NOTIFICATION_ACCESS,
-                                ReadinessItem.LISTENER_CONNECTED ->
-                                    openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
-                                ReadinessItem.BLUETOOTH_ENABLED -> requestPermissionsAndBluetooth()
-                                ReadinessItem.RECEIVER_SELECTED,
-                                ReadinessItem.RECEIVER_PAIRED,
-                                ReadinessItem.LAST_TRANSFER -> goToTab(1)
-                                ReadinessItem.BRIDGE_ENABLED -> goToTab(3)
-                                ReadinessItem.BATTERY_OPTIMIZATION ->
-                                    openSystemScreen(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
-                            }
-                        }
-                    )
-                    1 -> TestScreen(
-                        devices = devices,
-                        selected = s.selectedAddress,
-                        onLoadDevices = vm::loadPairedDevices,
-                        onSelect = vm::selectDevice,
-                        onTest = { device ->
-                            vm.test(context, device, s.testSampleKind) { result ->
-                                resultMessage = result.fold(
-                                    onSuccess = { successText },
-                                    onFailure = { e ->
-                                        errorTemplate.format(context.getString(FailureClassifier.classify(e).explanationRes()))
-                                    }
-                                )
-                            }
-                        },
-                        onRequestPermission = ::requestPermissionsAndBluetooth
-                    )
-                    2 -> HistoryScreen(
-                        state = vm.historyState.collectAsState(initial = HistoryRuntimeState(emptyList(), false, false)).value,
-                        bridgeEnabled = s.bridgeEnabled,
-                        hasReceiver = s.selectedAddress != null,
-                        onClear = vm::clearHistory,
-                        onAction = { action, record ->
-                            when (action) {
-                                FailureAction.OPEN_BLUETOOTH_SETTINGS -> openSystemScreen(Settings.ACTION_BLUETOOTH_SETTINGS)
-                                FailureAction.GRANT_PERMISSION ->
-                                    if (Build.VERSION.SDK_INT >= 31) {
-                                        grantLauncher.launch(
-                                            arrayOf(Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN)
-                                        )
-                                    } else vm.refresh()
-                                FailureAction.TURN_ON_BLUETOOTH -> requestPermissionsAndBluetooth()
-                                FailureAction.CHOOSE_RECEIVER -> goToTab(1)
-                                FailureAction.SEND_COMPATIBILITY_TEST -> {
-                                    val address = s.selectedAddress
-                                    if (address == null) goToTab(1)
-                                    else vm.compatibilityTest(context, address) { result ->
-                                        resultMessage = result.fold(
-                                            onSuccess = { successText },
-                                            onFailure = { e ->
-                                                errorTemplate.format(
-                                                    context.getString(FailureClassifier.classify(e).explanationRes())
-                                                )
-                                            }
-                                        )
-                                    }
-                                }
-                                FailureAction.RETRY_NOW ->
-                                    if (record == null || !vm.retry(record.id)) resultMessage = retryUnavailableText
-                                FailureAction.OPEN_DIAGNOSTICS -> goToTab(4)
-                                FailureAction.OPEN_NOTIFICATION_ACCESS ->
-                                    openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
-                            }
-                        }
-                    )
-                    3 -> SettingsScreen(
-                        s = s,
-                        apps = apps,
-                        vm = vm,
-                        onLoadApps = vm::loadApps,
-                        onShowTutorial = { showOnboardingManually = true },
-                        onExportConfig = { showExportDialog = true },
-                        onRestoreDefaults = { showRestoreDefaultsDialog = true },
-                        onImportConfig = {
-                            importPicker.launch(arrayOf("text/plain", "application/octet-stream"))
-                        },
-                        onImportCustomTheme = {
-                            customThemePicker.launch(arrayOf("text/plain", "application/octet-stream"))
-                        },
-                        onResetCustomTheme = vm::clearCustomTheme
-                    )
-                    4 -> {
-                        val diagnosticsState = vm.state.collectAsState(initial = BridgeUiState()).value
-                        val report = remember(diagnosticsState, s) { vm.buildDiagnosticsReport(s, diagnosticsState) }
-                        DiagnosticsScreen(report = report)
-                    }
-                    else -> AboutScreen()
-                }
+
+        if (showOnboardingManually) {
+            BackHandler { showOnboardingManually = false }
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground
+            ) {
+                OnboardingScreen(onFinished = { showOnboardingManually = false })
             }
         }
     }

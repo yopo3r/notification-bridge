@@ -38,6 +38,12 @@ Versioning roughly follows [SemVer](https://semver.org/).
   by the other scripts ordered by their English name (简体中文, 日本語, 한국어, Русский).
   `ConfigFile.LANGUAGES` follows the same order.
 
+### Fixed
+- "Show tutorial" in Settings no longer sends you back to Home when the tutorial ends (or is
+  skipped). It is now drawn as an overlay on top of the app, so you return to the same tab,
+  scroll position and expanded Settings groups; the system Back button also closes it. The
+  very first run still ends on Home.
+
 ### Tests
 - `ConfigFileTest` uses `"ar"` as its example of an unsupported language (previously `"ja"`,
   which is now supported) and checks that `ja`, `ko`, `ru` and `zh` are accepted.
