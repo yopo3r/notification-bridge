@@ -17,8 +17,8 @@ android {
         applicationId = "app.notificationbridge"
         minSdk = 25
         targetSdk = 37
-        versionCode = 22
-        versionName = "0.14.1"
+        versionCode = 24
+        versionName = "0.15.0"
     }
     buildFeatures { compose = true; buildConfig = true }
     signingConfigs {

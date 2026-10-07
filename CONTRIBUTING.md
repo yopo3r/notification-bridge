@@ -1,55 +1,64 @@
 # Contributing to Notification Bridge
 
-Thanks for your interest in the project. It's a small, single-purpose app, so the rules are
-simple.
+Thanks for taking an interest. This is a small app with a narrow purpose, so the process is light.
 
 ## Reporting a bug
 
-Open an [Issue](../../issues/new) and include:
+Open an [issue](https://github.com/yopo3r/notification-bridge/issues/new) and include:
 
-- Model and Android version of the phone running the app (the "smartphone").
-- Model of the receiving device, if relevant (the project was tested against an
-  **Alcatel 3080A** via OBEX Object Push; other OBEX receivers should work but aren't
-  guaranteed).
-- Steps to reproduce the issue.
-- The output of **Diagnostics → Copy diagnostic info**. Review it before posting: it includes
-  the phone model, Android version, settings and technical state, but omits notification content,
-  exception details, allowed app names, and the receiver's name and address.
-- If the problem needs more detail, a log from a **debug build** using
-  `adb logcat -s BridgeRuntime` (release builds don't write to logcat). Review and redact it
-  before sharing; it can contain package names, receiver addresses, and title-derived file names.
-- **Never** include the actual content of your notifications, phone numbers, or MAC
-  addresses in a public issue.
+- The model and Android version of the phone running the app.
+- The model of the receiving device, if it matters. The project has only been tested with an Alcatel 3080A over OBEX Object Push. Other receivers should work but aren't guaranteed to.
+- The steps to reproduce the problem.
+- The output of Diagnostics → Copy diagnostic info. It contains the phone model, the Android version, the settings and some technical state. It leaves out notification content, exception details, the names of allowed apps and the receiver's name and address. Read it before you post it anyway.
+- If that isn't enough, a log from a debug build: `adb logcat -s BridgeRuntime`. Release builds don't write to logcat. The log can contain package names, receiver addresses and file names derived from notification titles, so redact it first.
 
-## Proposing a feature
+Never put the content of your notifications, phone numbers or Bluetooth (MAC) addresses in a public issue.
 
-Open an Issue describing the use case before sending a large Pull Request, to align
-expectations first.
+If you think you have found a security problem, don't open an issue. Follow [SECURITY.md](SECURITY.md) instead.
 
-## Pull Requests
+## Suggesting a feature
 
-1. Fork the repo and work on a branch with a descriptive name.
-2. Keep changes focused — one PR, one topic.
-3. If you touch the Bluetooth/OBEX logic or the notification pipeline, explain in the PR
-   description what you tested and on which device(s).
-4. Run `python3 scripts/check_string_resources.py` and
-  `./gradlew testDebugUnitTest lintDebug` locally before opening the PR. The first check exists
-  because AAPT2's error for an unescaped apostrophe
-   in a string resource is close to useless (see the troubleshooting table in the README).
-5. Add or update unit tests for new logic that doesn't depend on real Bluetooth hardware
-   (see `app/src/test/`).
-6. If you add or change a translation, keep the same set of string keys across every
-   `values*/strings.xml` file (English is the most complete reference).
+For anything bigger than a small tweak, open an issue that describes the use case before writing code. It's easier to agree on the approach first than to rework a finished pull request.
+
+## Building and testing
+
+```bash
+./gradlew assembleDebug
+./gradlew testDebugUnitTest lintDebug
+python3 scripts/check_string_resources.py
+```
+
+The unit tests run on the plain JVM and need no device or Bluetooth hardware. Anything that touches the Bluetooth or OBEX code can only be checked on real devices, which is why pull requests that change it need to say what was tested (see below).
+
+The Python script exists because AAPT2's error for an unescaped apostrophe in a string resource (`Can not extract resource from ...ParsedResource@...`) doesn't say which file or string is wrong. The script does.
+
+## Pull requests
+
+1. Fork the repository and work on a branch with a descriptive name.
+2. Keep each pull request to one topic.
+3. If you change the Bluetooth or OBEX code or the notification pipeline, say in the description what you tested and on which devices.
+4. Run the three commands above before you open the pull request.
+5. Add or update unit tests for logic that doesn't depend on Bluetooth hardware. They live in `app/src/test/`.
+6. Follow the official Kotlin code style, and keep user-visible text in string resources instead of in the code.
+
+## Translations
+
+`values/strings.xml` is Spanish and is the default. `values-en/strings.xml` is English. Every `values*/strings.xml` file has to define the same set of keys, and plural strings need the forms the language uses.
+
+To add a language:
+
+1. Create `app/src/main/res/values-xx/strings.xml` with every key.
+2. Add the language's name, written in that language, as a `language_*` string in every locale, and add a radio option for it in the language picker (Settings → Appearance) in `MainActivity.kt`.
+3. Add the locale to `app/src/main/res/xml/locales_config.xml`.
+4. Add its code to `ConfigFile.LANGUAGES`, so the language survives a configuration export and import.
+5. Update the list of languages in the README.
 
 ## What to avoid
 
-- Don't add new dependencies without justification — the project is intentionally kept
-  lightweight.
-- Don't commit builds (`*.apk`), keystores, or logcat captures containing personal data.
-- Don't assume every OBEX receiver behaves the same way; if your change depends on a specific
-  device's behavior, say so explicitly.
+- New dependencies without a good reason. The app is deliberately small.
+- Committing builds (`*.apk`), keystores, `release-signing.properties` or logcat captures that contain personal data.
+- Assuming that every OBEX receiver behaves like the Alcatel 3080A. If your change depends on how one particular device behaves, say so.
 
 ## License
 
-By contributing, you agree that your code will be published under the project's license
-(see [LICENSE](LICENSE)).
+By contributing, you agree that your contribution will be released under the project's license (see [LICENSE](LICENSE)).

@@ -87,6 +87,7 @@ object DiagnosticsReport {
             "Auto-reconnect: ${yesNo(settings.autoReconnect)}",
             "Dumbphone mode: ${yesNo(settings.dumbphoneMode)}",
             "Batching enabled: ${yesNo(settings.batchingEnabled)} (cooldown: ${settings.batchingCooldownSeconds}s)",
+            "Message format: ${settings.messageFormat.name.lowercase()}",
             "Notify calls: ${yesNo(settings.notifyOnCalls)}",
             "Ignore silent: ${yesNo(settings.ignoreSilent)}",
             "Ignore ongoing: ${yesNo(settings.ignoreOngoing)}",

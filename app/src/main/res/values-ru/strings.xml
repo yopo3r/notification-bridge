@@ -3,7 +3,7 @@
 
     <!-- Tabs -->
     <string name="tab_home">Главная</string>
-    <string name="tab_test">Тест</string>
+    <string name="tab_test">Приёмник</string>
     <string name="tab_settings">Настройки</string>
     <string name="tab_about">О приложении</string>
 
@@ -119,7 +119,7 @@
     <string name="backup_imported">Конфигурация импортирована.</string>
     <string name="backup_import_error">Конфигурация не импортирована: %1$s</string>
     <string name="backup_import_receiver_selected">Приёмник выбран: %1$s.</string>
-    <string name="backup_import_receiver_missing">Приёмник «%1$s» не был выбран автоматически. Выполните сопряжение в настройках Bluetooth Android, затем выберите его на вкладке «Тест».</string>
+    <string name="backup_import_receiver_missing">Приёмник «%1$s» не был выбран автоматически. Выполните сопряжение в настройках Bluetooth Android, затем выберите его на вкладке «Приёмник».</string>
     <string name="transfer_success">Передача завершена</string>
     <string name="transfer_error">Ошибка: %1$s</string>
 
@@ -134,13 +134,13 @@
     <string name="onboarding_step2_title">Сопрягите другое устройство</string>
     <string name="onboarding_step2_desc">Перед использованием приложения выполните сопряжение принимающего телефона в настройках Bluetooth Android — так же, как с наушниками.</string>
     <string name="onboarding_step3_title">Выберите Bluetooth-устройство</string>
-    <string name="onboarding_step3_desc">На вкладке «Тест» этого приложения выберите из списка уже сопряжённое устройство, которое будет получать уведомления.</string>
+    <string name="onboarding_step3_desc">На вкладке «Приёмник» этого приложения выберите из списка уже сопряжённое устройство, которое будет получать уведомления.</string>
     <string name="onboarding_step4_title">Предоставьте доступ к уведомлениям</string>
     <string name="onboarding_step4_desc">На главной странице нажмите «Доступ к уведомлениям» и включите разрешение для этого приложения в системных настройках. Без этого шага уведомления прочитать нельзя.</string>
     <string name="onboarding_step5_title">Выберите приложения для пересылки</string>
     <string name="onboarding_step5_desc">В настройках отметьте приложения, уведомления которых нужно пересылать (WhatsApp, почта и т. д.), и включите «Включить мост».</string>
     <string name="onboarding_step6_title">Отправьте тест</string>
-    <string name="onboarding_step6_desc">На вкладке «Тест» нажмите «Отправить тестовый файл», чтобы убедиться, что передача по Bluetooth работает, прежде чем полагаться на настоящие уведомления.</string>
+    <string name="onboarding_step6_desc">На вкладке «Приёмник» нажмите «Отправить тестовый файл», чтобы убедиться, что передача по Bluetooth работает, прежде чем полагаться на настоящие уведомления.</string>
 
     <!-- About -->
     <string name="settings_show_tutorial_button">Показать обучение</string>
@@ -221,6 +221,10 @@
     <string name="error_notification_text">Убедитесь, что принимающее устройство включено, сопряжено и находится рядом. Нажмите, чтобы открыть приложение.</string>
 
     <!-- Text length limit, test-content kinds -->
+    <string name="settings_message_format_title">Формат сообщения</string>
+    <string name="settings_message_format_text">Текстовый файл (.txt): работает на любом приёмнике</string>
+    <string name="settings_message_format_vmessage">vMessage (.vmg): приходит как SMS на совместимых телефонах</string>
+    <string name="settings_message_format_note">vMessage понимают не все приёмники. Если ваш его не принимает, вернитесь к текстовому файлу.</string>
     <string name="settings_text_length_title">Максимальная длина текста</string>
     <string name="settings_text_length_short">Короткий (200 символов)</string>
     <string name="settings_text_length_medium">Средний (700 символов)</string>
@@ -242,6 +246,8 @@
     <!-- Auto-clear (retention) -->
     <string name="settings_auto_clear_enabled">Автоматически очищать историю</string>
     <string name="settings_auto_clear_desc">Удаляет записи старше заданного времени.</string>
+    <string name="settings_secure_screen">Скрывать в снимках экрана и недавних</string>
+    <string name="settings_secure_screen_desc">Блокирует снимки экрана и скрывает превью приложения в списке недавних.</string>
     <string name="settings_auto_clear_1h">Через 1 час</string>
     <string name="settings_auto_clear_6h">Через 6 часов</string>
     <string name="settings_auto_clear_24h">Через 24 часа</string>

@@ -3,7 +3,7 @@
 
     <!-- Tabs -->
     <string name="tab_home">Inicio</string>
-    <string name="tab_test">Prueba</string>
+    <string name="tab_test">Receptor</string>
     <string name="tab_settings">Ajustes</string>
     <string name="tab_about">Acerca de</string>
 
@@ -59,7 +59,7 @@
     <string name="readiness_battery_optimized">Optimizada</string>
 
     <!-- Test -->
-    <string name="test_title">Prueba de Bluetooth / OBEX</string>
+    <string name="test_title">Bluetooth / OBEX</string>
     <string name="test_send_button">Enviar archivo único</string>
 
     <!-- Settings -->
@@ -119,7 +119,7 @@
     <string name="backup_imported">Configuración importada.</string>
     <string name="backup_import_error">No se importó la configuración: %1$s</string>
     <string name="backup_import_receiver_selected">Receptor seleccionado: %1$s.</string>
-    <string name="backup_import_receiver_missing">El receptor «%1$s» no se seleccionó automáticamente. Empareja el dispositivo en los ajustes Bluetooth de Android y elígelo en la pestaña Prueba.</string>
+    <string name="backup_import_receiver_missing">El receptor «%1$s» no se seleccionó automáticamente. Empareja el dispositivo en los ajustes Bluetooth de Android y elígelo en la pestaña Receptor.</string>
     <string name="transfer_success">Transferencia completada</string>
     <string name="transfer_error">Error: %1$s</string>
 
@@ -134,13 +134,13 @@
     <string name="onboarding_step2_title">Emparejar el otro dispositivo</string>
     <string name="onboarding_step2_desc">Antes de usar la aplicación, empareja el teléfono receptor desde la configuración de Bluetooth de Android, igual que harías con unos auriculares.</string>
     <string name="onboarding_step3_title">Elegir el dispositivo Bluetooth</string>
-    <string name="onboarding_step3_desc">En la pestaña Prueba, elige de la lista el dispositivo emparejado que recibirá las notificaciones.</string>
+    <string name="onboarding_step3_desc">En la pestaña Receptor, elige de la lista el dispositivo emparejado que recibirá las notificaciones.</string>
     <string name="onboarding_step4_title">Dar acceso a notificaciones</string>
     <string name="onboarding_step4_desc">Desde Inicio, toca «Acceso a notificaciones» y concede el permiso a esta aplicación en la configuración del sistema. Sin este paso, la aplicación no puede leer las notificaciones.</string>
     <string name="onboarding_step5_title">Seleccionar aplicaciones para reenviar</string>
     <string name="onboarding_step5_desc">En Ajustes, selecciona las aplicaciones cuyas notificaciones quieres reenviar (por ejemplo, mensajería o correo) y activa el interruptor «Activar bridge».</string>
     <string name="onboarding_step6_title">Probar el envío</string>
-    <string name="onboarding_step6_desc">En la pestaña Prueba, toca «Enviar archivo único» para confirmar que la transferencia por Bluetooth funciona antes de reenviar notificaciones.</string>
+    <string name="onboarding_step6_desc">En la pestaña Receptor, toca «Enviar archivo único» para confirmar que la transferencia por Bluetooth funciona antes de reenviar notificaciones.</string>
 
     <!-- About -->
     <string name="settings_show_tutorial_button">Ver tutorial</string>
@@ -221,6 +221,10 @@
     <string name="error_notification_text">Comprueba que el dispositivo receptor esté encendido, emparejado y cerca. Toca para abrir la aplicación.</string>
 
     <!-- Text length limit, test-content kinds -->
+    <string name="settings_message_format_title">Formato del mensaje</string>
+    <string name="settings_message_format_text">Archivo de texto (.txt): funciona en cualquier receptor</string>
+    <string name="settings_message_format_vmessage">vMessage (.vmg): llega como mensaje de texto en teléfonos compatibles</string>
+    <string name="settings_message_format_note">Solo algunos receptores entienden vMessage. Si el tuyo no lo acepta, vuelve a archivo de texto.</string>
     <string name="settings_text_length_title">Longitud máxima del texto</string>
     <string name="settings_text_length_short">Breve (200 caracteres)</string>
     <string name="settings_text_length_medium">Medio (700 caracteres)</string>
@@ -242,6 +246,8 @@
     <!-- Auto-clear (retention) -->
     <string name="settings_auto_clear_enabled">Borrar historial automáticamente</string>
     <string name="settings_auto_clear_desc">Elimina las entradas más antiguas que el tiempo configurado.</string>
+    <string name="settings_secure_screen">Ocultar en capturas y recientes</string>
+    <string name="settings_secure_screen_desc">Bloquea las capturas de pantalla y oculta la vista previa de la app en la lista de recientes.</string>
     <string name="settings_auto_clear_1h">Después de 1 hora</string>
     <string name="settings_auto_clear_6h">Después de 6 horas</string>
     <string name="settings_auto_clear_24h">Después de 24 horas</string>

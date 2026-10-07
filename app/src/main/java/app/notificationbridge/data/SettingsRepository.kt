@@ -26,6 +26,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import app.notificationbridge.config.ConfigSnapshot
 import app.notificationbridge.format.NotificationFormatter
 import app.notificationbridge.model.BridgeSettings
+import app.notificationbridge.model.MessageFormat
 import app.notificationbridge.model.PairedDevice
 import app.notificationbridge.model.TestSampleKind
 import app.notificationbridge.model.ThemeMode
@@ -65,11 +66,13 @@ class SettingsRepository(context: Context) {
         val onboardingCompleted = booleanPreferencesKey("onboarding_completed")
         val dumbphoneMode = booleanPreferencesKey("dumbphone_mode")
         val maxTextChars = intPreferencesKey("max_text_chars")
+        val messageFormat = stringPreferencesKey("message_format")
         val batchingEnabled = booleanPreferencesKey("batching_enabled")
         val batchingCooldownSeconds = intPreferencesKey("batching_cooldown_seconds")
         val testSampleKind = stringPreferencesKey("test_sample_kind")
         val autoClearEnabled = booleanPreferencesKey("auto_clear_enabled")
         val autoClearHours = intPreferencesKey("auto_clear_hours")
+        val secureScreen = booleanPreferencesKey("secure_screen")
         val packages = stringSetPreferencesKey("allowed_packages")
     }
 
@@ -92,6 +95,8 @@ class SettingsRepository(context: Context) {
             dumbphoneMode = p[K.dumbphoneMode] ?: false,
             maxTextChars = (p[K.maxTextChars] ?: NotificationFormatter.DEFAULT_MAX_TEXT_CHARS)
                 .coerceIn(MIN_TEXT_CHARS, MAX_TEXT_CHARS),
+            messageFormat = runCatching { MessageFormat.valueOf(p[K.messageFormat] ?: "TEXT_FILE") }
+                .getOrDefault(MessageFormat.TEXT_FILE),
             batchingEnabled = p[K.batchingEnabled] ?: false,
             batchingCooldownSeconds = (p[K.batchingCooldownSeconds] ?: DEFAULT_BATCHING_COOLDOWN_SECONDS)
                 .coerceIn(MIN_BATCHING_COOLDOWN_SECONDS, MAX_BATCHING_COOLDOWN_SECONDS),
@@ -100,6 +105,7 @@ class SettingsRepository(context: Context) {
             autoClearEnabled = p[K.autoClearEnabled] ?: true,
             autoClearHours = (p[K.autoClearHours] ?: DEFAULT_AUTO_CLEAR_HOURS)
                 .coerceIn(MIN_AUTO_CLEAR_HOURS, MAX_AUTO_CLEAR_HOURS),
+            secureScreen = p[K.secureScreen] ?: false,
             allowedPackages = p[K.packages] ?: emptySet()
         )
     }
@@ -120,6 +126,10 @@ class SettingsRepository(context: Context) {
 
     suspend fun setMaxTextChars(v: Int) {
         appContext.dataStore.edit { it[K.maxTextChars] = v.coerceIn(MIN_TEXT_CHARS, MAX_TEXT_CHARS) }
+    }
+
+    suspend fun setMessageFormat(v: MessageFormat) {
+        appContext.dataStore.edit { it[K.messageFormat] = v.name }
     }
 
     suspend fun setBatchingEnabled(v: Boolean) = edit(K.batchingEnabled, v)
@@ -146,6 +156,7 @@ class SettingsRepository(context: Context) {
     }
 
     suspend fun setAutoClearEnabled(v: Boolean) = edit(K.autoClearEnabled, v)
+    suspend fun setSecureScreen(v: Boolean) = edit(K.secureScreen, v)
 
     suspend fun setAutoClearHours(v: Int) {
         appContext.dataStore.edit { it[K.autoClearHours] = v.coerceIn(MIN_AUTO_CLEAR_HOURS, MAX_AUTO_CLEAR_HOURS) }
@@ -172,6 +183,7 @@ class SettingsRepository(context: Context) {
             p[K.batchingCooldownSeconds] = config.batchingCooldownSeconds
                 .coerceIn(MIN_BATCHING_COOLDOWN_SECONDS, MAX_BATCHING_COOLDOWN_SECONDS)
             p[K.maxTextChars] = config.maxTextChars.coerceIn(MIN_TEXT_CHARS, MAX_TEXT_CHARS)
+            p[K.messageFormat] = config.messageFormat.name
             p[K.themeMode] = config.themeMode.name
             val theme = config.customThemeSource
             if (theme == null) p.remove(K.customThemeSource) else p[K.customThemeSource] = theme

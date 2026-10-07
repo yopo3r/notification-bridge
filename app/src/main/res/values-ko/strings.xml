@@ -3,7 +3,7 @@
 
     <!-- Tabs -->
     <string name="tab_home">홈</string>
-    <string name="tab_test">테스트</string>
+    <string name="tab_test">수신 기기</string>
     <string name="tab_settings">설정</string>
     <string name="tab_about">정보</string>
 
@@ -119,7 +119,7 @@
     <string name="backup_imported">설정을 가져왔습니다.</string>
     <string name="backup_import_error">설정을 가져오지 못했습니다: %1$s</string>
     <string name="backup_import_receiver_selected">수신 기기를 선택했습니다: %1$s.</string>
-    <string name="backup_import_receiver_missing">수신 기기 “%1$s”을(를) 자동으로 선택하지 못했습니다. Android Bluetooth 설정에서 페어링한 다음 테스트 탭에서 선택하세요.</string>
+    <string name="backup_import_receiver_missing">수신 기기 “%1$s”을(를) 자동으로 선택하지 못했습니다. Android Bluetooth 설정에서 페어링한 다음 수신 기기 탭에서 선택하세요.</string>
     <string name="transfer_success">전송 완료</string>
     <string name="transfer_error">오류: %1$s</string>
 
@@ -134,13 +134,13 @@
     <string name="onboarding_step2_title">상대 기기 페어링</string>
     <string name="onboarding_step2_desc">앱을 사용하기 전에 Android의 Bluetooth 설정에서 수신 휴대폰을 페어링하세요. 이어폰을 페어링하는 것과 같은 방법입니다.</string>
     <string name="onboarding_step3_title">Bluetooth 기기 선택</string>
-    <string name="onboarding_step3_desc">이 앱의 테스트 탭에서 알림을 받을 기기를 페어링된 기기 목록에서 선택하세요.</string>
+    <string name="onboarding_step3_desc">이 앱의 수신 기기 탭에서 알림을 받을 기기를 페어링된 기기 목록에서 선택하세요.</string>
     <string name="onboarding_step4_title">알림 접근 허용</string>
     <string name="onboarding_step4_desc">홈에서 “알림 접근”을 누르고 시스템 설정에서 이 앱의 권한을 켜세요. 이 단계를 거치지 않으면 알림을 읽을 수 없습니다.</string>
     <string name="onboarding_step5_title">전달할 앱 선택</string>
     <string name="onboarding_step5_desc">설정에서 알림을 전달할 앱(WhatsApp, 이메일 등)을 체크하고 “브리지 사용”을 켜세요.</string>
     <string name="onboarding_step6_title">테스트 보내기</string>
-    <string name="onboarding_step6_desc">테스트 탭에서 “테스트 파일 보내기”를 눌러, 실제 알림에 의존하기 전에 Bluetooth 전송이 작동하는지 확인하세요.</string>
+    <string name="onboarding_step6_desc">수신 기기 탭에서 “테스트 파일 보내기”를 눌러, 실제 알림에 의존하기 전에 Bluetooth 전송이 작동하는지 확인하세요.</string>
 
     <!-- About -->
     <string name="settings_show_tutorial_button">튜토리얼 보기</string>
@@ -221,6 +221,10 @@
     <string name="error_notification_text">수신 기기의 전원이 켜져 있고, 페어링되어 있으며, 가까이 있는지 확인하세요. 누르면 앱이 열립니다.</string>
 
     <!-- Text length limit, test-content kinds -->
+    <string name="settings_message_format_title">메시지 형식</string>
+    <string name="settings_message_format_text">텍스트 파일(.txt): 모든 수신 기기에서 작동</string>
+    <string name="settings_message_format_vmessage">vMessage(.vmg): 호환되는 휴대전화에서 문자 메시지로 도착</string>
+    <string name="settings_message_format_note">vMessage를 이해하는 수신 기기는 일부뿐입니다. 받지 않으면 텍스트 파일로 되돌리세요.</string>
     <string name="settings_text_length_title">최대 텍스트 길이</string>
     <string name="settings_text_length_short">짧게 (200자)</string>
     <string name="settings_text_length_medium">보통 (700자)</string>
@@ -242,6 +246,8 @@
     <!-- Auto-clear (retention) -->
     <string name="settings_auto_clear_enabled">기록 자동 삭제</string>
     <string name="settings_auto_clear_desc">설정한 시간이 지난 항목을 삭제합니다.</string>
+    <string name="settings_secure_screen">스크린샷 및 최근 앱에서 숨기기</string>
+    <string name="settings_secure_screen_desc">스크린샷을 차단하고 최근 앱 목록의 미리보기를 숨깁니다.</string>
     <string name="settings_auto_clear_1h">1시간 후</string>
     <string name="settings_auto_clear_6h">6시간 후</string>
     <string name="settings_auto_clear_24h">24시간 후</string>

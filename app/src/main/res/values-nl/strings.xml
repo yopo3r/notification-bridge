@@ -3,7 +3,7 @@
 
     <!-- Tabs -->
     <string name="tab_home">Start</string>
-    <string name="tab_test">Test</string>
+    <string name="tab_test">Ontvanger</string>
     <string name="tab_settings">Instellingen</string>
     <string name="tab_about">Over</string>
 
@@ -119,7 +119,7 @@
     <string name="backup_imported">Configuratie geïmporteerd.</string>
     <string name="backup_import_error">Configuratie niet geïmporteerd: %1$s</string>
     <string name="backup_import_receiver_selected">Ontvanger geselecteerd: %1$s.</string>
-    <string name="backup_import_receiver_missing">De ontvanger “%1$s” is niet automatisch geselecteerd. Koppel hem in de Bluetooth-instellingen van Android en kies hem daarna op het tabblad Test.</string>
+    <string name="backup_import_receiver_missing">De ontvanger “%1$s” is niet automatisch geselecteerd. Koppel hem in de Bluetooth-instellingen van Android en kies hem daarna op het tabblad Ontvanger.</string>
     <string name="transfer_success">Overdracht voltooid</string>
     <string name="transfer_error">Fout: %1$s</string>
 
@@ -134,13 +134,13 @@
     <string name="onboarding_step2_title">Koppel het andere apparaat</string>
     <string name="onboarding_step2_desc">Koppel de ontvangende telefoon vóór gebruik via de Bluetooth-instellingen van Android — net zoals je een koptelefoon koppelt.</string>
     <string name="onboarding_step3_title">Kies het Bluetooth-apparaat</string>
-    <string name="onboarding_step3_desc">Kies op het tabblad Test van deze app het al gekoppelde apparaat uit de lijst dat de meldingen zal ontvangen.</string>
+    <string name="onboarding_step3_desc">Kies op het tabblad Ontvanger van deze app het al gekoppelde apparaat uit de lijst dat de meldingen zal ontvangen.</string>
     <string name="onboarding_step4_title">Toegang tot meldingen verlenen</string>
     <string name="onboarding_step4_desc">Tik op Start op \"Toegang tot meldingen\" en schakel de toestemming voor deze app in bij de systeeminstellingen. Zonder deze stap kan geen enkele melding worden gelezen.</string>
     <string name="onboarding_step5_title">Kies welke apps worden doorgestuurd</string>
     <string name="onboarding_step5_desc">Vink bij Instellingen de apps aan waarvan je meldingen wilt doorsturen (WhatsApp, e-mail, enz.) en schakel \"Bridge inschakelen\" in.</string>
     <string name="onboarding_step6_title">Stuur een test</string>
-    <string name="onboarding_step6_desc">Tik op het tabblad Test op \"Testbestand verzenden\" om te bevestigen dat de Bluetooth-overdracht werkt voordat je op echte meldingen vertrouwt.</string>
+    <string name="onboarding_step6_desc">Tik op het tabblad Ontvanger op \"Testbestand verzenden\" om te bevestigen dat de Bluetooth-overdracht werkt voordat je op echte meldingen vertrouwt.</string>
 
     <!-- About -->
     <string name="settings_show_tutorial_button">Tutorial bekijken</string>
@@ -221,6 +221,10 @@
     <string name="error_notification_text">Controleer of het ontvangende apparaat aan staat, gekoppeld is en dichtbij is. Tik om de app te openen.</string>
 
     <!-- Text length limit, test-content kinds -->
+    <string name="settings_message_format_title">Berichtformaat</string>
+    <string name="settings_message_format_text">Tekstbestand (.txt): werkt op elke ontvanger</string>
+    <string name="settings_message_format_vmessage">vMessage (.vmg): komt aan als tekstbericht op compatibele telefoons</string>
+    <string name="settings_message_format_note">Slechts enkele ontvangers begrijpen vMessage. Accepteert die van jou het niet, schakel dan terug naar een tekstbestand.</string>
     <string name="settings_text_length_title">Maximale tekstlengte</string>
     <string name="settings_text_length_short">Kort (200 tekens)</string>
     <string name="settings_text_length_medium">Gemiddeld (700 tekens)</string>
@@ -242,6 +246,8 @@
     <!-- Auto-clear (retention) -->
     <string name="settings_auto_clear_enabled">Geschiedenis automatisch wissen</string>
     <string name="settings_auto_clear_desc">Verwijdert items die ouder zijn dan de ingestelde tijd.</string>
+    <string name="settings_secure_screen">Verbergen in screenshots en recente apps</string>
+    <string name="settings_secure_screen_desc">Blokkeert screenshots en verbergt het app-voorbeeld in de lijst met recente apps.</string>
     <string name="settings_auto_clear_1h">Na 1 uur</string>
     <string name="settings_auto_clear_6h">Na 6 uur</string>
     <string name="settings_auto_clear_24h">Na 24 uur</string>

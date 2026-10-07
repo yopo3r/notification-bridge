@@ -16,7 +16,16 @@ package app.notificationbridge.model
 
 enum class ThemeMode { SYSTEM, LIGHT, DARK }
 
-/** The four fixed samples the Test screen can send, covering the text shapes worth checking. */
+/**
+ * What a notification is turned into before it is pushed over OBEX.
+ *
+ * - [TEXT_FILE] a plain `.txt` file; works on any receiver that can open a received text file.
+ * - [VMESSAGE] a vMessage (`.vmg`) text message, which receivers that understand the format file
+ *   straight into the SMS inbox. Support and the exact dialect vary between devices.
+ */
+enum class MessageFormat { TEXT_FILE, VMESSAGE }
+
+/** The four fixed samples the Receiver screen can send, covering the text shapes worth checking. */
 enum class TestSampleKind { SHORT, LONG, SPECIAL_CHARS, EMOJI }
 
 data class NotificationData(
@@ -41,14 +50,16 @@ data class PairedDevice(val name: String, val address: String)
  * @property dumbphoneMode Unattended operation: minimal status notification, forced automatic
  *   reconnection, and a user-visible alert only when a transfer ultimately fails.
  * @property maxTextChars Cap on a forwarded notification's body, in characters. Applies to real
- *   notifications and to the Test screen's sample sends alike.
+ *   notifications and to the Receiver screen's sample sends alike.
  * @property batchingEnabled Cooldown/batching: instead of sending each message from the same
  *   conversation as its own file, wait [batchingCooldownSeconds] after the first one and send
  *   everything that arrived in that window as a single file. Calls are never batched.
  * @property batchingCooldownSeconds How long to wait, in seconds (clamped to 5-60 - see
  *   [app.notificationbridge.data.SettingsRepository]).
- * @property testSampleKind Which fixed sample the Test screen's "send test" button sends;
- *   configured in Settings rather than on the Test screen itself.
+ * @property messageFormat Which file the bridge sends for each notification (see [MessageFormat]).
+ *   Applies to real notifications and to the Receiver screen's test sends alike.
+ * @property testSampleKind Which fixed sample the Receiver screen's "send test" button sends;
+ *   configured in Settings rather than on the Receiver screen itself.
  * @property autoClearEnabled Whether transfer history is pruned by age
  *   automatically (see [app.notificationbridge.queue.RetentionPolicy]).
  * @property autoClearHours How old an entry must be before it is pruned, in hours (clamped to
@@ -69,11 +80,13 @@ data class BridgeSettings(
     val onboardingCompleted: Boolean = false,
     val dumbphoneMode: Boolean = false,
     val maxTextChars: Int = app.notificationbridge.format.NotificationFormatter.DEFAULT_MAX_TEXT_CHARS,
+    val messageFormat: MessageFormat = MessageFormat.TEXT_FILE,
     val batchingEnabled: Boolean = false,
     val batchingCooldownSeconds: Int = 15,
     val testSampleKind: TestSampleKind = TestSampleKind.SHORT,
     val autoClearEnabled: Boolean = true,
     val autoClearHours: Int = 24,
+    val secureScreen: Boolean = false,
     val allowedPackages: Set<String> = emptySet()
 )
 

@@ -84,7 +84,8 @@ object NotificationFormatter {
     }
 
     fun generateFileName(
-        notification: NotificationData
+        notification: NotificationData,
+        extension: String = ".txt"
     ): String {
         val app = applicationAbbreviation(notification)
 
@@ -109,7 +110,7 @@ object NotificationFormatter {
             app.length +
                 timestamp.length +
                 sequence.length +
-                ".txt".length +
+                extension.length +
                 3
 
         val availableTitleLength =
@@ -118,7 +119,7 @@ object NotificationFormatter {
 
         val shortTitle = title.take(availableTitleLength)
 
-        return "${app}_${shortTitle}_${timestamp}_${sequence}.txt"
+        return "${app}_${shortTitle}_${timestamp}_${sequence}$extension"
     }
 
     private fun applicationAbbreviation(

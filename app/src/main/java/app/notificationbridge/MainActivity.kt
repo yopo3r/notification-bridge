@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Intent
 import android.net.Uri
+import android.view.WindowManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -24,6 +25,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -35,6 +37,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
@@ -54,6 +57,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -83,6 +87,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
@@ -108,6 +113,7 @@ import app.notificationbridge.model.BridgeSettings
 import app.notificationbridge.model.BridgeUiState
 import app.notificationbridge.model.FailureAction
 import app.notificationbridge.model.PairedDevice
+import app.notificationbridge.model.MessageFormat
 import app.notificationbridge.model.TestSampleKind
 import app.notificationbridge.model.ThemeMode
 import app.notificationbridge.queue.FailureClassifier
@@ -158,6 +164,12 @@ class MainActivity : AppCompatActivity() {
             ) {
                 val view = LocalView.current
                 val window = (view.context as? Activity)?.window
+                val secureScreen = settings?.secureScreen ?: false
+                SideEffect {
+                    // FLAG_SECURE blocks screenshots/screen recording and blanks the Recents thumbnail.
+                    if (secureScreen) window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+                    else window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+                }
                 val systemBarColor = MaterialTheme.colorScheme.background
                 val isLightSurface = systemBarColor.luminance() > 0.5f
                 SideEffect {
@@ -601,6 +613,15 @@ fun BridgeApp(vm: MainViewModel) {
                         ),
                         style = MaterialTheme.typography.titleSmall
                     )
+                    if (config.allowedPackages.isNotEmpty()) {
+                        val labels = apps.associate { it.packageName to it.label }
+                        val shown = config.allowedPackages.map { labels[it] ?: it }.sorted()
+                        Text(
+                            shown.take(IMPORT_PREVIEW_APPS).joinToString(", ") +
+                                if (shown.size > IMPORT_PREVIEW_APPS) "…" else "",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
                     config.receiverName?.let {
                         Text(
                             stringResource(R.string.backup_import_receiver, it),
@@ -1022,6 +1043,28 @@ fun SettingsScreen(
             item(key = "notify_calls_toggle") {
                 Toggle(stringResource(R.string.settings_notify_calls), s.notifyOnCalls, vm::setNotifyOnCalls)
             }
+            item(key = "message_format_heading") {
+                SectionHeading(stringResource(R.string.settings_message_format_title))
+            }
+            item(key = "message_format_text") {
+                SettingsRadioOption(
+                    s.messageFormat == MessageFormat.TEXT_FILE,
+                    stringResource(R.string.settings_message_format_text)
+                ) { vm.setMessageFormat(MessageFormat.TEXT_FILE) }
+            }
+            item(key = "message_format_vmessage") {
+                SettingsRadioOption(
+                    s.messageFormat == MessageFormat.VMESSAGE,
+                    stringResource(R.string.settings_message_format_vmessage)
+                ) { vm.setMessageFormat(MessageFormat.VMESSAGE) }
+            }
+            item(key = "message_format_note") {
+                Text(
+                    stringResource(R.string.settings_message_format_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
             item(key = "text_length_heading") {
                 SectionHeading(stringResource(R.string.settings_text_length_title))
             }
@@ -1079,6 +1122,14 @@ fun SettingsScreen(
             }
         }
         settingsSection(SettingsSection.PRIVACY, isOpen(SettingsSection.PRIVACY), ::toggleSection) {
+            item(key = "secure_screen_toggle") {
+                Toggle(
+                    stringResource(R.string.settings_secure_screen),
+                    s.secureScreen,
+                    vm::setSecureScreen,
+                    description = stringResource(R.string.settings_secure_screen_desc)
+                )
+            }
             item(key = "auto_clear_toggle") {
                 Toggle(
                     stringResource(R.string.settings_auto_clear_enabled),
@@ -1316,7 +1367,7 @@ fun SettingsScreen(
 }
 
 /** The six groups Settings is organised into, in display order. */
-internal enum class SettingsSection(@StringRes val titleRes: Int, @StringRes val descriptionRes: Int) {
+internal enum class SettingsSection(@param:StringRes val titleRes: Int, @param:StringRes val descriptionRes: Int) {
     CONNECTION(R.string.settings_section_connection, R.string.settings_section_connection_desc),
     FORWARDING(R.string.settings_group_forwarding, R.string.settings_section_forwarding_desc),
     PRIVACY(R.string.settings_section_privacy, R.string.settings_section_privacy_desc),
@@ -1456,6 +1507,7 @@ fun Toggle(label: String, value: Boolean, onChange: (Boolean) -> Unit, descripti
     }
 }
 
+private const val IMPORT_PREVIEW_APPS = 12
 private const val URL_REPO = "https://github.com/yopo3r/notification-bridge"
 private const val URL_ISSUES = "https://github.com/yopo3r/notification-bridge/issues"
 private const val URL_THEMES = "https://github.com/yopo3r/notification-bridge-themes"
@@ -1478,23 +1530,44 @@ private fun LinksMenu() {
             onClick = { expanded = true },
             modifier = Modifier.semantics { contentDescription = moreLabel }
         ) {
-            Text(
-                "\u22EE",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.clearAndSetSemantics { }
-            )
+            // Drawn instead of a "\u22EE" glyph: font metrics leave a text glyph off-centre.
+            val dotColor = MaterialTheme.colorScheme.onSurface
+            Canvas(Modifier.size(24.dp).clearAndSetSemantics { }) {
+                val radius = 2.dp.toPx()
+                val gap = 6.dp.toPx()
+                val cx = size.width / 2f
+                val cy = size.height / 2f
+                for (i in -1..1) {
+                    drawCircle(dotColor, radius, Offset(cx, cy + i * gap))
+                }
+            }
         }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        // Colors and shape come from the app theme (and custom themes) instead of the
+        // Material defaults, which ignore the palette.
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            shape = RoundedCornerShape(18.dp),
+            containerColor = MaterialTheme.colorScheme.surface,
+            tonalElevation = 1.dp,
+            shadowElevation = 6.dp
+        ) {
+            val itemColors = MenuDefaults.itemColors(
+                textColor = MaterialTheme.colorScheme.onSurface
+            )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.menu_github_repo)) },
+                colors = itemColors,
                 onClick = { open(URL_REPO) }
             )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.menu_report_issue)) },
+                colors = itemColors,
                 onClick = { open(URL_ISSUES) }
             )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.menu_get_themes)) },
+                colors = itemColors,
                 onClick = { open(URL_THEMES) }
             )
         }

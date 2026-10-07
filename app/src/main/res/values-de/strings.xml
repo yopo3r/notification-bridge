@@ -3,7 +3,7 @@
 
     <!-- Tabs -->
     <string name="tab_home">Start</string>
-    <string name="tab_test">Test</string>
+    <string name="tab_test">Empfänger</string>
     <string name="tab_settings">Einstellungen</string>
     <string name="tab_about">Info</string>
 
@@ -119,7 +119,7 @@
     <string name="backup_imported">Konfiguration importiert.</string>
     <string name="backup_import_error">Konfiguration nicht importiert: %1$s</string>
     <string name="backup_import_receiver_selected">Empfänger ausgewählt: %1$s.</string>
-    <string name="backup_import_receiver_missing">Der Empfänger „%1$s“ wurde nicht automatisch ausgewählt. Koppele ihn in den Bluetooth-Einstellungen von Android und wähle ihn dann im Tab „Test“.</string>
+    <string name="backup_import_receiver_missing">Der Empfänger „%1$s“ wurde nicht automatisch ausgewählt. Koppele ihn in den Bluetooth-Einstellungen von Android und wähle ihn dann im Tab „Empfänger“.</string>
     <string name="transfer_success">Übertragung abgeschlossen</string>
     <string name="transfer_error">Fehler: %1$s</string>
 
@@ -134,13 +134,13 @@
     <string name="onboarding_step2_title">Das andere Gerät koppeln</string>
     <string name="onboarding_step2_desc">Koppeln Sie das empfangende Telefon vor der Nutzung über die Bluetooth-Einstellungen von Android — genau wie beim Koppeln von Kopfhörern.</string>
     <string name="onboarding_step3_title">Bluetooth-Gerät auswählen</string>
-    <string name="onboarding_step3_desc">Wählen Sie im Tab Test dieser App aus der Liste das bereits gekoppelte Gerät aus, das die Benachrichtigungen empfangen soll.</string>
+    <string name="onboarding_step3_desc">Wählen Sie im Tab Empfänger dieser App aus der Liste das bereits gekoppelte Gerät aus, das die Benachrichtigungen empfangen soll.</string>
     <string name="onboarding_step4_title">Benachrichtigungszugriff erteilen</string>
     <string name="onboarding_step4_desc">Tippen Sie unter Start auf \"Benachrichtigungszugriff\" und aktivieren Sie die Berechtigung für diese App in den Systemeinstellungen. Ohne diesen Schritt kann keine Benachrichtigung gelesen werden.</string>
     <string name="onboarding_step5_title">Weiterzuleitende Apps auswählen</string>
     <string name="onboarding_step5_desc">Aktivieren Sie unter Einstellungen die Apps, deren Benachrichtigungen weitergeleitet werden sollen (WhatsApp, E-Mail usw.), und schalten Sie \"Bridge aktivieren\" ein.</string>
     <string name="onboarding_step6_title">Test senden</string>
-    <string name="onboarding_step6_desc">Tippen Sie im Tab Test auf \"Testdatei senden\", um zu bestätigen, dass die Bluetooth-Übertragung funktioniert, bevor Sie sich auf echte Benachrichtigungen verlassen.</string>
+    <string name="onboarding_step6_desc">Tippen Sie im Tab Empfänger auf \"Testdatei senden\", um zu bestätigen, dass die Bluetooth-Übertragung funktioniert, bevor Sie sich auf echte Benachrichtigungen verlassen.</string>
 
     <!-- About -->
     <string name="settings_show_tutorial_button">Tutorial anzeigen</string>
@@ -221,6 +221,10 @@
     <string name="error_notification_text">Prüfen Sie, ob das Empfangsgerät eingeschaltet, gekoppelt und in der Nähe ist. Tippen Sie, um die App zu öffnen.</string>
 
     <!-- Text length limit, test-content kinds -->
+    <string name="settings_message_format_title">Nachrichtenformat</string>
+    <string name="settings_message_format_text">Textdatei (.txt): funktioniert auf jedem Empfänger</string>
+    <string name="settings_message_format_vmessage">vMessage (.vmg): kommt auf kompatiblen Telefonen als Textnachricht an</string>
+    <string name="settings_message_format_note">Nur manche Empfänger verstehen vMessage. Wenn Ihrer es nicht annimmt, wechseln Sie zurück zur Textdatei.</string>
     <string name="settings_text_length_title">Maximale Textlänge</string>
     <string name="settings_text_length_short">Kurz (200 Zeichen)</string>
     <string name="settings_text_length_medium">Mittel (700 Zeichen)</string>
@@ -242,6 +246,8 @@
     <!-- Auto-clear (retention) -->
     <string name="settings_auto_clear_enabled">Verlauf automatisch löschen</string>
     <string name="settings_auto_clear_desc">Entfernt Einträge, die älter als die eingestellte Zeit sind.</string>
+    <string name="settings_secure_screen">In Screenshots und Übersicht ausblenden</string>
+    <string name="settings_secure_screen_desc">Blockiert Screenshots und blendet die App-Vorschau in der Liste der letzten Apps aus.</string>
     <string name="settings_auto_clear_1h">Nach 1 Stunde</string>
     <string name="settings_auto_clear_6h">Nach 6 Stunden</string>
     <string name="settings_auto_clear_24h">Nach 24 Stunden</string>

@@ -1,5 +1,5 @@
 /**
- * Fixed sample [NotificationData] values behind the Test screen's per-kind send buttons.
+ * Fixed sample [NotificationData] values behind the Receiver screen's per-kind send buttons.
  *
  * Why fixed samples instead of free text input: the point of this screen is a fast,
  * one-tap sanity check of the Bluetooth/OBEX path (encoding, MTU chunking, the receiver's own

@@ -7,7 +7,7 @@
  * configuration.
  *
  * What is included: allowed apps, the four forwarding filters, batching, maximum text length,
- * theme (mode and any custom palette), language, dumbphone mode, and - at the user's choice - the
+ * theme (mode and any custom palette), language, dumbphone mode, the message format, and - at the user's choice - the
  * preferred receiver ([ReceiverExport]). What is deliberately left out: the bridge on/off switch
  * (an import must never start forwarding by itself), onboarding state, history, auto-clear, the
  * Test sample choice and auto-reconnect.
@@ -23,6 +23,7 @@ package app.notificationbridge.config
 
 import app.notificationbridge.data.SettingsRepository
 import app.notificationbridge.model.BridgeSettings
+import app.notificationbridge.model.MessageFormat
 import app.notificationbridge.model.ThemeMode
 import app.notificationbridge.ui.theme.CustomThemeParser
 
@@ -53,7 +54,8 @@ data class ConfigSnapshot(
     val themeMode: ThemeMode,
     val customThemeSource: String?,
     val language: String,
-    val dumbphoneMode: Boolean
+    val dumbphoneMode: Boolean,
+    val messageFormat: MessageFormat = MessageFormat.TEXT_FILE
 )
 
 object ConfigFile {
@@ -79,6 +81,7 @@ object ConfigFile {
         const val BATCHING_ENABLED = "batching.enabled"
         const val BATCHING_SECONDS = "batching.interval-seconds"
         const val MAX_TEXT = "max-text-chars"
+        const val MESSAGE_FORMAT = "message-format"
         const val RECEIVER_NAME = "receiver.name"
         const val RECEIVER_ADDRESS = "receiver.address"
         const val THEME_MODE = "theme.mode"
@@ -88,7 +91,7 @@ object ConfigFile {
 
     private val SINGLE_KEYS = setOf(
         Key.VERSION, Key.IGNORE_SILENT, Key.IGNORE_ONGOING, Key.IGNORE_DUPLICATES, Key.NOTIFY_CALLS,
-        Key.BATCHING_ENABLED, Key.BATCHING_SECONDS, Key.MAX_TEXT, Key.RECEIVER_NAME,
+        Key.BATCHING_ENABLED, Key.BATCHING_SECONDS, Key.MAX_TEXT, Key.MESSAGE_FORMAT, Key.RECEIVER_NAME,
         Key.RECEIVER_ADDRESS, Key.THEME_MODE, Key.LANGUAGE, Key.DUMBPHONE
     )
 
@@ -128,6 +131,7 @@ object ConfigFile {
         lines += "${Key.BATCHING_ENABLED}: ${settings.batchingEnabled}"
         lines += "${Key.BATCHING_SECONDS}: ${settings.batchingCooldownSeconds}"
         lines += "${Key.MAX_TEXT}: ${settings.maxTextChars}"
+        lines += "${Key.MESSAGE_FORMAT}: ${if (settings.messageFormat == MessageFormat.VMESSAGE) "vmessage" else "text"}"
         if (receiver != ReceiverExport.NONE) {
             // The importer needs a name whenever there is an address.
             val name = receiverName ?: if (includeAddress) "Receiver" else null
@@ -220,6 +224,13 @@ object ConfigFile {
             else -> throw IllegalArgumentException("Invalid value for ${Key.THEME_MODE}: use system, light or dark")
         }
 
+        // Added in 0.15.0 without a version bump: files from older builds simply lack it.
+        val messageFormat = when (values[Key.MESSAGE_FORMAT]) {
+            null, "text" -> MessageFormat.TEXT_FILE
+            "vmessage" -> MessageFormat.VMESSAGE
+            else -> throw IllegalArgumentException("Invalid value for ${Key.MESSAGE_FORMAT}: use text or vmessage")
+        }
+
         val language = values[Key.LANGUAGE] ?: throw IllegalArgumentException("Missing ${Key.LANGUAGE}")
         require(language == LANGUAGE_SYSTEM || language in LANGUAGES) {
             "Invalid value for ${Key.LANGUAGE}: use system or one of ${LANGUAGES.joinToString(", ")}"
@@ -267,7 +278,8 @@ object ConfigFile {
             themeMode = themeMode,
             customThemeSource = customTheme,
             language = language,
-            dumbphoneMode = bool(Key.DUMBPHONE)
+            dumbphoneMode = bool(Key.DUMBPHONE),
+            messageFormat = messageFormat
         )
     }
 

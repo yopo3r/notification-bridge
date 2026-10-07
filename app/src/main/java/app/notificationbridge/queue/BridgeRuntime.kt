@@ -25,7 +25,7 @@
  *   fixed, starting at the first message of the batch - see the comment on [PendingBatch] for
  *   why it doesn't reset per message. Calls are never batched.
  * - The worker loop: consumes the queue strictly in order, generates the file via
- *   [app.notificationbridge.format.NotificationFormatter], and pushes it via
+ *   [app.notificationbridge.format.OutgoingMessage] (a text file or a vMessage), and pushes it via
  *   [app.notificationbridge.bluetooth.ObexObjectPushClient.push]. On failure it retries with a
  *   short backoff before giving up on that one item and moving to the next. Two consecutive
  *   failed notifications open a five-minute circuit breaker, avoiding repeated RFCOMM attempts
@@ -66,7 +66,7 @@ import android.provider.Settings
 import app.notificationbridge.BuildConfig
 import app.notificationbridge.bluetooth.ObexObjectPushClient
 import app.notificationbridge.data.SettingsRepository
-import app.notificationbridge.format.NotificationFormatter
+import app.notificationbridge.format.OutgoingMessage
 import app.notificationbridge.model.BridgeUiState
 import app.notificationbridge.model.ConnectionState
 import app.notificationbridge.model.DropReason
@@ -112,6 +112,8 @@ object BridgeRuntime {
     // Safety cap so a pathological flood within one cooldown window can't grow a batch
     // unbounded in memory; ordinary conversations never get close to this.
     private const val MAX_BATCH_MESSAGES = 50
+    private const val MAX_PENDING_BATCHES = 20
+    private const val MAX_QUEUE_ITEMS = 100
 
     private const val MAX_ATTEMPTS = 3
 
@@ -133,7 +135,7 @@ object BridgeRuntime {
     private lateinit var repo: SettingsRepository
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    private val queue = Channel<QueuedItem>(Channel.UNLIMITED)
+    private val queue = Channel<QueuedItem>(MAX_QUEUE_ITEMS)
     private val recordIds = java.util.concurrent.atomic.AtomicLong(0)
     private val retryBuffer = RetryBuffer<QueuedItem>(MAX_RETRY_ITEMS, RETRY_WINDOW_MS)
     private val mutable = MutableStateFlow(BridgeUiState())
@@ -194,6 +196,8 @@ object BridgeRuntime {
 
     fun clearHistory() {
         retryBuffer.clear()
+        pendingBatches.clear()
+        publishBatchedCount()
         mutable.update { it.copy(history = emptyList(), lastTransfer = null) }
     }
 
@@ -281,6 +285,15 @@ object BridgeRuntime {
 
     private fun addToBatch(n: NotificationData, cooldownSeconds: Int) {
         val key = MessageBatch.groupKey(n)
+        if (!pendingBatches.containsKey(key) && pendingBatches.size >= MAX_PENDING_BATCHES) {
+            // Too many distinct conversations waiting: send this one immediately instead of
+            // holding more notification content in memory.
+            log("Too many pending batches ($MAX_PENDING_BATCHES), sending ${n.packageName} without batching")
+            val item = QueuedItem(n, newRecordId())
+            track(item, TransferStatus.QUEUED)
+            scope.launch { sendToQueue(item) }
+            return
+        }
         var isNewBatch = false
         val batch = pendingBatches.computeIfAbsent(key) {
             isNewBatch = true
@@ -333,8 +346,13 @@ object BridgeRuntime {
     // Count first: the worker can finish an item instantly (e.g. no receiver selected) and must
     // never decrement before this increment has happened.
     private suspend fun sendToQueue(item: QueuedItem) {
+        if (queue.trySend(item).isFailure) {
+            // Bounded queue: never let notification content pile up in memory without limit.
+            log("Queue full ($MAX_QUEUE_ITEMS), dropping ${item.n.packageName}")
+            track(item, TransferStatus.FAILED, "Queue full", failure = FailureReason.PAUSED)
+            return
+        }
         mutable.update { it.copy(queueCount = it.queueCount + 1) }
-        queue.send(item)
     }
 
     private suspend fun worker() {
@@ -357,9 +375,9 @@ object BridgeRuntime {
         val n = item.n
         val s = repo.settings.first()
         val address = s.selectedAddress
-        val file = NotificationFormatter.generateFileName(n)
-        val bytes = NotificationFormatter.notificationToFile(n, s.maxTextChars)
-        log("File name: $file")
+        val message = OutgoingMessage.from(n, s.messageFormat, s.maxTextChars)
+        val file = message.fileName
+        log("File name: $file (${s.messageFormat.name})")
 
         // A user-requested retry means "try again now", so it clears a pause.
         if (item.retry) {
@@ -399,7 +417,7 @@ object BridgeRuntime {
                         track(item, TransferStatus.CONNECTING, attempt = 1, maxAttempts = attempts)
                     }
                     log("Transfer attempt $attempt/$attempts: $file")
-                    client.push(address, file, "text/plain", bytes)
+                    client.push(address, file, message.mimeType, message.bytes)
                     success = true
                     error = null
                     failure = null
@@ -556,12 +574,12 @@ object BridgeRuntime {
         scope.launch {
             val recordId = newRecordId()
             track(recordId, sample.appName, sample.title, TransferStatus.CONNECTING)
-            val maxChars = repo.settings.first().maxTextChars
-            val file = NotificationFormatter.generateFileName(sample)
+            val current = repo.settings.first()
+            val message = OutgoingMessage.from(sample, current.messageFormat, current.maxTextChars)
+            val file = message.fileName
             val result = runCatching {
-                log("Manual test file name: $file (${kind.name})")
-                ObexObjectPushClient(app, ::log)
-                    .push(address, file, "text/plain", NotificationFormatter.notificationToFile(sample, maxChars))
+                log("Manual test file name: $file (${kind.name}, ${current.messageFormat.name})")
+                ObexObjectPushClient(app, ::log).push(address, file, message.mimeType, message.bytes)
                 Unit
             }
             track(

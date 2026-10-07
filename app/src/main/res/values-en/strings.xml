@@ -3,7 +3,7 @@
 
     <!-- Tabs -->
     <string name="tab_home">Home</string>
-    <string name="tab_test">Test</string>
+    <string name="tab_test">Receiver</string>
     <string name="tab_settings">Settings</string>
     <string name="tab_about">About</string>
 
@@ -119,7 +119,7 @@
     <string name="backup_imported">Configuration imported.</string>
     <string name="backup_import_error">Configuration not imported: %1$s</string>
     <string name="backup_import_receiver_selected">Receiver selected: %1$s.</string>
-    <string name="backup_import_receiver_missing">Receiver “%1$s” was not selected automatically. Pair it in Android’s Bluetooth settings, then choose it in the Test tab.</string>
+    <string name="backup_import_receiver_missing">Receiver “%1$s” was not selected automatically. Pair it in Android’s Bluetooth settings, then choose it in the Receiver tab.</string>
     <string name="transfer_success">Transfer completed</string>
     <string name="transfer_error">Error: %1$s</string>
 
@@ -134,13 +134,13 @@
     <string name="onboarding_step2_title">Pair the other device</string>
     <string name="onboarding_step2_desc">Before using the app, pair the receiving phone from Android\'s Bluetooth settings — just like pairing a pair of headphones.</string>
     <string name="onboarding_step3_title">Pick the Bluetooth device</string>
-    <string name="onboarding_step3_desc">In the Test tab of this app, pick the already-paired device from the list that will receive the notifications.</string>
+    <string name="onboarding_step3_desc">In the Receiver tab of this app, pick the already-paired device from the list that will receive the notifications.</string>
     <string name="onboarding_step4_title">Grant notification access</string>
     <string name="onboarding_step4_desc">From Home, tap \"Notification access\" and enable the permission for this app in the system settings. Without this step, no notification can be read.</string>
     <string name="onboarding_step5_title">Choose which apps to forward</string>
     <string name="onboarding_step5_desc">In Settings, check the apps whose notifications you want forwarded (WhatsApp, email, etc.), and turn on \"Enable bridge\".</string>
     <string name="onboarding_step6_title">Send a test</string>
-    <string name="onboarding_step6_desc">In the Test tab, tap \"Send test file\" to confirm the Bluetooth transfer works before relying on real notifications.</string>
+    <string name="onboarding_step6_desc">In the Receiver tab, tap \"Send test file\" to confirm the Bluetooth transfer works before relying on real notifications.</string>
 
     <!-- About -->
     <string name="settings_show_tutorial_button">Show tutorial</string>
@@ -221,6 +221,10 @@
     <string name="error_notification_text">Check that the receiving device is on, paired and nearby. Tap to open the app.</string>
 
     <!-- Text length limit, test-content kinds -->
+    <string name="settings_message_format_title">Message format</string>
+    <string name="settings_message_format_text">Text file (.txt): works on any receiver</string>
+    <string name="settings_message_format_vmessage">vMessage (.vmg): arrives as a text message on compatible phones</string>
+    <string name="settings_message_format_note">Only some receivers understand vMessage. If yours doesn\'t accept it, switch back to a text file.</string>
     <string name="settings_text_length_title">Maximum text length</string>
     <string name="settings_text_length_short">Short (200 characters)</string>
     <string name="settings_text_length_medium">Medium (700 characters)</string>
@@ -242,6 +246,8 @@
     <!-- Auto-clear (retention) -->
     <string name="settings_auto_clear_enabled">Automatically clear history</string>
     <string name="settings_auto_clear_desc">Removes entries older than the configured time.</string>
+    <string name="settings_secure_screen">Hide in screenshots and recents</string>
+    <string name="settings_secure_screen_desc">Blocks screenshots and hides the app preview in the recent apps list.</string>
     <string name="settings_auto_clear_1h">After 1 hour</string>
     <string name="settings_auto_clear_6h">After 6 hours</string>
     <string name="settings_auto_clear_24h">After 24 hours</string>

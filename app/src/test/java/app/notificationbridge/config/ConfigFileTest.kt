@@ -1,6 +1,7 @@
 package app.notificationbridge.config
 
 import app.notificationbridge.model.BridgeSettings
+import app.notificationbridge.model.MessageFormat
 import app.notificationbridge.model.ThemeMode
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -70,6 +71,25 @@ class ConfigFileTest {
         assertEquals("fr", c.language)
         assertTrue(c.dumbphoneMode)
         assertNull(c.customThemeSource)
+    }
+
+    @Test
+    fun `message format round trips`() {
+        assertEquals(MessageFormat.TEXT_FILE, ConfigFile.parse(export()).messageFormat)
+        val vmessage = export(settings.copy(messageFormat = MessageFormat.VMESSAGE))
+        assertTrue(vmessage.contains("message-format: vmessage"))
+        assertEquals(MessageFormat.VMESSAGE, ConfigFile.parse(vmessage).messageFormat)
+    }
+
+    @Test
+    fun `a file from before the message format existed still imports as a text file`() {
+        val old = export().lineSequence().filterNot { it.startsWith("message-format:") }.joinToString("\n")
+        assertEquals(MessageFormat.TEXT_FILE, ConfigFile.parse(old).messageFormat)
+    }
+
+    @Test
+    fun `an unknown message format rejects the file`() {
+        rejects { it.replace("message-format: text", "message-format: pdf") }
     }
 
     @Test

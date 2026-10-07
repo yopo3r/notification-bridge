@@ -23,6 +23,7 @@ import app.notificationbridge.diagnostics.DiagnosticsReport
 import app.notificationbridge.model.BridgeSettings
 import app.notificationbridge.model.BridgeUiState
 import app.notificationbridge.model.PairedDevice
+import app.notificationbridge.model.MessageFormat
 import app.notificationbridge.model.TestSampleKind
 import app.notificationbridge.model.TransferRecord
 import app.notificationbridge.model.ThemeMode
@@ -276,7 +277,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 runCatching {
                     val receiver = resolveReceiver(config)
                     repo.applyConfig(config, receiver)
-                    ImportOutcome(config.allowedPackages.size, config.receiverName, receiver != null)
+                    ImportOutcome(config.allowedPackages.size, receiver?.name ?: config.receiverName, receiver != null)
                 }
             }
             if (result.isSuccess) refresh()
@@ -286,11 +287,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun resolveReceiver(config: ConfigSnapshot): PairedDevice? {
         val name = config.receiverName ?: return null
-        config.receiverAddress?.let { return PairedDevice(name, it) }
+        // A file is untrusted input: never select a receiver that is not already bonded with
+        // this phone, and use the bonded device's own name rather than the one in the file.
         if (!canReadBondedDevices()) return null
-        val matches = runCatching { BridgeRuntime.pairedDevices() }.getOrDefault(emptyList())
-            .filter { it.name.equals(name, ignoreCase = true) }
-        return matches.singleOrNull()
+        val bonded = runCatching { BridgeRuntime.pairedDevices() }.getOrDefault(emptyList())
+        config.receiverAddress?.let { address ->
+            return bonded.firstOrNull { it.address.equals(address, ignoreCase = true) }
+        }
+        return bonded.filter { it.name.equals(name, ignoreCase = true) }.singleOrNull()
     }
 
     /** Restores every option to its default (see [SettingsRepository.resetToDefaults]). */
@@ -305,10 +309,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun setOnboardingCompleted(v: Boolean) = viewModelScope.launch { repo.setOnboardingCompleted(v) }
     fun setDumbphoneMode(v: Boolean) = viewModelScope.launch { repo.setDumbphoneMode(v) }
     fun setMaxTextChars(v: Int) = viewModelScope.launch { repo.setMaxTextChars(v) }
+    fun setMessageFormat(v: MessageFormat) = viewModelScope.launch { repo.setMessageFormat(v) }
     fun setBatchingEnabled(v: Boolean) = viewModelScope.launch { repo.setBatchingEnabled(v) }
     fun setBatchingCooldownSeconds(v: Int) = viewModelScope.launch { repo.setBatchingCooldownSeconds(v) }
     fun setTestSampleKind(v: TestSampleKind) = viewModelScope.launch { repo.setTestSampleKind(v) }
     fun setAutoClearEnabled(v: Boolean) = viewModelScope.launch { repo.setAutoClearEnabled(v) }
+    fun setSecureScreen(v: Boolean) = viewModelScope.launch { repo.setSecureScreen(v) }
     fun setAutoClearHours(v: Int) = viewModelScope.launch { repo.setAutoClearHours(v) }
 
     fun clearHistory() = BridgeRuntime.clearHistory()

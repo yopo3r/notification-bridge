@@ -1,77 +1,77 @@
 # Notification Bridge
 
-Forwards your main phone's notifications to a second device over **Bluetooth Classic**, using
-the **OBEX Object Push** profile — the same mechanism basic phones ("dumbphones") have used to
-receive files over Bluetooth for more than twenty years, with no companion app needed on the
-receiver.
+![Notification Bridge logo: a smartphone and a basic phone connected over Bluetooth](img/banner.png)
 
-![description](img/banner.png)
+Notification Bridge is an Android app that forwards your phone's notifications to a second device over Bluetooth. Each notification is sent as a small text file, or as a vMessage text message for phones that understand it, using OBEX Object Push, the file-transfer profile that basic phones have supported for more than twenty years. The receiving phone needs no app, no internet connection and no setup beyond pairing.
 
-## The problem it solves
+## Why
 
-If you use (or went back to using) a basic phone with no apps and no Internet as a secondary
-device — to disconnect, save battery, or just because you like it — you lose the ability to
-see who texted you on WhatsApp, Telegram, email, or who's calling, without pulling out your
-smartphone. Notification Bridge runs on the smartphone, watches its notifications, and sends
-the basic phone a text file for each one, using a file-transfer protocol that phone already
-knows how to receive out of the box.
+A basic phone makes a good secondary device if you want to disconnect, save battery, or just carry something simpler. The price is that you stop seeing WhatsApp, Telegram and email notifications, and you can't tell who is calling, unless you take out the smartphone.
 
-## What the app does
+Notification Bridge runs on the smartphone, watches its notifications and sends the basic phone one text file for each. Object Push is something that phone already knows how to receive, so nothing has to be installed on it.
 
-- Listens to Android's system notifications (messaging, email, calls — native or VoIP like
-  WhatsApp's — and any other app you choose).
-- Filters out what you don't want forwarded: apps not selected, silent or ongoing
-  notifications, duplicates.
-- Converts each allowed notification into a readable `.txt` file (app, title, content, date
-  and time).
-- Transfers it over Bluetooth to the paired receiving device, using OBEX Object Push.
-- Retries on connection failures, with a real timeout so it never hangs indefinitely.
-- Keeps a **history of recent transfers** (app, short title, time, status — queued, connecting, transferred to device, failed, dropped by filter, rate-limited or combined into batch — and error) that you
-  can clear at any time.
-- Can **export and import its configuration** (Settings → Advanced → Configuration file) as a small text
-  file: allowed apps, filters, batching, maximum length, theme, language, dumbphone mode and,
-  optionally, the receiver. The receiver's Bluetooth address is left out unless you choose to
-  include it, so the file is safe to keep in a repo or move between phones; importing never turns
-  the bridge on.
-- Has a **Diagnostics** screen with a copyable technical report. Review its device and settings
-  details before sharing it publicly (see [Privacy](#privacy)).
-- Has an optional **dumbphone mode** for unattended use: a minimal status notification,
-  forced automatic reconnection, and an alert only when a transfer ultimately fails.
-- The **Test** tab sends a fixed sample so the Bluetooth/OBEX path gets a real check, not just a
-  happy-path one; which of four kinds it sends (short text, long text, special/accented
-  characters, emoji) is configured in **Settings**.
-- Transfer history can be **cleared automatically by time** (Settings → Privacy),
-  defaulting to after 24 hours, configurable from 1 hour to 7 days.
-- The six sections are swipeable (`HorizontalPager`), and the section tab bar fills the full
-  width on tablet-sized screens instead of leaving a gap. Long lists (Home, Settings, History,
-  and About) show a thin scrollbar, and History pages its content with a "show more" button
-  rather than rendering everything at once.
-- Settings are grouped into six collapsible sections: **Connection**, **Forwarding**, **Privacy**,
-  **Reliability**, **Appearance** and **Advanced**.
-- The maximum length of a forwarded notification body is configurable in Settings (100 to
-  5000 characters).
-- Custom color themes can be imported from a small `.theme` text file in Settings → Appearance → Theme. The
-  bundled [Tokyo Night example](examples/tokyo-night.theme) shows the supported format; invalid,
-  incomplete, or newer unsupported files are rejected without changing the current theme.
-- Optional **message batching / cooldown**: wait a user-set number of seconds (5-60) after the
-  first message from a conversation (same app + same notification title) before sending, so
-  several messages sent in a row become one file instead of one transfer each. Calls are never
-  batched.
-- Protects the Bluetooth link from a chatty app: one app can queue at most 10 transfers per
-  minute, and identical reposts of a notification are suppressed.
-- **Specifically tested against an Alcatel 3080A** as the receiver. Other phones that accept
-  Bluetooth OBEX Object Push transfers should work the same way, but this project hasn't
-  tested them.
+## Features
 
-### Custom themes
+- Forwards notifications from the apps you choose, plus incoming calls (native or VoIP, such as WhatsApp). Each one becomes a `.txt` file with the app name, title, text, date and time, or, if you choose, a vMessage (`.vmg`) that compatible phones file in their SMS inbox.
+- Skips what you don't want: apps you haven't selected, silent notifications, ongoing ones (a music player, for example) and reposts of a notification it just sent.
+- Limits each app to 10 transfers per minute, so a chatty app can't flood the Bluetooth link.
+- Optional batching. After the first message from a conversation (same app, same title) the app waits 5 to 60 seconds and sends everything that arrived as one file. Calls are never batched.
+- Two message formats (Settings → Forwarding → Message format): a plain text file that any receiver can open, or a vMessage that arrives as a text message on phones that support it. Text file is the default.
+- Caps the length of the forwarded text. There are four presets, from 200 to 3000 characters.
+- Retries failed transfers (up to three attempts while auto-reconnect is on) with a 15 second timeout per attempt, and pauses for five minutes after two failed notifications in a row.
+- Dumbphone mode for unattended use: a minimal status notification, automatic reconnection, and an alert only when a transfer fails for good.
+- A readiness checklist on Home that shows what is still missing, a History tab that explains failures in plain language and offers a Retry now action, and a Diagnostics tab with a report you can copy.
+- A Receiver tab where you pick the receiver and send sample content (short text, long text, special characters or emoji), so you can check the Bluetooth path without waiting for a real notification.
+- Configuration export and import, custom color themes, light and dark mode, and 11 languages: Spanish, English, French, Portuguese, Italian, Dutch, German, Japanese, Korean, Russian and Simplified Chinese.
 
-Looking for ready-made themes? Visit the [Notification Bridge Themes repository](https://github.com/yopo3r/notification-bridge-themes), which provides additional light and dark themes that can be imported into the app.
+The only receiver tested so far is an Alcatel 3080A. Other phones that accept Bluetooth OBEX Object Push should behave the same way, but they haven't been tried. The vMessage format in particular has not been confirmed on any real receiver yet, because phones differ in the vMessage variant they accept.
 
-Theme files use `key: value` lines. Blank lines and lines beginning with `#` are comments. Version
-1 requires a name and all seven colors for both light and dark appearance. Colors accept `#RRGGBB`
-or `#AARRGGBB`; unknown or duplicate keys reject the whole file. Import it in Settings → Appearance → Theme.
-The System/Light/Dark options continue to select which palette is shown. Use **Use built-in theme**
-to remove the custom palette and return to the app's original colors.
+## Screenshots
+
+<p align="center">
+  <img src="img/screenshot2.jpeg" alt="The Home tab, with the readiness checklist showing every item as ready and an Alcatel 3080A selected as the receiver" width="300">
+  &nbsp;&nbsp;
+  <img src="img/screenshot1.jpeg" alt="The Settings tab, listing the six sections: Connection, Forwarding, Privacy, Reliability, Appearance and Advanced" width="300">
+</p>
+
+## Requirements
+
+- A source phone running Android 7.1 (API 25) or newer.
+- A receiver with Bluetooth Classic that accepts OBEX Object Push, paired with the source phone.
+- To build the app: JDK 17 or newer and the included Gradle wrapper, or an Android Studio release recent enough for the Android Gradle Plugin version in `build.gradle.kts`.
+
+## Installation
+
+Build the APK as described under [Building](#building), then install it:
+
+```bash
+adb install app/build/outputs/apk/debug/app-debug.apk
+```
+
+You can also copy the APK to the phone and open it there. Android will ask you to allow installs from unknown sources for that file.
+
+## Setup
+
+1. **Pair the receiver.** Turn on Bluetooth on the receiving phone and make it discoverable. On the smartphone, open Android's Bluetooth settings, scan for devices and pair with the receiver, confirming the code if it asks for one. Pairing is done in the system settings, not in the app.
+2. **Send a test.** In Notification Bridge, open the Receiver tab and tap Refresh devices. The first time, the app asks for Bluetooth permission and offers to turn Bluetooth on. Select the receiver and tap Send test file, then check that the file arrives. History will say "Transferred to device", which means the receiver's OBEX server accepted the file. It doesn't mean anyone has read it.
+3. **Grant notification access.** On Home, tap Notification access and switch on Notification Bridge in the system settings. Back in the app, Home should show "Service enabled".
+4. **Choose apps and turn the bridge on.** In Settings → Forwarding, select the apps whose notifications you want forwarded. Then switch on Enable bridge in Settings → Connection. It is off by default, on purpose.
+
+The first-run tutorial covers the same steps, and you can reopen it from Settings → Advanced → Show tutorial. The Readiness panel on Home lists anything still missing and takes you to the screen that fixes it.
+
+If you reinstall the app, for example with a new debug build, Android may not reconnect the notification listener even though the permission still shows as granted. If forwarding stops after a reinstall, switch notification access off and on again in the system settings.
+
+## Configuration file
+
+Settings → Advanced → Configuration file saves your setup to a plain text file and loads it back on another phone or build. The file holds the allowed apps, the filters, batching, maximum text length, message format, theme (including a custom palette), language and dumbphone mode. For the receiver you can save the name only (the default), nothing, or the name and the Bluetooth address. The address identifies the device, so leave it out if you plan to share the file.
+
+Importing asks for confirmation first and shows the apps the file would allow. A file with an unknown, duplicate or out-of-range value is rejected as a whole. A receiver is selected only if it is already paired with the phone, matched by address or, if the file has none, by a name that belongs to exactly one paired device. The bridge switch, tutorial state, history retention, auto-reconnect, test content and the screenshot setting are not part of the file, so importing never changes them. In particular, it can't turn the bridge on.
+
+## Custom themes
+
+Settings → Appearance → Import theme file loads a color theme from a text file. Use built-in theme goes back to the app's own colors. The System, Light and Dark options still decide which of the two palettes is shown.
+
+Theme files use `key: value` lines. Blank lines and lines starting with `#` are ignored. Version 1 needs a name (up to 40 characters) and all seven colors for both the light and dark palettes. Colors are written as `#RRGGBB` or `#AARRGGBB`. A file with an unknown or duplicate key, or one larger than 16 KB, is rejected, and the current theme stays as it was.
 
 ```text
 version: 1
@@ -92,302 +92,223 @@ dark.surface: #24283B
 dark.error: #F7768E
 ```
 
-## Architecture
+[`examples/tokyo-night.theme`](examples/tokyo-night.theme) is a complete example. More light and dark themes are available in the [notification-bridge-themes](https://github.com/yopo3r/notification-bridge-themes) repository.
+
+## Permissions
+
+| Permission | Used for |
+|---|---|
+| Notification access (`BIND_NOTIFICATION_LISTENER_SERVICE`) | Reading the notifications that get forwarded. You grant it in the system settings. |
+| `BLUETOOTH_CONNECT` (Android 12+) | Listing paired devices and connecting to the receiver. |
+| `BLUETOOTH_SCAN` (Android 12+) | Canceling any running discovery before connecting. Declared with `neverForLocation`, so the app doesn't need a location permission. |
+| `BLUETOOTH`, `BLUETOOTH_ADMIN` (Android 11 and lower) | The older equivalents of the two above. |
+| `POST_NOTIFICATIONS` (Android 13+) | The status notification and the failure alert. |
+| `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_CONNECTED_DEVICE` | Keeping the listener service in the foreground so the system is less likely to stop it. |
+
+The app has no `INTERNET` permission and no analytics or telemetry. The only data that leaves the phone is the `.txt` or `.vmg` file sent over Bluetooth to the receiver you chose.
+
+## How it works
 
 ```
 Android system notification
             │
             ▼
 NotificationListenerService  (NotificationBridgeService)
-            │  extracts app / title / text / category
+            │  extracts app, title, text and category
             ▼
-Notification processing
-            │  filters: allowed apps, silent,
-            │  ongoing, duplicates, calls
+Filtering  (BridgeRuntime.enqueue)
+            │  allowed apps, calls, silent, ongoing,
+            │  duplicates, rate limit, batching
             ▼
-Queue  (BridgeRuntime)
-            │  serial processing, retries with timeout
+Queue and worker  (BridgeRuntime)
+            │  one transfer at a time, retries, timeout
             ▼
-Bluetooth  (RFCOMM, socket to the receiver's OBEX service)
+Bluetooth  (RFCOMM socket to the receiver's Object Push service)
             │
             ▼
 OBEX Object Push  (CONNECT → PUT → DISCONNECT)
             │
             ▼
-Dumbphone  (e.g. Alcatel 3080A) — receives the .txt file
+Receiver (for example an Alcatel 3080A) stores the .txt file
 ```
 
-### Main components
+### From notification to file
 
-| Component | Role |
-|---|---|
-| `NotificationBridgeService` | `NotificationListenerService`: entry point, receives every system notification |
-| `NotificationFormatter` | Turns a notification into text/a file name (no Android dependencies) |
-| `BridgeRuntime` | Queue, filters, deduplication, retries, state observed by the UI |
-| `ObexObjectPushClient` | Opens the RFCOMM socket and runs the OBEX exchange |
-| `ObexProtocol` | OBEX packet encoding/decoding (hand-written, no external libraries) |
-| `SettingsRepository` | Persistent configuration (Jetpack DataStore) |
-| `TransferHistory` / `DuplicateDetector` / `RateLimiter` / `NotificationSamples` / `MessageBatch` / `RetentionPolicy` | Pure helpers: history list, duplicate suppression, burst protection, Test-screen sample content, batch grouping/combining, age-based pruning |
-| `DiagnosticsReport` | Builds the copyable, allow-listed diagnostics text (pure JVM) |
-| `ErrorNotifier` / `NotificationChannels` | The app's own notifications: status (normal or quiet) and failure alert |
-| `OnboardingScreen` / `AboutScreen` / `HistoryScreen` / `DiagnosticsScreen` | Compose screens |
-| `ui/theme/Theme.kt` | Material 3 light/dark color schemes |
-| `MainActivity` / `MainViewModel` | Jetpack Compose UI (6 sections: Home, Test, History, Settings, Diagnostics, About) |
-| `BootReceiver` | Confirms the listener reconnects after a device restart |
+1. Android calls `NotificationBridgeService.onNotificationPosted()` for every notification on the device. The service ignores the app's own notifications and group summaries (the notification that bundles several others), and extracts the app, title, text and category.
+2. `BridgeRuntime.enqueue()` decides what happens next. It checks the master switch and the allowed-apps list, then the silent and ongoing filters, duplicate suppression and the per-app rate limit. Calls (category `call`) are the exception: they don't need to be in the allowed list, they skip the silent, ongoing and rate-limit checks, and the Notify calls setting controls them instead.
+3. Whatever passes is queued. With batching on, a regular notification is first held for the cooldown and combined with the other messages from the same conversation, then queued as a single item.
+4. A background worker takes queued items one at a time, builds the file (`NotificationFormatter` for a text file, `VMessageFormatter` for a vMessage, chosen by `OutgoingMessage`) and transfers it, retrying when it fails.
 
-Every major component has architectural documentation (what it does, why it exists, how it
-talks to others, its limits) directly in its source file's header.
+A file looks like this, and is named from the app, the first characters of the title, the time and a counter (`WA_Maria_213502_001.txt`):
 
-## How the notification flow works
+```text
+WHATSAPP
+Maria
 
-1. Android delivers the notification to `NotificationBridgeService.onNotificationPosted()`.
-2. The service discards "group summary" notifications and extracts the relevant data.
-3. `BridgeRuntime.enqueue()` decides whether to forward it: checks the master switch, whether
-   the app is allowed (or whether it's a call, which follows its own path independent of the
-   app list), the silent/ongoing filters, deduplication, and the per-app rate limit.
-4. Whatever passes the filter gets queued - or, if **batching** is on, held for up to the
-   configured cooldown and combined with any other message from the same conversation that
-   arrives in that window, then queued as a single item.
-5. A background worker picks the queued item up, builds the file with `NotificationFormatter`,
-   and transfers it.
+See you at 7?
 
-## How Bluetooth / OBEX works
+06-10-2026 21:35:02
+```
 
-`ObexObjectPushClient` opens an **RFCOMM** socket to the paired device's standard OBEX Object
-Push service UUID (`00001105-0000-1000-8000-00805F9B34FB`), and runs the OBEX sequence by hand
-over that socket:
+With the vMessage format, the same notification becomes a `.vmg` file (`WA_Maria_213502_002.vmg`, sent with the OBEX type `text/x-vmsg`) that follows the layout Nokia Series 40 phones use for an unread inbox message:
 
-1. **CONNECT** — establishes the OBEX session and negotiates the maximum packet size.
-2. **PUT** (one or more packets, continued if the file doesn't fit in one) — sends the file's
-   name, MIME type and content.
-3. **DISCONNECT** — closes the session.
+```text
+BEGIN:VMSG
+VERSION:1.1
+X-IRMC-STATUS:UNREAD
+X-IRMC-BOX:INBOX
+X-NOK-DT:20261007T003502Z
+BEGIN:VCARD
+VERSION:2.1
+N:WhatsApp
+TEL:WhatsApp
+END:VCARD
+BEGIN:VENV
+BEGIN:VBODY
+Date:2026/10/06 21:35:02
+Maria
+See you at 7?
+END:VBODY
+END:VENV
+END:VMSG
+```
 
-The implementation is hand-written (no external OBEX library, since OBEX support was dropped
-from the Android SDK years ago and there's no well-maintained lightweight alternative). A
-watchdog closes the socket if any operation hangs past a configurable timeout, and a transfer
-already confirmed by the receiver is never retried even if closing the session afterwards
-fails — which is what keeps duplicates from happening.
+The sender is the app name, reduced to plain ASCII. The body is UTF-8. Lines end with CRLF, and a line of notification text that starts with `BEGIN:` or `END:` gets a backslash in front, so it can't close the message early. vMessage dialects differ from phone to phone, so this one may need adjusting for a given receiver.
 
-## Requirements
+### Bluetooth and OBEX
 
-- An Android phone to act as the source (`minSdk 25`, Android 7.1+; built with
-  `compileSdk 37` and `targetSdk 37`).
-- A second Bluetooth Classic device that accepts OBEX Object Push (tested with an
-  **Alcatel 3080A**).
-- Android Studio (Ladybug or newer), or JDK 17 plus the included Gradle Wrapper if you prefer
-  the command line.
+`ObexObjectPushClient` opens an RFCOMM socket to the paired device's Object Push service (UUID `00001105-0000-1000-8000-00805F9B34FB`, found with an SDP lookup) and runs the OBEX exchange by hand:
 
-## Required permissions and why
+1. `CONNECT` opens the OBEX session and negotiates the packet size.
+2. `PUT` sends the file name, MIME type and content, split across several packets when it doesn't fit in one.
+3. `DISCONNECT` closes the session.
 
-| Permission | What for |
-|---|---|
-| Notification access (`BIND_NOTIFICATION_LISTENER_SERVICE`) | Read the notifications that get forwarded |
-| `BLUETOOTH_CONNECT` / `BLUETOOTH_SCAN` (Android 12+) | See paired devices and transfer over RFCOMM/OBEX |
-| `POST_NOTIFICATIONS` (Android 13+) | Show the foreground service's persistent notification |
-| `RECEIVE_BOOT_COMPLETED` | Automatically re-enable the bridge after a phone restart |
-| `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_CONNECTED_DEVICE` | Keep the listener running reliably in the background |
-
-The app doesn't request Internet access, has no analytics or telemetry SDKs, and sends no
-data outside the device itself except the `.txt` file that goes over Bluetooth to the
-receiver you explicitly chose.
+There is no OBEX library involved. Android doesn't expose OBEX in its public API, so `ObexProtocol` encodes and decodes the few packets that Object Push needs. A watchdog closes the socket if a transfer takes longer than 15 seconds. If closing the session fails after the receiver has already accepted the file, the transfer still counts as delivered and isn't retried, which is what keeps duplicates from appearing.
 
 ## Building
 
 ```bash
-cd NotificationBridge
+git clone https://github.com/yopo3r/notification-bridge.git
+cd notification-bridge
 ./gradlew assembleDebug
 ```
 
-Clone this repository from GitHub, then run the commands from its root directory.
+The APK ends up in `app/build/outputs/apk/debug/`. You can also open the folder in Android Studio and run it from there. The Gradle wrapper downloads the Gradle version the project needs, so nothing else has to be installed. The project compiles and targets Android SDK 37.
 
-The APK ends up in `app/build/outputs/apk/debug/`. You can also open the folder directly in
-Android Studio and run it from there (it uses the included Gradle Wrapper, no need to install
-Gradle separately).
+Debug builds use the application ID `app.notificationbridge.debug`, so they install next to a release build instead of replacing it.
 
-`./gradlew assembleRelease` creates an unsigned release APK. Sign release builds with a private
-key kept outside the repository; never commit signing keys or passwords.
+`./gradlew assembleRelease` builds a release APK, which stays unsigned unless a signing configuration is found. To sign it, create `release-signing.properties` in the project root with `storeFile`, `storePassword`, `keyAlias` and `keyPassword`. Keep that file and the keystore out of version control.
 
-## Installing
+To run the checks:
 
 ```bash
-adb install app/build/outputs/apk/debug/app-debug.apk
+./gradlew testDebugUnitTest lintDebug
+python3 scripts/check_string_resources.py
 ```
 
-or transfer the APK to the phone and install it manually (you'll need to allow "unknown
-sources" for that file).
+The unit tests run on the plain JVM and need neither a device nor Bluetooth hardware. The Python script looks for unescaped apostrophes in the string resources (see Troubleshooting).
 
-## Pairing the dumbphone
+## Project layout
 
-Bluetooth pairing happens **from the system settings**, not from the app:
-
-1. On the receiving phone, turn on Bluetooth and make it visible/discoverable.
-2. On the smartphone, System Settings → Bluetooth → scan for devices → pair with the
-   receiver.
-3. Confirm the PIN/code if the receiver asks for one.
-
-## Setting up notification access
-
-1. Open Notification Bridge → **Home** tab → "Notification access" button (takes you straight
-   to the system settings).
-2. Turn on the switch for Notification Bridge.
-3. Go back to the app; Home should show "Service enabled" and the readiness checklist's
-   first row should read "Yes".
-
-> **Note:** if you reinstall the app (e.g. a new debug build), Android may not automatically
-> reconnect the listener even though the permission is still listed as granted. If forwarding
-> stops after a reinstall, manually turn the permission off and back on from the system
-> settings.
-
-## Testing the system
-
-1. **Test** tab → "Grant permission / refresh" (this also turns on Bluetooth if it was off).
-2. Pick the receiving device from the list and try "Send test file".
-3. Check the **History** tab (did it say "Transferred to device"? That means the receiver accepted the file over Bluetooth, not that anyone saw it) and the **Diagnostics** tab to confirm the
-   connection and OBEX responses look right, and that the file arrived at the receiver.
-4. Only then: grant notification access (previous step), choose which apps to forward in
-   **Settings**, and turn on "Enable bridge" (off by default, on purpose).
-
-## Current project status
-
-Functional and in active use for its main use case: forwarding messaging, email and calls
-from an Android smartphone to an OBEX receiver (tested with an Alcatel 3080A). It's a
-personal/hobby project with a working, minimalist Compose UI (Home, Test, History, Settings,
-Diagnostics, About), first-run onboarding, light/dark/system theme, an 11-language picker
-(Spanish, English, French, Portuguese, Italian, Dutch, German, Japanese, Korean, Russian, Simplified Chinese), an in-memory transfer history,
-a diagnostics screen and an optional dumbphone mode.
-
-## Repository structure
+Most source files start with a header comment explaining what the class does and why it exists.
 
 ```
 app/src/main/java/app/notificationbridge/
-├── config/ConfigFile.kt         Export/import text format for the configuration (pure JVM, unit tested)
-├── readiness/                   Home readiness checklist model (pure JVM, unit tested)
-├── MainActivity.kt              Compose UI shell (swipeable, responsive tab bar) + Home, Test, Settings screens
-├── MainViewModel.kt             UI ↔ Settings/BridgeRuntime adapter
-├── OnboardingScreen.kt          First-run walkthrough (skippable, reopenable from Settings)
-├── AboutScreen.kt               About tab: version, purpose, license
-├── HistoryScreen.kt             Recent transfers, plain-language failures and their action
-├── FailureText.kt               Failure reason/action → string resources
-├── DiagnosticsScreen.kt         Technical report and copy button
-├── diagnostics/DiagnosticsReport.kt  Allow-listed, privacy-filtered report (pure JVM)
-├── BridgeApplication.kt         Initializes BridgeRuntime when the process starts
-├── BootReceiver.kt              Re-enables the bridge after a device restart
-├── ui/theme/Theme.kt            Material 3 light/dark color schemes
-├── ui/Scrollbar.kt              Vertical scrollbar modifier (ScrollState/LazyListState)
+├── MainActivity.kt          Tab shell and the Home, Test and Settings screens
+├── MainViewModel.kt         Adapter between the UI, the settings and BridgeRuntime
+├── BridgeApplication.kt     Starts BridgeRuntime with the process
+├── OnboardingScreen.kt      First-run tutorial
+├── HistoryScreen.kt         Recent transfers, failure explanations and actions
+├── DiagnosticsScreen.kt     Technical report with a copy button
+├── AboutScreen.kt           Version, purpose and license
+├── FailureText.kt           Failure reasons and actions mapped to string resources
 ├── bluetooth/
-│   ├── ObexObjectPushClient.kt  RFCOMM socket + OBEX orchestration
-│   └── ObexProtocol.kt          OBEX packet encoding
-├── data/SettingsRepository.kt   Persistent configuration (DataStore)
-├── format/NotificationFormatter.kt  Notification → text/file name
-├── model/Models.kt              Shared data models
+│   ├── ObexObjectPushClient.kt   RFCOMM socket and OBEX exchange
+│   └── ObexProtocol.kt           OBEX packet encoding and decoding
+├── config/ConfigFile.kt     Text format for configuration export and import
+├── data/SettingsRepository.kt    Persistent settings (Jetpack DataStore)
+├── diagnostics/DiagnosticsReport.kt   Allow-listed diagnostics text
+├── format/NotificationFormatter.kt    Notification to text file content and name
+│   ├── VMessageFormatter.kt          Notification to vMessage (.vmg)
+│   └── OutgoingMessage.kt            Picks file name, type and bytes for the chosen format
+├── model/                   Data models and FailureReason
 ├── notification/
-│   ├── NotificationBridgeService.kt  NotificationListenerService + foreground status
-│   ├── NotificationChannels.kt  Channels/ids for the app's own notifications
-│   └── ErrorNotifier.kt         Failure alert (dumbphone mode)
-└── queue/
-    ├── BridgeRuntime.kt         Queue, filters, retries, worker, state
-    ├── DuplicateDetector.kt     Repost suppression
-    ├── RateLimiter.kt           Per-app burst protection
-    ├── RetentionPolicy.kt       Age-based pruning for transfer history
-    ├── TransferHistory.kt       History list helpers
-    ├── FailureClassifier.kt     Exception → FailureReason
-    └── RetryBuffer.kt           Short-lived in-memory store behind "Retry now"
+│   ├── NotificationBridgeService.kt   Notification listener and foreground status
+│   ├── NotificationChannels.kt        Channels for the app's own notifications
+│   └── ErrorNotifier.kt               Failure alert used by dumbphone mode
+├── queue/
+│   ├── BridgeRuntime.kt     Queue, filters, retries, worker and UI state
+│   ├── DuplicateDetector.kt, RateLimiter.kt, MessageBatch.kt
+│   ├── TransferHistory.kt, RetentionPolicy.kt, RetryBuffer.kt
+│   ├── FailureClassifier.kt     Exception to FailureReason
+│   └── NotificationSamples.kt   Sample content for test sends
+├── readiness/               Home readiness checklist model
+└── ui/                      Shared Compose components, scrollbar, warning dialog, themes
 
-app/src/main/res/values*/strings.xml   UI strings in 11 languages (es/en/fr/pt/it/nl/de/ja/ko/ru/zh)
-app/src/main/res/xml/locales_config.xml  Declares supported locales for Android 13+
-app/src/test/java/...   Unit tests (plain JVM): formatter, duplicates, rate limit, history, diagnostics
-.github/workflows/ci.yml         Build + tests + lint on every push/PR
+app/src/main/res/values*/strings.xml    UI strings, one file per language
+app/src/main/res/xml/locales_config.xml Languages offered in Android's per-app settings
+app/src/test/                           Unit tests
+scripts/check_string_resources.py       Checks string resources for unescaped apostrophes
+examples/                               Example theme file
 ```
+
+The formatter, the filters, the history helpers, configuration and theme parsing and the diagnostics report don't call the Android framework, so their unit tests run on the plain JVM.
 
 ## Known limitations
 
-- On manufacturers with aggressive battery management (MIUI and similar), you may need to
-  manually enable "Autostart" and exclude the app from battery optimization so the listener
-  doesn't get killed in the background.
-- Call detection depends on the source app tagging the notification as `CATEGORY_CALL`
-  (Android's standard convention); if some dialer or VoIP app doesn't do that, that particular
-  call won't be detected.
-- Reinstalling debug builds may require manually re-enabling notification access (see the
-  setup section above).
-- No external OBEX library: the implementation covers Object Push only, not other OBEX
-  profiles (business cards, sync, etc.).
-- The transfer history lives in memory only: it is lost when Android kills the app or the
-  process restarts. Notification bodies are not added to history.
-- Rate limiting drops, rather than defers, notifications from an app that exceeds 10 per minute.
-- On Android below 13, the status/failure notifications may appear in the system language
-  instead of the in-app language (a Service context doesn't follow per-app locales there).
+- On phones with aggressive battery management (MIUI and similar), you may have to enable Autostart and exclude the app from battery optimization, or the system will stop the listener in the background.
+- Calls are detected through `CATEGORY_CALL`, Android's standard tag for call notifications. A dialer or VoIP app that doesn't set it won't have its calls forwarded.
+- The vMessage format is only as compatible as the receiver's own parser. Some phones ignore a pushed `.vmg`, store it as a file, or show it with the wrong date or sender. If yours does, switch back to the text file.
+- Only OBEX Object Push is implemented, not the other profiles (contacts, synchronization and so on).
+- The transfer history is kept in memory and disappears when the app process ends.
+- An app that exceeds 10 notifications per minute has the extra ones dropped, not delayed. The queue holds at most 100 transfers, and anything beyond that is dropped too.
+- Below Android 13, the status and failure notifications may appear in the system language instead of the app language, because a service context doesn't follow per-app locales there.
 
-## Basic troubleshooting
+## Troubleshooting
 
-| Symptom | Where to look |
+| Symptom | What to check |
 |---|---|
-| WhatsApp (or another app) doesn't show up in "Allowed apps" | Confirm the APK declares `<queries>` in the manifest (required since Android 11) |
-| Nothing reaches the receiver, but Home looks fine | Check that "Enable bridge" is ON in Settings — it's off by default |
-| Stopped working after reinstalling a build | Turn notification access off and back on from the system settings |
-| Duplicates arrive | Check the History tab and Diagnostics report; in a debug build, `adb logcat -s BridgeRuntime` includes filter decisions |
-| Some notifications from one app never arrive | In a debug build, `adb logcat -s BridgeRuntime` shows `rate limited` decisions |
-| Forwarding silently stopped | Diagnostics → *Listener connected*: if it says `no` while *Notification access granted* says `yes`, toggle notification access off and on |
-| A call isn't forwarded | Confirm "Notify calls" is on in Settings; if it still doesn't work, that app may not tag the call as `CATEGORY_CALL` |
-| Build fails to compile | Confirm JDK 17 and that `./gradlew` is executable (`chmod +x gradlew`) |
-| Build fails with `Can not extract resource from com.android.aaptcompiler.ParsedResource@...` | A string resource has an unescaped apostrophe (`'` instead of `\'`). Run `python3 scripts/check_string_resources.py` to find exactly which one |
-| Picking a language does nothing | Should self-recreate the activity automatically (`MainActivity` extends `AppCompatActivity` with an AppCompat `DayNight` theme, which is what `AppCompatDelegate.setApplicationLocales` needs to hook into); if it still doesn't change, please open an Issue |
+| An app is missing from the allowed-apps list | Only apps that have a launcher icon are listed. |
+| Nothing reaches the receiver, but Home looks fine | Enable bridge (Settings → Connection) is off by default. History also shows why a notification was dropped or rate-limited. |
+| Forwarding stopped after a reinstall | Switch notification access off and on again in the system settings. |
+| Notification access shows as granted, but nothing is forwarded | In Diagnostics, check Listener connected. If it says `no` while access says `yes`, toggle notification access off and on. |
+| Transfers fail one after another, then everything pauses | After two failed notifications in a row, the app waits five minutes before trying again. Fix the cause (receiver off, out of range, Bluetooth disabled), then use Retry now in History. |
+| Duplicates arrive | Check that Ignore duplicates is on. History and Diagnostics show what was sent, and a debug build logs every filter decision (`adb logcat -s BridgeRuntime`). |
+| Some notifications from one app never arrive | The per-app limit is 10 per minute. History shows these as Rate-limited. |
+| A call isn't forwarded | Check that Notify calls is on. If it is, the app may not tag its call notifications as `CATEGORY_CALL`. |
+| The build fails to compile | Use JDK 17 or newer, and make sure `./gradlew` is executable (`chmod +x gradlew`). |
+| The build fails with `Can not extract resource from com.android.aaptcompiler.ParsedResource@...` | A string resource has an unescaped apostrophe (`'` instead of `\'`). Run `python3 scripts/check_string_resources.py` to find which one. |
 
-To report an issue not covered here, open an Issue following the guide in
-[CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Screenshots
-
-![description](img/screenshot2.jpeg)
-
-![description](img/screenshot1.jpeg)
-
-## Disclaimer
-
-Notification Bridge is provided **as is**, without warranties or guarantees of reliability,
-availability, or fitness for a particular purpose. Notification forwarding depends on Android,
-Bluetooth, the source app, the receiving device, system permissions, battery-management settings,
-and other factors outside the developer's control. Transfers may be delayed, duplicated, incomplete,
-or fail entirely.
-
-**Do not rely on this app as the only way to receive urgent, emergency, safety-critical, medical,
-work-related, or otherwise important communications.** The developer is not responsible for missed
-or delayed calls, messages, notifications, alarms, reminders, or other communications, nor for any
-resulting loss, damage, cost, or inconvenience arising from use of, or inability to use, the app.
-You are responsible for testing the app with your own devices, reviewing transfer history and
-diagnostics, maintaining alternative communication methods, and deciding whether the app is
-appropriate for your use.
-
-Nothing in this disclaimer excludes or limits liability where doing so is prohibited by applicable law.
+For anything else, open an issue as described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Privacy
 
-These statements were checked against the code:
+This section describes version 0.15.0 and can be checked against the source.
 
-- All notification processing happens locally, on the phone itself.
-- The app declares no `INTERNET` permission and contains no internet networking code, backend, or
-  analytics or telemetry SDKs.
-- The configured Bluetooth receiver is the only remote destination for forwarded notification
-  data.
-- Notification content is **not stored on disk**. Jetpack DataStore persists configuration:
-  the selected receiver's name and Bluetooth address, allowed app package names, and preferences.
-  Android cloud backup and device transfer are explicitly disabled for app data.
-- Transfer history (app name, short notification title, result and error detail) exists in memory
-  only; it can be cleared in the app or pruned automatically. Notification bodies are not added
-  to history. In-memory queue and batching may hold notification content until transfer or process
-  exit.
-- **Debug builds** write troubleshooting lines to logcat; release builds do not. Debug log lines
-  can include package names, receiver addresses and title-derived file names. Do not share them
-  without reviewing and redacting them.
-- The **Copy diagnostic info** text contains the app version, Android version and device model,
-  phone model, on/off states, configuration and counts. It indicates whether a transfer failed,
-  without exception details or event timestamps. Review it before sharing. It omits notification
-  titles and bodies, receiver name and Bluetooth address, and allowed app names.
+- Everything happens on the phone. The app has no `INTERNET` permission and no networking code, backend, analytics or crash reporting. The Bluetooth receiver you selected is the only place notification data is sent.
+- The app never writes notification content to disk. Jetpack DataStore stores settings only: the receiver's name and Bluetooth address, the package names of allowed apps, and preferences. Android cloud backup and device-to-device transfer are turned off for app data.
+- While a notification waits to be sent, its content is held in memory, in the queue or in a pending batch. It is dropped once the transfer succeeds or fails for good. A failed transfer that can be retried stays in the retry buffer for up to 10 minutes (five items at most) so that Retry now works. The queue holds at most 100 transfers and 20 pending batches, and Clear history also empties the retry buffer and the pending batches. All of it disappears when the process ends.
+- The transfer history lists the app name, a short title (40 characters at most), the result and the error detail. It lives in memory only and never includes the message text. You can clear it yourself, or let it clear automatically (24 hours by default, from 1 hour to 7 days).
+- Settings → Privacy → Hide in screenshots and recents blocks screenshots of the app and hides its preview in the recent-apps list. It is off by default.
+- Debug builds write troubleshooting lines to logcat under the `BridgeRuntime` tag. They can contain package names, receiver addresses and file names derived from titles, so review them before sharing. Release builds don't log.
+- Copy diagnostic info produces a report with the app version, the Android version and device model, the on or off state of the settings, counts, and whether transfers failed, without exception text or timestamps. It leaves out notification titles and text, the receiver's name and address, and the names of allowed apps. Read it before posting it publicly anyway.
 
-## License
+What the receiver gets deserves a separate mention. The app connects through Android's secure RFCOMM socket, which requires a paired device, but it adds no encryption of its own. The receiver stores each notification as an ordinary text file or, with the vMessage format, as a text message in its inbox, and what happens to those files afterwards is outside the app's control. The app also doesn't try to recognize sensitive content such as one-time codes, so only allow apps whose notifications you are comfortable having on the receiver.
 
-[MIT](LICENSE).
+To report a security problem, see [SECURITY.md](SECURITY.md).
+
+## Disclaimer
+
+Notification Bridge is provided as is, without any warranty, including of reliability, availability or fitness for a particular purpose. Forwarding depends on Android, Bluetooth, the source app, the receiving device, system permissions, battery management and other factors outside the developer's control. Transfers can be delayed, duplicated, incomplete or fail entirely.
+
+Do not rely on this app as your only way to receive urgent, emergency, safety-critical, medical, work-related or otherwise important communications. The developer is not responsible for missed or delayed calls, messages, notifications, alarms, reminders or other communications, or for any loss, damage, cost or inconvenience resulting from using, or being unable to use, the app. You are responsible for testing it on your own devices, checking the History and Diagnostics tabs, keeping other ways of being reached, and deciding whether the app suits your situation.
+
+Nothing in this disclaimer excludes or limits liability where the law doesn't allow that.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). The change history is in
-[CHANGELOG.md](CHANGELOG.md).
+Bug reports, ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). The history of changes is in [CHANGELOG.md](CHANGELOG.md).
+
+## License
+
+Released under the [MIT License](LICENSE).
