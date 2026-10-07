@@ -148,7 +148,11 @@ class ConfigFileTest {
     fun `an unknown language is exported as system`() {
         assertEquals("system", ConfigFile.parse(export(language = "xx")).language)
         assertEquals("system", ConfigFile.languageValue(null))
-        assertEquals("system", ConfigFile.languageValue("ja"))
+        assertEquals("system", ConfigFile.languageValue("ar"))
+        assertEquals("ja", ConfigFile.languageValue("ja"))
+        assertEquals("ko", ConfigFile.languageValue("ko"))
+        assertEquals("ru", ConfigFile.languageValue("ru"))
+        assertEquals("zh", ConfigFile.languageValue("zh"))
         assertEquals("de", ConfigFile.languageValue("de"))
     }
 

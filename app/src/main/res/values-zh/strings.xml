@@ -1,0 +1,293 @@
+<resources>
+    <string name="app_name">Notification Bridge</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">首页</string>
+    <string name="tab_test">测试</string>
+    <string name="tab_settings">设置</string>
+    <string name="tab_about">关于</string>
+
+    <!-- Home -->
+    <string name="home_bluetooth_label">蓝牙</string>
+    <string name="home_no_device">无设备</string>
+    <string name="home_notifications_label">通知</string>
+    <string name="home_service_enabled">服务已启用</string>
+    <string name="home_access_not_granted">未授予权限</string>
+    <string name="home_apps_label">应用</string>
+    <string name="home_queue_label">队列</string>
+    <string name="home_setup_title">完成设置</string>
+    <string name="home_setup_body">选择已配对的接收设备，授予通知访问权限，并启用桥接。</string>
+    <string name="home_action_choose">选择接收设备</string>
+    <string name="test_description">选择已配对的蓝牙设备并发送测试消息，以检查连接是否正常。</string>
+    <string name="test_empty">未找到已配对的设备。请先在 Android 设置中配对接收手机，然后刷新列表。</string>
+    <string name="test_refresh_devices">刷新设备</string>
+    <string name="test_selected">已选择的接收设备</string>
+    <string name="settings_intro">控制转发的内容、发送时机以及应用的外观。</string>
+    <string name="settings_group_forwarding">转发</string>
+    <string name="settings_section_connection">连接</string>
+    <string name="settings_section_connection_desc">开启桥接并重新连接接收设备。</string>
+    <string name="settings_section_forwarding_desc">转发哪些应用和通知，以及文本长度上限。</string>
+    <string name="settings_section_privacy">隐私</string>
+    <string name="settings_section_privacy_desc">历史记录在本机保留多长时间。</string>
+    <string name="settings_section_reliability">可靠性</string>
+    <string name="settings_section_reliability_desc">合并连续消息，并在传输失败时提醒你。</string>
+    <string name="settings_section_appearance">外观</string>
+    <string name="settings_section_appearance_desc">主题、颜色和语言。</string>
+    <string name="settings_section_advanced">高级</string>
+    <string name="settings_section_advanced_desc">测试消息、配置备份和教程。</string>
+    <string name="settings_section_expanded">已展开</string>
+    <string name="settings_section_collapsed">已折叠</string>
+    <string name="home_notification_access_button">通知访问权限</string>
+    <string name="home_settings_button">设置</string>
+    <string name="home_readiness_title">就绪状态</string>
+    <string name="home_readiness_all_set">一切就绪</string>
+    <string name="home_readiness_fix">修复</string>
+    <string name="readiness_notification_access">已授予通知访问权限</string>
+    <string name="readiness_listener_connected">监听器已连接</string>
+    <string name="readiness_bluetooth_enabled">蓝牙已开启</string>
+    <string name="readiness_receiver_selected">已选择接收设备</string>
+    <string name="readiness_receiver_paired">接收设备已配对</string>
+    <string name="readiness_bridge_enabled">桥接已启用</string>
+    <string name="readiness_battery_optimization">电池优化</string>
+    <string name="readiness_last_transfer">最近一次成功传输</string>
+    <string name="readiness_yes">是</string>
+    <string name="readiness_no">否</string>
+    <string name="readiness_unknown">未知</string>
+    <string name="readiness_none_yet">暂无</string>
+    <string name="readiness_select_receiver_first">请选择接收设备</string>
+    <string name="readiness_battery_unrestricted">无限制</string>
+    <string name="readiness_battery_optimized">已优化</string>
+
+    <!-- Test -->
+    <string name="test_title">蓝牙 / OBEX</string>
+    <string name="test_send_button">发送测试文件</string>
+
+    <!-- Settings -->
+    <string name="settings_bridge_enabled">启用桥接</string>
+    <string name="settings_auto_reconnect">自动重新连接</string>
+    <string name="settings_ignore_silent">忽略静音通知</string>
+    <string name="settings_ignore_ongoing">忽略常驻通知</string>
+    <string name="settings_ignore_duplicates">忽略重复通知</string>
+    <string name="settings_notify_calls">通知来电</string>
+    <string name="settings_allowed_apps_title">允许的应用</string>
+    <string name="settings_apps_show_more">显示更多</string>
+    <string name="settings_theme_title">主题</string>
+    <string name="settings_theme_system">跟随系统</string>
+    <string name="settings_theme_light">浅色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_theme_builtin_active">正在使用内置主题</string>
+    <string name="settings_theme_custom_active">自定义主题：%1$s</string>
+    <string name="settings_theme_import">导入主题文件</string>
+    <string name="settings_theme_reset">使用内置主题</string>
+    <string name="settings_theme_imported">已导入主题“%1$s”</string>
+    <string name="settings_theme_import_error">主题导入失败：%1$s</string>
+    <string name="settings_theme_format_help">请使用 v1 文本文件，并以 light. 和 dark. 前缀指定 foreground、background、highlight、highlight-foreground、secondary、surface 和 error 的颜色。</string>
+    <string name="settings_language_title">语言</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_english">English</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
+
+
+    <!-- Dialogs / results -->
+    <string name="dialog_result_title">结果</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="settings_backup_title">配置文件</string>
+    <string name="settings_backup_intro">将设置保存到文件，以便在重新安装后、使用新版本或在另一部手机上恢复。桥接开关和通知历史不会包含在内，导入也不会自动开启桥接。</string>
+    <string name="settings_backup_export">导出配置</string>
+    <string name="settings_backup_import">导入配置</string>
+    <string name="backup_export_title">导出配置</string>
+    <string name="backup_export_receiver_hint">选择要保存的接收设备信息。蓝牙地址可让另一部手机直接选中同一接收设备，但它能识别出该设备：如果要分享文件，请不要包含。</string>
+    <string name="backup_export_receiver_name">仅接收设备名称（推荐）</string>
+    <string name="backup_export_receiver_none">不包含接收设备</string>
+    <string name="backup_export_receiver_address">名称和蓝牙地址</string>
+    <string name="backup_export_confirm">选择位置</string>
+    <string name="backup_exported">配置已保存。</string>
+    <string name="backup_export_error">配置保存失败：%1$s</string>
+    <string name="backup_import_title">导入此配置？</string>
+    <string name="backup_import_body">这将用文件中的值替换你允许的应用、过滤器、合并发送、最大文本长度、主题、语言和老人机模式。桥接开关不会改变。</string>
+    <string name="backup_import_receiver">接收设备：%1$s</string>
+    <string name="backup_import_confirm">导入</string>
+    <string name="backup_imported">配置已导入。</string>
+    <string name="backup_import_error">配置导入失败：%1$s</string>
+    <string name="backup_import_receiver_selected">已选择接收设备：%1$s。</string>
+    <string name="backup_import_receiver_missing">未能自动选择接收设备“%1$s”。请先在 Android 蓝牙设置中配对，然后在“测试”标签页中选择它。</string>
+    <string name="transfer_success">传输完成</string>
+    <string name="transfer_error">错误：%1$s</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step_indicator">第 %1$d 步，共 %2$d 步</string>
+    <string name="onboarding_next">下一步</string>
+    <string name="onboarding_back">返回</string>
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_finish">开始使用</string>
+    <string name="onboarding_step1_title">这个应用能做什么</string>
+    <string name="onboarding_step1_desc">Notification Bridge 通过蓝牙将这部手机的通知转发到另一台设备（例如老人机），无需联网，接收设备上也无需安装任何应用。</string>
+    <string name="onboarding_step2_title">配对另一台设备</string>
+    <string name="onboarding_step2_desc">使用本应用前，请先在 Android 蓝牙设置中配对接收手机，方法与配对耳机相同。</string>
+    <string name="onboarding_step3_title">选择蓝牙设备</string>
+    <string name="onboarding_step3_desc">在本应用的“测试”标签页中，从列表里选择用于接收通知的已配对设备。</string>
+    <string name="onboarding_step4_title">授予通知访问权限</string>
+    <string name="onboarding_step4_desc">在首页点按“通知访问权限”，并在系统设置中为本应用开启该权限。没有这一步，就无法读取通知。</string>
+    <string name="onboarding_step5_title">选择要转发的应用</string>
+    <string name="onboarding_step5_desc">在“设置”中勾选要转发通知的应用（WhatsApp、电子邮件等），然后打开“启用桥接”。</string>
+    <string name="onboarding_step6_title">发送测试</string>
+    <string name="onboarding_step6_desc">在“测试”标签页中点按“发送测试文件”，在依赖真实通知之前，先确认蓝牙传输可以正常工作。</string>
+
+    <!-- About -->
+    <string name="settings_show_tutorial_button">显示教程</string>
+    <string name="about_version">版本 %1$s</string>
+    <string name="about_description">通过蓝牙（OBEX Object Push）将 Android 通知转发到另一台设备，适合搭配没有自带应用的老人机使用。</string>
+    <string name="about_purpose_title">项目目的</string>
+    <string name="about_purpose_body">这是一个个人开源项目，让你无需把联网的智能手机当作主力设备，也能知道是谁发来了短信或打来了电话。</string>
+    <string name="about_technical_title">技术概述</string>
+    <string name="about_technical_body">NotificationListenerService + 内存队列 + 基于 RFCOMM 蓝牙套接字自行实现的 OBEX Object Push 客户端。已使用 Alcatel 3080A 作为接收设备进行测试。</string>
+    <string name="about_technologies_title">使用的技术</string>
+    <string name="about_technologies_body">Kotlin • Jetpack Compose • Material 3 • Jetpack DataStore • Bluetooth Classic (RFCOMM) • OBEX Object Push</string>
+    <string name="about_license_title">许可证</string>
+    <string name="about_license_body">MIT — 请参阅仓库中的 LICENSE 文件。</string>
+
+    <!-- History, diagnostics, dumbphone mode, system notifications -->
+    <string name="tab_history">历史</string>
+    <string name="tab_diagnostics">诊断</string>
+    <string name="history_title">最近的传输</string>
+    <string name="history_privacy_note">仅在内存中保留应用名称和标题；完全关闭应用后即会丢失。</string>
+    <string name="history_empty">暂无传输记录。</string>
+    <string name="history_clear">清除历史</string>
+    <string name="history_status_failed">失败</string>
+    <string name="history_status_queued">排队中</string>
+    <string name="history_status_connecting">连接中</string>
+    <string name="history_status_transferred">已传输到设备</string>
+    <string name="history_status_dropped">已被过滤器丢弃</string>
+    <string name="history_status_rate_limited">已限速</string>
+    <string name="history_status_batched">已合并为一批</string>
+    <string name="history_drop_ongoing">常驻通知已被过滤器跳过</string>
+    <string name="history_drop_silent">静音通知已被过滤器跳过</string>
+    <string name="history_drop_calls_disabled">来电通知已关闭</string>
+    <string name="history_detail_rate_limited">此应用在一分钟内发送的通知过多</string>
+    <string name="history_status_note">“已传输到设备”表示接收设备已通过蓝牙接收了文件，并不代表有人看到了通知。</string>
+    <string name="failure_short_no_receiver">未选择接收设备</string>
+    <string name="failure_short_bluetooth_unavailable">蓝牙不可用</string>
+    <string name="failure_short_bluetooth_off">蓝牙已关闭</string>
+    <string name="failure_short_permission_missing">缺少蓝牙权限</string>
+    <string name="failure_short_not_paired">接收设备未配对</string>
+    <string name="failure_short_receiver_unavailable">无法连接接收设备</string>
+    <string name="failure_short_timed_out">已超时</string>
+    <string name="failure_short_receiver_rejected">接收设备拒绝了文件</string>
+    <string name="failure_short_paused">多次失败后已暂停</string>
+    <string name="failure_short_unknown">意外错误</string>
+    <string name="failure_explain_no_receiver">未选择接收设备，因此无处可发。</string>
+    <string name="failure_explain_bluetooth_unavailable">这部手机报告不支持蓝牙。</string>
+    <string name="failure_explain_bluetooth_off">这部手机的蓝牙已关闭。</string>
+    <string name="failure_explain_permission_missing">应用没有使用蓝牙的权限。</string>
+    <string name="failure_explain_not_paired">接收设备已不再与这部手机配对。</string>
+    <string name="failure_explain_receiver_unavailable">无法连接接收设备。请检查它是否已开机、在附近并已开启蓝牙。</string>
+    <string name="failure_explain_timed_out">接收设备未能及时响应。</string>
+    <string name="failure_explain_receiver_rejected">接收设备拒绝了该文件，或无法识别其内容。</string>
+    <string name="failure_explain_paused">由于多次失败，发送已暂停几分钟。</string>
+    <string name="failure_explain_unknown">出现了意外问题。更多详情请查看“诊断”。</string>
+    <string name="failure_action_open_bluetooth_settings">打开蓝牙设置</string>
+    <string name="failure_action_grant_permission">授予权限</string>
+    <string name="failure_action_turn_on_bluetooth">开启蓝牙</string>
+    <string name="failure_action_compatibility_test">发送兼容性测试</string>
+    <string name="failure_action_retry_now">立即重试</string>
+    <string name="failure_action_open_diagnostics">打开诊断</string>
+    <string name="failure_action_open_notification_access">打开通知访问设置</string>
+    <string name="history_attempt">第 %1$d 次尝试，共 %2$d 次</string>
+    <string name="history_attempt_reason">第 %1$d 次尝试，共 %2$d 次 · %3$s</string>
+    <string name="history_listener_disconnected">Android 已断开通知监听器，因此新通知无法到达桥接。</string>
+    <string name="history_listener_no_access">通知访问权限已关闭，因此通知无法到达桥接。</string>
+    <string name="history_retry_unavailable">此通知已无法重试，它只会保留几分钟。</string>
+    <string name="diagnostics_title">诊断</string>
+    <string name="diagnostics_intro">报告包含应用版本、Android 版本、手机型号、设置和技术状态。错误详情和日志可能含有个人数据，因此已省略。分享前请先检查报告。报告不包含通知内容、接收设备的名称和地址，也不含允许的应用名称。</string>
+    <string name="diagnostics_copy_button">复制诊断信息</string>
+    <string name="diagnostics_copied">已复制诊断信息</string>
+    <string name="settings_dumbphone_mode">老人机模式</string>
+    <string name="settings_dumbphone_mode_desc">安静运行：状态通知降到最低，自动重新连接，仅在传输失败时提醒。</string>
+    <string name="channel_status_name">桥接状态</string>
+    <string name="channel_status_quiet_name">桥接状态（静音）</string>
+    <string name="channel_error_name">传输错误</string>
+    <string name="foreground_notification_title">Notification Bridge 正在运行</string>
+    <string name="foreground_notification_text">正在监听要通过蓝牙转发的通知</string>
+    <string name="error_notification_title">无法转发通知</string>
+    <string name="error_notification_text">请检查接收设备是否已开机、已配对并在附近。点按即可打开应用。</string>
+
+    <!-- Text length limit, test-content kinds -->
+    <string name="settings_text_length_title">最大文本长度</string>
+    <string name="settings_text_length_short">短（200 个字符）</string>
+    <string name="settings_text_length_medium">中（700 个字符）</string>
+    <string name="settings_text_length_long">长（1500 个字符）</string>
+    <string name="settings_text_length_xlong">很长（3000 个字符）</string>
+    <string name="test_kind_title">测试内容</string>
+    <string name="test_kind_short">短文本</string>
+    <string name="test_kind_long">长文本</string>
+    <string name="test_kind_special">特殊字符</string>
+    <string name="test_kind_emoji">表情符号</string>
+
+    <!-- Message batching / cooldown -->
+    <string name="settings_batching_enabled">合并消息（冷却）</string>
+    <string name="settings_batching_desc">发送前先等待，让同一联系人连续发来的多条消息合并为一个文件。</string>
+    <string name="settings_batching_seconds">发送前等待 %1$d 秒</string>
+
+    <!-- Pagination -->
+
+    <!-- Auto-clear (retention) -->
+    <string name="settings_auto_clear_enabled">自动清除历史</string>
+    <string name="settings_auto_clear_desc">删除超过设定时间的记录。</string>
+    <string name="settings_auto_clear_1h">1 小时后</string>
+    <string name="settings_auto_clear_6h">6 小时后</string>
+    <string name="settings_auto_clear_24h">24 小时后</string>
+    <string name="settings_auto_clear_72h">3 天后</string>
+    <string name="settings_auto_clear_7d">7 天后</string>
+
+    <!-- Localized Bluetooth test-message samples -->
+    <string name="sample_source_name">测试样本</string>
+    <string name="sample_short_title">简短测试</string>
+    <string name="sample_short_text">测试。</string>
+    <string name="sample_long_title">长文本测试</string>
+    <string name="sample_long_text">这是一段用于检查蓝牙长消息传输的测试文本，包含多个句子和常见字符。此内容并非真实对话，目的是检查接收设备上的发送、编码和文本显示是否正常。测试文本结束。</string>
+    <string name="sample_special_title">重音符号和符号</string>
+    <string name="sample_special_text">测试字符：á, é, í, ó, ú, ñ, ¿?, ¡!, €, —, 第42号。</string>
+    <string name="sample_emoji_title">表情符号测试</string>
+    <string name="sample_emoji_text">测试表情符号：😀 🎉 🌍 🚀 🍕。</string>
+    <plurals name="home_apps_selected">
+        <item quantity="other">已选择 %1$d 个应用</item>
+    </plurals>
+    <plurals name="home_queue_pending">
+        <item quantity="other">%1$d 条待处理</item>
+    </plurals>
+    <plurals name="action_show_more">
+        <item quantity="other">再显示 %1$d 项</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="other">%1$d 项待修复</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="other">%1$d 条消息等待中</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="other">已合并 %1$d 条消息</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="other">%1$d 个允许的应用</item>
+    </plurals>
+    <string name="menu_more">更多选项</string>
+    <string name="menu_github_repo">GitHub 仓库</string>
+    <string name="menu_report_issue">报告问题</string>
+    <string name="menu_get_themes">获取新主题</string>
+    <string name="settings_restore_defaults">恢复默认选项</string>
+    <string name="restore_defaults_title">恢复默认选项？</string>
+    <string name="restore_defaults_warning">确定吗？已删除的数据无法恢复。</string>
+    <string name="restore_defaults_scope">允许的应用、过滤器、接收设备、主题、语言和所有其他选项都将恢复为默认值，桥接也会关闭。通知历史不受影响。</string>
+    <string name="restore_defaults_confirm">恢复</string>
+    <string name="restore_defaults_done">已恢复默认选项。</string>
+    <string name="restore_defaults_error">选项恢复失败：%1$s</string>
+</resources>

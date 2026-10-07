@@ -90,6 +90,10 @@
     <string name="language_italian">Italiano</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
 
 
     <!-- Dialogs / results -->
@@ -282,4 +286,15 @@
         <item quantity="one">%1$d toegestane app</item>
         <item quantity="other">%1$d toegestane apps</item>
     </plurals>
+    <string name="menu_more">Meer opties</string>
+    <string name="menu_github_repo">GitHub-repository</string>
+    <string name="menu_report_issue">Probleem melden</string>
+    <string name="menu_get_themes">Nieuwe thema\'s ophalen</string>
+    <string name="settings_restore_defaults">Standaardopties herstellen</string>
+    <string name="restore_defaults_title">Standaardopties herstellen?</string>
+    <string name="restore_defaults_warning">Weet je het zeker? Gewiste gegevens kunnen niet worden hersteld.</string>
+    <string name="restore_defaults_scope">Toegestane apps, filters, ontvanger, thema, taal en alle andere opties gaan terug naar de standaardwaarden en de bridge wordt uitgeschakeld. De meldingsgeschiedenis blijft ongewijzigd.</string>
+    <string name="restore_defaults_confirm">Herstellen</string>
+    <string name="restore_defaults_done">Standaardopties hersteld.</string>
+    <string name="restore_defaults_error">Opties niet hersteld: %1$s</string>
 </resources>

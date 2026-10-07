@@ -1,0 +1,293 @@
+<resources>
+    <string name="app_name">Notification Bridge</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">ホーム</string>
+    <string name="tab_test">テスト</string>
+    <string name="tab_settings">設定</string>
+    <string name="tab_about">情報</string>
+
+    <!-- Home -->
+    <string name="home_bluetooth_label">Bluetooth</string>
+    <string name="home_no_device">デバイスなし</string>
+    <string name="home_notifications_label">通知</string>
+    <string name="home_service_enabled">サービス有効</string>
+    <string name="home_access_not_granted">アクセス未許可</string>
+    <string name="home_apps_label">アプリ</string>
+    <string name="home_queue_label">キュー</string>
+    <string name="home_setup_title">セットアップを完了</string>
+    <string name="home_setup_body">ペアリング済みの受信機を選び、通知へのアクセスを許可して、ブリッジを有効にしてください。</string>
+    <string name="home_action_choose">受信機を選択</string>
+    <string name="test_description">ペアリング済みのBluetoothデバイスを選び、テストメッセージを送信して接続を確認します。</string>
+    <string name="test_empty">ペアリング済みのデバイスが見つかりません。Androidの設定で受信側のスマートフォンをペアリングしてから、リストを更新してください。</string>
+    <string name="test_refresh_devices">デバイスを更新</string>
+    <string name="test_selected">選択中の受信機</string>
+    <string name="settings_intro">転送する内容、送信のタイミング、アプリの見た目を設定します。</string>
+    <string name="settings_group_forwarding">転送</string>
+    <string name="settings_section_connection">接続</string>
+    <string name="settings_section_connection_desc">ブリッジのオン/オフと受信機への再接続を行います。</string>
+    <string name="settings_section_forwarding_desc">転送するアプリと通知、および文字数の上限を設定します。</string>
+    <string name="settings_section_privacy">プライバシー</string>
+    <string name="settings_section_privacy_desc">このスマートフォンに履歴を保存する期間を設定します。</string>
+    <string name="settings_section_reliability">信頼性</string>
+    <string name="settings_section_reliability_desc">連続するメッセージをまとめ、転送に失敗したときに通知します。</string>
+    <string name="settings_section_appearance">外観</string>
+    <string name="settings_section_appearance_desc">テーマ、色、言語を設定します。</string>
+    <string name="settings_section_advanced">詳細設定</string>
+    <string name="settings_section_advanced_desc">テストメッセージ、設定のバックアップ、チュートリアル。</string>
+    <string name="settings_section_expanded">展開済み</string>
+    <string name="settings_section_collapsed">折りたたみ済み</string>
+    <string name="home_notification_access_button">通知へのアクセス</string>
+    <string name="home_settings_button">設定</string>
+    <string name="home_readiness_title">準備状況</string>
+    <string name="home_readiness_all_set">準備完了</string>
+    <string name="home_readiness_fix">修正</string>
+    <string name="readiness_notification_access">通知へのアクセスを許可済み</string>
+    <string name="readiness_listener_connected">リスナー接続済み</string>
+    <string name="readiness_bluetooth_enabled">Bluetoothが有効</string>
+    <string name="readiness_receiver_selected">受信機を選択済み</string>
+    <string name="readiness_receiver_paired">受信機をペアリング済み</string>
+    <string name="readiness_bridge_enabled">ブリッジが有効</string>
+    <string name="readiness_battery_optimization">バッテリーの最適化</string>
+    <string name="readiness_last_transfer">最後に成功した転送</string>
+    <string name="readiness_yes">はい</string>
+    <string name="readiness_no">いいえ</string>
+    <string name="readiness_unknown">不明</string>
+    <string name="readiness_none_yet">まだありません</string>
+    <string name="readiness_select_receiver_first">受信機を選択してください</string>
+    <string name="readiness_battery_unrestricted">制限なし</string>
+    <string name="readiness_battery_optimized">最適化あり</string>
+
+    <!-- Test -->
+    <string name="test_title">Bluetooth / OBEX</string>
+    <string name="test_send_button">テストファイルを送信</string>
+
+    <!-- Settings -->
+    <string name="settings_bridge_enabled">ブリッジを有効にする</string>
+    <string name="settings_auto_reconnect">自動再接続</string>
+    <string name="settings_ignore_silent">サイレント通知を無視</string>
+    <string name="settings_ignore_ongoing">継続中の通知を無視</string>
+    <string name="settings_ignore_duplicates">重複を無視</string>
+    <string name="settings_notify_calls">着信を通知</string>
+    <string name="settings_allowed_apps_title">許可するアプリ</string>
+    <string name="settings_apps_show_more">もっと見る</string>
+    <string name="settings_theme_title">テーマ</string>
+    <string name="settings_theme_system">システム</string>
+    <string name="settings_theme_light">ライト</string>
+    <string name="settings_theme_dark">ダーク</string>
+    <string name="settings_theme_builtin_active">内蔵テーマを使用中</string>
+    <string name="settings_theme_custom_active">カスタムテーマ: %1$s</string>
+    <string name="settings_theme_import">テーマファイルをインポート</string>
+    <string name="settings_theme_reset">内蔵テーマを使用</string>
+    <string name="settings_theme_imported">テーマ「%1$s」をインポートしました</string>
+    <string name="settings_theme_import_error">テーマをインポートできませんでした: %1$s</string>
+    <string name="settings_theme_format_help">v1形式のテキストファイルを使用し、foreground、background、highlight、highlight-foreground、secondary、surface、error の各色を light. と dark. で指定してください。</string>
+    <string name="settings_language_title">言語</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_english">English</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
+
+
+    <!-- Dialogs / results -->
+    <string name="dialog_result_title">結果</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">キャンセル</string>
+    <string name="settings_backup_title">設定ファイル</string>
+    <string name="settings_backup_intro">設定をファイルに保存すると、再インストール後や新しいビルド、別のスマートフォンで復元できます。ブリッジのスイッチと通知履歴は含まれず、インポートしてもブリッジが自動的にオンになることはありません。</string>
+    <string name="settings_backup_export">設定をエクスポート</string>
+    <string name="settings_backup_import">設定をインポート</string>
+    <string name="backup_export_title">設定をエクスポート</string>
+    <string name="backup_export_receiver_hint">受信機について保存する内容を選んでください。Bluetoothアドレスを含めると別のスマートフォンで同じ受信機を直接選択できますが、デバイスを特定できてしまうため、ファイルを共有する場合は含めないでください。</string>
+    <string name="backup_export_receiver_name">受信機の名前のみ（推奨）</string>
+    <string name="backup_export_receiver_none">受信機を含めない</string>
+    <string name="backup_export_receiver_address">名前とBluetoothアドレス</string>
+    <string name="backup_export_confirm">保存先を選択</string>
+    <string name="backup_exported">設定を保存しました。</string>
+    <string name="backup_export_error">設定を保存できませんでした: %1$s</string>
+    <string name="backup_import_title">この設定をインポートしますか？</string>
+    <string name="backup_import_body">許可するアプリ、フィルター、まとめ送り、最大文字数、テーマ、言語、ダムフォンモードが、ファイルの内容で置き換えられます。ブリッジのスイッチは変更されません。</string>
+    <string name="backup_import_receiver">受信機: %1$s</string>
+    <string name="backup_import_confirm">インポート</string>
+    <string name="backup_imported">設定をインポートしました。</string>
+    <string name="backup_import_error">設定をインポートできませんでした: %1$s</string>
+    <string name="backup_import_receiver_selected">受信機を選択しました: %1$s。</string>
+    <string name="backup_import_receiver_missing">受信機「%1$s」は自動的に選択されませんでした。AndroidのBluetooth設定でペアリングしてから、テストタブで選択してください。</string>
+    <string name="transfer_success">転送が完了しました</string>
+    <string name="transfer_error">エラー: %1$s</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step_indicator">ステップ %1$d / %2$d</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_back">戻る</string>
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_finish">始める</string>
+    <string name="onboarding_step1_title">このアプリについて</string>
+    <string name="onboarding_step1_desc">Notification Bridgeは、このスマートフォンの通知をBluetooth経由で別のデバイス（ガラケーなど）に転送します。インターネットは不要で、受信側にアプリを入れる必要もありません。</string>
+    <string name="onboarding_step2_title">相手のデバイスをペアリング</string>
+    <string name="onboarding_step2_desc">アプリを使う前に、AndroidのBluetooth設定から受信側のスマートフォンをペアリングしてください。ヘッドホンをペアリングするのと同じ手順です。</string>
+    <string name="onboarding_step3_title">Bluetoothデバイスを選択</string>
+    <string name="onboarding_step3_desc">このアプリのテストタブで、通知を受け取るペアリング済みのデバイスをリストから選んでください。</string>
+    <string name="onboarding_step4_title">通知へのアクセスを許可</string>
+    <string name="onboarding_step4_desc">ホームで「通知へのアクセス」をタップし、システム設定でこのアプリの権限を有効にしてください。この手順を行わないと、通知を読み取れません。</string>
+    <string name="onboarding_step5_title">転送するアプリを選択</string>
+    <string name="onboarding_step5_desc">設定で、通知を転送したいアプリ（WhatsApp、メールなど）にチェックを入れ、「ブリッジを有効にする」をオンにしてください。</string>
+    <string name="onboarding_step6_title">テストを送信</string>
+    <string name="onboarding_step6_desc">テストタブで「テストファイルを送信」をタップし、実際の通知に頼る前にBluetooth転送が動作することを確認してください。</string>
+
+    <!-- About -->
+    <string name="settings_show_tutorial_button">チュートリアルを表示</string>
+    <string name="about_version">バージョン %1$s</string>
+    <string name="about_description">Androidの通知をBluetooth（OBEX Object Push）で別のデバイスに転送します。専用アプリを持たないガラケーと組み合わせて使うことを想定しています。</string>
+    <string name="about_purpose_title">プロジェクトの目的</string>
+    <string name="about_purpose_body">メインのデバイスとしてインターネットに接続されたスマートフォンに頼らずに、誰からメッセージや着信があったかを知るための、個人のオープンソースプロジェクトです。</string>
+    <string name="about_technical_title">技術概要</string>
+    <string name="about_technical_body">NotificationListenerService + メモリ内キュー + RFCOMM Bluetoothソケット上の自作OBEX Object Pushクライアント。受信機としてAlcatel 3080Aで動作確認済み。</string>
+    <string name="about_technologies_title">使用技術</string>
+    <string name="about_technologies_body">Kotlin • Jetpack Compose • Material 3 • Jetpack DataStore • Bluetooth Classic (RFCOMM) • OBEX Object Push</string>
+    <string name="about_license_title">ライセンス</string>
+    <string name="about_license_body">MIT — リポジトリのLICENSEファイルを参照してください。</string>
+
+    <!-- History, diagnostics, dumbphone mode, system notifications -->
+    <string name="tab_history">履歴</string>
+    <string name="tab_diagnostics">診断</string>
+    <string name="history_title">最近の転送</string>
+    <string name="history_privacy_note">アプリ名とタイトルのみがメモリ上に保持され、アプリを完全に終了すると失われます。</string>
+    <string name="history_empty">転送はまだありません。</string>
+    <string name="history_clear">履歴を消去</string>
+    <string name="history_status_failed">失敗</string>
+    <string name="history_status_queued">待機中</string>
+    <string name="history_status_connecting">接続中</string>
+    <string name="history_status_transferred">デバイスに転送済み</string>
+    <string name="history_status_dropped">フィルターで除外</string>
+    <string name="history_status_rate_limited">レート制限</string>
+    <string name="history_status_batched">まとめて送信</string>
+    <string name="history_drop_ongoing">継続中の通知はフィルターによりスキップされました</string>
+    <string name="history_drop_silent">サイレント通知はフィルターによりスキップされました</string>
+    <string name="history_drop_calls_disabled">着信通知はオフになっています</string>
+    <string name="history_detail_rate_limited">このアプリからの通知が1分間に多すぎます</string>
+    <string name="history_status_note">「デバイスに転送済み」は、受信機がBluetooth経由でファイルを受け取ったことを意味します。誰かが通知を見たことまでは保証しません。</string>
+    <string name="failure_short_no_receiver">受信機が未選択</string>
+    <string name="failure_short_bluetooth_unavailable">Bluetoothを利用できません</string>
+    <string name="failure_short_bluetooth_off">Bluetoothがオフです</string>
+    <string name="failure_short_permission_missing">Bluetoothの権限がありません</string>
+    <string name="failure_short_not_paired">受信機が未ペアリング</string>
+    <string name="failure_short_receiver_unavailable">受信機に接続できません</string>
+    <string name="failure_short_timed_out">タイムアウト</string>
+    <string name="failure_short_receiver_rejected">受信機がファイルを拒否</string>
+    <string name="failure_short_paused">失敗のため一時停止中</string>
+    <string name="failure_short_unknown">予期しないエラー</string>
+    <string name="failure_explain_no_receiver">受信機が選択されていないため、送信先がありませんでした。</string>
+    <string name="failure_explain_bluetooth_unavailable">このスマートフォンはBluetoothに対応していないと報告しています。</string>
+    <string name="failure_explain_bluetooth_off">このスマートフォンのBluetoothがオフになっています。</string>
+    <string name="failure_explain_permission_missing">アプリにBluetoothを使用する権限がありません。</string>
+    <string name="failure_explain_not_paired">受信機がこのスマートフォンとペアリングされなくなりました。</string>
+    <string name="failure_explain_receiver_unavailable">受信機に接続できませんでした。電源が入っていて、近くにあり、Bluetoothが有効になっているか確認してください。</string>
+    <string name="failure_explain_timed_out">受信機が時間内に応答しませんでした。</string>
+    <string name="failure_explain_receiver_rejected">受信機がファイルを拒否したか、内容を解釈できませんでした。</string>
+    <string name="failure_explain_paused">失敗が続いたため、数分間送信を一時停止しています。</string>
+    <string name="failure_explain_unknown">予期しない問題が発生しました。詳細は診断で確認できます。</string>
+    <string name="failure_action_open_bluetooth_settings">Bluetooth設定を開く</string>
+    <string name="failure_action_grant_permission">権限を許可</string>
+    <string name="failure_action_turn_on_bluetooth">Bluetoothをオンにする</string>
+    <string name="failure_action_compatibility_test">互換性テストを送信</string>
+    <string name="failure_action_retry_now">今すぐ再試行</string>
+    <string name="failure_action_open_diagnostics">診断を開く</string>
+    <string name="failure_action_open_notification_access">通知アクセスの設定を開く</string>
+    <string name="history_attempt">試行 %1$d / %2$d</string>
+    <string name="history_attempt_reason">試行 %1$d / %2$d · %3$s</string>
+    <string name="history_listener_disconnected">Androidが通知リスナーを切断したため、新しい通知がブリッジに届いていません。</string>
+    <string name="history_listener_no_access">通知へのアクセスがオフのため、通知がブリッジに届きません。</string>
+    <string name="history_retry_unavailable">この通知は再試行できなくなりました。保持されるのは数分間のみです。</string>
+    <string name="diagnostics_title">診断</string>
+    <string name="diagnostics_intro">レポートには、アプリのバージョン、Androidのバージョン、機種名、設定、技術的な状態が含まれます。エラーの詳細とログは個人情報を含む可能性があるため除外されます。共有する前にレポートを確認してください。通知の内容、受信機の名前とアドレス、許可したアプリ名は含まれません。</string>
+    <string name="diagnostics_copy_button">診断情報をコピー</string>
+    <string name="diagnostics_copied">診断情報をコピーしました</string>
+    <string name="settings_dumbphone_mode">ダムフォンモード</string>
+    <string name="settings_dumbphone_mode_desc">静かに動作します。ステータス通知は最小限、自動再接続を行い、転送に失敗したときだけ通知します。</string>
+    <string name="channel_status_name">ブリッジの状態</string>
+    <string name="channel_status_quiet_name">ブリッジの状態（静音）</string>
+    <string name="channel_error_name">転送エラー</string>
+    <string name="foreground_notification_title">Notification Bridgeは動作中です</string>
+    <string name="foreground_notification_text">Bluetoothで転送する通知を待機しています</string>
+    <string name="error_notification_title">通知を転送できませんでした</string>
+    <string name="error_notification_text">受信側のデバイスの電源が入っていて、ペアリング済みで、近くにあることを確認してください。タップするとアプリが開きます。</string>
+
+    <!-- Text length limit, test-content kinds -->
+    <string name="settings_text_length_title">最大文字数</string>
+    <string name="settings_text_length_short">短い（200文字）</string>
+    <string name="settings_text_length_medium">中程度（700文字）</string>
+    <string name="settings_text_length_long">長い（1500文字）</string>
+    <string name="settings_text_length_xlong">非常に長い（3000文字）</string>
+    <string name="test_kind_title">テスト内容</string>
+    <string name="test_kind_short">短いテキスト</string>
+    <string name="test_kind_long">長いテキスト</string>
+    <string name="test_kind_special">特殊文字</string>
+    <string name="test_kind_emoji">絵文字</string>
+
+    <!-- Message batching / cooldown -->
+    <string name="settings_batching_enabled">メッセージをまとめる（クールダウン）</string>
+    <string name="settings_batching_desc">送信前に待機し、同じ相手から続けて届いた複数のメッセージを1つのファイルにまとめます。</string>
+    <string name="settings_batching_seconds">送信前に%1$d秒待機</string>
+
+    <!-- Pagination -->
+
+    <!-- Auto-clear (retention) -->
+    <string name="settings_auto_clear_enabled">履歴を自動的に消去</string>
+    <string name="settings_auto_clear_desc">設定した期間より古い項目を削除します。</string>
+    <string name="settings_auto_clear_1h">1時間後</string>
+    <string name="settings_auto_clear_6h">6時間後</string>
+    <string name="settings_auto_clear_24h">24時間後</string>
+    <string name="settings_auto_clear_72h">3日後</string>
+    <string name="settings_auto_clear_7d">7日後</string>
+
+    <!-- Localized Bluetooth test-message samples -->
+    <string name="sample_source_name">テストサンプル</string>
+    <string name="sample_short_title">短いテスト</string>
+    <string name="sample_short_text">テスト。</string>
+    <string name="sample_long_title">長いテスト</string>
+    <string name="sample_long_text">これはBluetoothでの長いメッセージの転送を確認するためのテスト用テキストです。複数の文と一般的な文字が含まれています。この内容は実際の会話ではありません。目的は、受信側のデバイスでの送信、エンコード、テキスト表示を確認することです。テスト用テキストはここまでです。</string>
+    <string name="sample_special_title">アクセント記号と記号</string>
+    <string name="sample_special_text">テスト用の文字: á, é, í, ó, ú, ñ, ¿?, ¡!, €, —, 第42号。</string>
+    <string name="sample_emoji_title">絵文字テスト</string>
+    <string name="sample_emoji_text">テスト用の絵文字: 😀 🎉 🌍 🚀 🍕。</string>
+    <plurals name="home_apps_selected">
+        <item quantity="other">%1$d個のアプリを選択中</item>
+    </plurals>
+    <plurals name="home_queue_pending">
+        <item quantity="other">%1$d件が保留中</item>
+    </plurals>
+    <plurals name="action_show_more">
+        <item quantity="other">さらに%1$d件を表示</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="other">%1$d件の修正が必要</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="other">%1$d件のメッセージが待機中</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="other">%1$d件のメッセージをまとめました</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="other">許可するアプリ%1$d個</item>
+    </plurals>
+    <string name="menu_more">その他のオプション</string>
+    <string name="menu_github_repo">GitHubリポジトリ</string>
+    <string name="menu_report_issue">問題を報告</string>
+    <string name="menu_get_themes">新しいテーマを入手</string>
+    <string name="settings_restore_defaults">初期設定に戻す</string>
+    <string name="restore_defaults_title">初期設定に戻しますか？</string>
+    <string name="restore_defaults_warning">よろしいですか？消去したデータは元に戻せません。</string>
+    <string name="restore_defaults_scope">許可するアプリ、フィルター、受信機、テーマ、言語、その他すべての設定が初期値に戻り、ブリッジはオフになります。通知履歴は影響を受けません。</string>
+    <string name="restore_defaults_confirm">初期設定に戻す</string>
+    <string name="restore_defaults_done">初期設定に戻しました。</string>
+    <string name="restore_defaults_error">初期設定に戻せませんでした: %1$s</string>
+</resources>

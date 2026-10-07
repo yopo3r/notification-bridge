@@ -90,6 +90,10 @@
     <string name="language_italian">Italiano</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
 
 
     <!-- Dialogs / results -->
@@ -289,4 +293,15 @@
         <item quantity="many">%1$d aplicativos permitidos</item>
         <item quantity="other">%1$d aplicativos permitidos</item>
     </plurals>
+    <string name="menu_more">Mais opções</string>
+    <string name="menu_github_repo">Repositório no GitHub</string>
+    <string name="menu_report_issue">Relatar um problema</string>
+    <string name="menu_get_themes">Obter novos temas</string>
+    <string name="settings_restore_defaults">Restaurar opções padrão</string>
+    <string name="restore_defaults_title">Restaurar opções padrão?</string>
+    <string name="restore_defaults_warning">Tem certeza? Os dados apagados não podem ser recuperados.</string>
+    <string name="restore_defaults_scope">Os apps permitidos, os filtros, o receptor, o tema, o idioma e todas as outras opções voltarão aos valores padrão, e a ponte será desligada. O histórico de notificações não é afetado.</string>
+    <string name="restore_defaults_confirm">Restaurar</string>
+    <string name="restore_defaults_done">Opções padrão restauradas.</string>
+    <string name="restore_defaults_error">Opções não restauradas: %1$s</string>
 </resources>

@@ -293,6 +293,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         return matches.singleOrNull()
     }
 
+    /** Restores every option to its default (see [SettingsRepository.resetToDefaults]). */
+    fun restoreDefaults(done: (Result<Unit>) -> Unit) {
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) { runCatching { repo.resetToDefaults() } }
+            if (result.isSuccess) refresh()
+            done(result)
+        }
+    }
+
     fun setOnboardingCompleted(v: Boolean) = viewModelScope.launch { repo.setOnboardingCompleted(v) }
     fun setDumbphoneMode(v: Boolean) = viewModelScope.launch { repo.setDumbphoneMode(v) }
     fun setMaxTextChars(v: Int) = viewModelScope.launch { repo.setMaxTextChars(v) }

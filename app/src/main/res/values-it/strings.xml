@@ -90,6 +90,10 @@
     <string name="language_italian">Italiano</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
 
 
     <!-- Dialogs / results -->
@@ -289,4 +293,15 @@
         <item quantity="many">%1$d app consentite</item>
         <item quantity="other">%1$d app consentite</item>
     </plurals>
+    <string name="menu_more">Altre opzioni</string>
+    <string name="menu_github_repo">Repository GitHub</string>
+    <string name="menu_report_issue">Segnala un problema</string>
+    <string name="menu_get_themes">Scarica nuovi temi</string>
+    <string name="settings_restore_defaults">Ripristina le opzioni predefinite</string>
+    <string name="restore_defaults_title">Ripristinare le opzioni predefinite?</string>
+    <string name="restore_defaults_warning">Sei sicuro? I dati cancellati non possono essere recuperati.</string>
+    <string name="restore_defaults_scope">App consentite, filtri, ricevitore, tema, lingua e tutte le altre opzioni torneranno ai valori predefiniti e il bridge verrà disattivato. La cronologia delle notifiche non viene toccata.</string>
+    <string name="restore_defaults_confirm">Ripristina</string>
+    <string name="restore_defaults_done">Opzioni predefinite ripristinate.</string>
+    <string name="restore_defaults_error">Opzioni non ripristinate: %1$s</string>
 </resources>

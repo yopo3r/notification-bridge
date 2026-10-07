@@ -3,6 +3,45 @@
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning roughly follows [SemVer](https://semver.org/).
 
+## [0.14.1] — Links menu, restore defaults and four new languages (2026-10-06)
+
+### Added
+- **Links menu** in the top bar, next to the app name: a "⋮" button that opens a dropdown with
+  the GitHub repository, "Report an issue" (the repository's Issues page) and "Get new themes"
+  (the `notification-bridge-themes` repository). Links open in the browser; a device with no
+  browser is handled without crashing. The button has a localized accessibility label.
+- **Four new languages: Japanese, Korean, Russian and Simplified Chinese** (now 11 in total:
+  es, en, fr, pt, it, nl, de, ja, ko, ru, zh). Each has a complete `values-xx/strings.xml`,
+  an entry in the Settings language picker (shown in its own language: 日本語, 한국어, Русский,
+  简体中文) and an entry in `locales_config.xml`, so it also appears in Android's per-app
+  language settings. Russian includes all four plural forms (one, few, many, other); Japanese,
+  Korean and Chinese use `other` only.
+- **Restore default options** button at the bottom of Settings > Advanced. It opens a
+  confirmation dialog ("Are you sure? Erased data cannot be recovered.") that also lists what
+  will be reset. Confirming erases every stored option in one DataStore transaction (receiver,
+  bridge switch, allowed apps, filters, batching, text length, theme and custom theme,
+  dumbphone mode, auto-clear, Test sample) and returns the language to the system default.
+  The first-run tutorial flag and the in-memory notification history are left alone.
+  The dialog is animated (new `ui/WarningDialog`): it pops in with a fade and a slightly bouncy
+  scale, the warning triangle pulses, and it fades out before the action runs. The pulse stops
+  by itself when system animations are turned off.
+  New `SettingsRepository.resetToDefaults()` and `MainViewModel.restoreDefaults()`.
+- New strings in every locale for the links menu (`menu_more`, `menu_github_repo`,
+  `menu_report_issue`, `menu_get_themes`), the restore-defaults dialog and the language names.
+
+### Changed
+- `ConfigFile.LANGUAGES` now accepts `ja`, `ko`, `ru` and `zh`, so the language is kept when
+  exporting and importing a configuration file.
+- README now lists 11 languages.
+- The Settings language picker is now in alphabetical order: names in Latin script A-Z by their
+  own spelling (Deutsch, English, Español, Français, Italiano, Nederlands, Português), followed
+  by the other scripts ordered by their English name (简体中文, 日本語, 한국어, Русский).
+  `ConfigFile.LANGUAGES` follows the same order.
+
+### Tests
+- `ConfigFileTest` uses `"ar"` as its example of an unsupported language (previously `"ja"`,
+  which is now supported) and checks that `ja`, `ko`, `ru` and `zh` are accepted.
+
 ## [0.14.0] — Readiness checklist, precise history, config file, clearer failures (2026-10-05)
 
 ### Added

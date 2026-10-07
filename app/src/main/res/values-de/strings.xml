@@ -90,6 +90,10 @@
     <string name="language_italian">Italiano</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
 
 
     <!-- Dialogs / results -->
@@ -282,4 +286,15 @@
         <item quantity="one">%1$d erlaubte App</item>
         <item quantity="other">%1$d erlaubte Apps</item>
     </plurals>
+    <string name="menu_more">Weitere Optionen</string>
+    <string name="menu_github_repo">GitHub-Repository</string>
+    <string name="menu_report_issue">Problem melden</string>
+    <string name="menu_get_themes">Neue Themes holen</string>
+    <string name="settings_restore_defaults">Standardoptionen wiederherstellen</string>
+    <string name="restore_defaults_title">Standardoptionen wiederherstellen?</string>
+    <string name="restore_defaults_warning">Bist du sicher? Gelöschte Daten können nicht wiederhergestellt werden.</string>
+    <string name="restore_defaults_scope">Erlaubte Apps, Filter, Empfänger, Theme, Sprache und alle anderen Optionen werden auf ihre Standardwerte zurückgesetzt, und die Bridge wird ausgeschaltet. Der Benachrichtigungsverlauf bleibt unverändert.</string>
+    <string name="restore_defaults_confirm">Wiederherstellen</string>
+    <string name="restore_defaults_done">Standardoptionen wiederhergestellt.</string>
+    <string name="restore_defaults_error">Optionen nicht wiederhergestellt: %1$s</string>
 </resources>

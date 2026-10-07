@@ -1,0 +1,314 @@
+<resources>
+    <string name="app_name">Notification Bridge</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Главная</string>
+    <string name="tab_test">Тест</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="tab_about">О приложении</string>
+
+    <!-- Home -->
+    <string name="home_bluetooth_label">Bluetooth</string>
+    <string name="home_no_device">Нет устройства</string>
+    <string name="home_notifications_label">Уведомления</string>
+    <string name="home_service_enabled">Служба включена</string>
+    <string name="home_access_not_granted">Доступ не предоставлен</string>
+    <string name="home_apps_label">Приложения</string>
+    <string name="home_queue_label">Очередь</string>
+    <string name="home_setup_title">Завершите настройку</string>
+    <string name="home_setup_body">Выберите сопряжённый приёмник, предоставьте доступ к уведомлениям и включите мост.</string>
+    <string name="home_action_choose">Выбрать приёмник</string>
+    <string name="test_description">Выберите сопряжённое Bluetooth-устройство и отправьте тестовое сообщение, чтобы проверить соединение.</string>
+    <string name="test_empty">Сопряжённые устройства не найдены. Выполните сопряжение принимающего телефона в настройках Android, затем обновите список.</string>
+    <string name="test_refresh_devices">Обновить устройства</string>
+    <string name="test_selected">Выбранный приёмник</string>
+    <string name="settings_intro">Настройте, что пересылать, когда отправлять и как выглядит приложение.</string>
+    <string name="settings_group_forwarding">Пересылка</string>
+    <string name="settings_section_connection">Подключение</string>
+    <string name="settings_section_connection_desc">Включение моста и повторное подключение к приёмнику.</string>
+    <string name="settings_section_forwarding_desc">Какие приложения и уведомления пересылаются и какой максимальный объём текста.</string>
+    <string name="settings_section_privacy">Конфиденциальность</string>
+    <string name="settings_section_privacy_desc">Как долго история хранится на этом телефоне.</string>
+    <string name="settings_section_reliability">Надёжность</string>
+    <string name="settings_section_reliability_desc">Объединение серий сообщений и оповещение о сбоях передачи.</string>
+    <string name="settings_section_appearance">Внешний вид</string>
+    <string name="settings_section_appearance_desc">Тема, цвета и язык.</string>
+    <string name="settings_section_advanced">Дополнительно</string>
+    <string name="settings_section_advanced_desc">Тестовое сообщение, резервная копия настроек и обучение.</string>
+    <string name="settings_section_expanded">Развёрнуто</string>
+    <string name="settings_section_collapsed">Свёрнуто</string>
+    <string name="home_notification_access_button">Доступ к уведомлениям</string>
+    <string name="home_settings_button">Настройки</string>
+    <string name="home_readiness_title">Готовность</string>
+    <string name="home_readiness_all_set">Всё готово</string>
+    <string name="home_readiness_fix">Исправить</string>
+    <string name="readiness_notification_access">Доступ к уведомлениям предоставлен</string>
+    <string name="readiness_listener_connected">Слушатель подключён</string>
+    <string name="readiness_bluetooth_enabled">Bluetooth включён</string>
+    <string name="readiness_receiver_selected">Приёмник выбран</string>
+    <string name="readiness_receiver_paired">Приёмник сопряжён</string>
+    <string name="readiness_bridge_enabled">Мост включён</string>
+    <string name="readiness_battery_optimization">Оптимизация батареи</string>
+    <string name="readiness_last_transfer">Последняя успешная передача</string>
+    <string name="readiness_yes">Да</string>
+    <string name="readiness_no">Нет</string>
+    <string name="readiness_unknown">Неизвестно</string>
+    <string name="readiness_none_yet">Пока нет</string>
+    <string name="readiness_select_receiver_first">Выберите приёмник</string>
+    <string name="readiness_battery_unrestricted">Без ограничений</string>
+    <string name="readiness_battery_optimized">Оптимизировано</string>
+
+    <!-- Test -->
+    <string name="test_title">Bluetooth / OBEX</string>
+    <string name="test_send_button">Отправить тестовый файл</string>
+
+    <!-- Settings -->
+    <string name="settings_bridge_enabled">Включить мост</string>
+    <string name="settings_auto_reconnect">Автоматическое переподключение</string>
+    <string name="settings_ignore_silent">Игнорировать беззвучные уведомления</string>
+    <string name="settings_ignore_ongoing">Игнорировать постоянные уведомления</string>
+    <string name="settings_ignore_duplicates">Игнорировать дубликаты</string>
+    <string name="settings_notify_calls">Уведомлять о звонках</string>
+    <string name="settings_allowed_apps_title">Разрешённые приложения</string>
+    <string name="settings_apps_show_more">Показать ещё</string>
+    <string name="settings_theme_title">Тема</string>
+    <string name="settings_theme_system">Системная</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_theme_builtin_active">Используется встроенная тема</string>
+    <string name="settings_theme_custom_active">Пользовательская тема: %1$s</string>
+    <string name="settings_theme_import">Импортировать файл темы</string>
+    <string name="settings_theme_reset">Использовать встроенную тему</string>
+    <string name="settings_theme_imported">Тема «%1$s» импортирована</string>
+    <string name="settings_theme_import_error">Тема не импортирована: %1$s</string>
+    <string name="settings_theme_format_help">Используйте текстовый файл версии v1 с цветами light. и dark. для foreground, background, highlight, highlight-foreground, secondary, surface и error.</string>
+    <string name="settings_language_title">Язык</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_english">English</string>
+    <string name="language_french">Français</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
+
+
+    <!-- Dialogs / results -->
+    <string name="dialog_result_title">Результат</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="settings_backup_title">Файл конфигурации</string>
+    <string name="settings_backup_intro">Сохраните настройки в файл, чтобы восстановить их после переустановки, в новой сборке или на другом телефоне. Переключатель моста и история уведомлений не включаются в файл, а импорт никогда не включает мост.</string>
+    <string name="settings_backup_export">Экспортировать конфигурацию</string>
+    <string name="settings_backup_import">Импортировать конфигурацию</string>
+    <string name="backup_export_title">Экспорт конфигурации</string>
+    <string name="backup_export_receiver_hint">Выберите, что сохранить о приёмнике. Bluetooth-адрес позволяет другому телефону сразу выбрать тот же приёмник, но он идентифицирует устройство: не включайте его, если собираетесь делиться файлом.</string>
+    <string name="backup_export_receiver_name">Только имя приёмника (рекомендуется)</string>
+    <string name="backup_export_receiver_none">Без приёмника</string>
+    <string name="backup_export_receiver_address">Имя и Bluetooth-адрес</string>
+    <string name="backup_export_confirm">Выбрать расположение</string>
+    <string name="backup_exported">Конфигурация сохранена.</string>
+    <string name="backup_export_error">Конфигурация не сохранена: %1$s</string>
+    <string name="backup_import_title">Импортировать эту конфигурацию?</string>
+    <string name="backup_import_body">Это заменит разрешённые приложения, фильтры, группировку сообщений, максимальную длину текста, тему, язык и режим «простого телефона» значениями из файла. Переключатель моста не изменится.</string>
+    <string name="backup_import_receiver">Приёмник: %1$s</string>
+    <string name="backup_import_confirm">Импортировать</string>
+    <string name="backup_imported">Конфигурация импортирована.</string>
+    <string name="backup_import_error">Конфигурация не импортирована: %1$s</string>
+    <string name="backup_import_receiver_selected">Приёмник выбран: %1$s.</string>
+    <string name="backup_import_receiver_missing">Приёмник «%1$s» не был выбран автоматически. Выполните сопряжение в настройках Bluetooth Android, затем выберите его на вкладке «Тест».</string>
+    <string name="transfer_success">Передача завершена</string>
+    <string name="transfer_error">Ошибка: %1$s</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step_indicator">Шаг %1$d из %2$d</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_back">Назад</string>
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_finish">Начать</string>
+    <string name="onboarding_step1_title">Что делает это приложение</string>
+    <string name="onboarding_step1_desc">Notification Bridge пересылает уведомления этого телефона на другое устройство (например, кнопочный телефон) по Bluetooth — без интернета и без установки приложения на приёмнике.</string>
+    <string name="onboarding_step2_title">Сопрягите другое устройство</string>
+    <string name="onboarding_step2_desc">Перед использованием приложения выполните сопряжение принимающего телефона в настройках Bluetooth Android — так же, как с наушниками.</string>
+    <string name="onboarding_step3_title">Выберите Bluetooth-устройство</string>
+    <string name="onboarding_step3_desc">На вкладке «Тест» этого приложения выберите из списка уже сопряжённое устройство, которое будет получать уведомления.</string>
+    <string name="onboarding_step4_title">Предоставьте доступ к уведомлениям</string>
+    <string name="onboarding_step4_desc">На главной странице нажмите «Доступ к уведомлениям» и включите разрешение для этого приложения в системных настройках. Без этого шага уведомления прочитать нельзя.</string>
+    <string name="onboarding_step5_title">Выберите приложения для пересылки</string>
+    <string name="onboarding_step5_desc">В настройках отметьте приложения, уведомления которых нужно пересылать (WhatsApp, почта и т. д.), и включите «Включить мост».</string>
+    <string name="onboarding_step6_title">Отправьте тест</string>
+    <string name="onboarding_step6_desc">На вкладке «Тест» нажмите «Отправить тестовый файл», чтобы убедиться, что передача по Bluetooth работает, прежде чем полагаться на настоящие уведомления.</string>
+
+    <!-- About -->
+    <string name="settings_show_tutorial_button">Показать обучение</string>
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_description">Пересылает уведомления Android на другое устройство по Bluetooth (OBEX Object Push). Предназначено для использования вместе с кнопочным телефоном без собственных приложений.</string>
+    <string name="about_purpose_title">Цель проекта</string>
+    <string name="about_purpose_body">Личный проект с открытым исходным кодом, чтобы видеть, кто пишет или звонит, не завися от смартфона с интернетом как основного устройства.</string>
+    <string name="about_technical_title">Техническое описание</string>
+    <string name="about_technical_body">NotificationListenerService + очередь в памяти + собственный клиент OBEX Object Push поверх Bluetooth-сокета RFCOMM. Проверено с Alcatel 3080A в качестве приёмника.</string>
+    <string name="about_technologies_title">Используемые технологии</string>
+    <string name="about_technologies_body">Kotlin • Jetpack Compose • Material 3 • Jetpack DataStore • Bluetooth Classic (RFCOMM) • OBEX Object Push</string>
+    <string name="about_license_title">Лицензия</string>
+    <string name="about_license_body">MIT — см. файл LICENSE в репозитории.</string>
+
+    <!-- History, diagnostics, dumbphone mode, system notifications -->
+    <string name="tab_history">История</string>
+    <string name="tab_diagnostics">Диагностика</string>
+    <string name="history_title">Последние передачи</string>
+    <string name="history_privacy_note">Хранятся только название приложения и заголовок, и только в памяти; они удаляются при полном закрытии приложения.</string>
+    <string name="history_empty">Передач пока нет.</string>
+    <string name="history_clear">Очистить историю</string>
+    <string name="history_status_failed">Ошибка</string>
+    <string name="history_status_queued">В очереди</string>
+    <string name="history_status_connecting">Подключение</string>
+    <string name="history_status_transferred">Передано на устройство</string>
+    <string name="history_status_dropped">Отклонено фильтром</string>
+    <string name="history_status_rate_limited">Ограничено по частоте</string>
+    <string name="history_status_batched">Объединено в пакет</string>
+    <string name="history_drop_ongoing">Постоянное уведомление пропущено фильтром</string>
+    <string name="history_drop_silent">Беззвучное уведомление пропущено фильтром</string>
+    <string name="history_drop_calls_disabled">Уведомления о звонках отключены</string>
+    <string name="history_detail_rate_limited">Слишком много уведомлений от этого приложения за одну минуту</string>
+    <string name="history_status_note">«Передано на устройство» означает, что приёмник принял файл по Bluetooth. Это не подтверждает, что кто-то увидел уведомление.</string>
+    <string name="failure_short_no_receiver">Приёмник не выбран</string>
+    <string name="failure_short_bluetooth_unavailable">Bluetooth недоступен</string>
+    <string name="failure_short_bluetooth_off">Bluetooth выключен</string>
+    <string name="failure_short_permission_missing">Нет разрешения Bluetooth</string>
+    <string name="failure_short_not_paired">Приёмник не сопряжён</string>
+    <string name="failure_short_receiver_unavailable">Приёмник недоступен</string>
+    <string name="failure_short_timed_out">Время ожидания истекло</string>
+    <string name="failure_short_receiver_rejected">Приёмник отклонил файл</string>
+    <string name="failure_short_paused">Приостановлено после сбоев</string>
+    <string name="failure_short_unknown">Непредвиденная ошибка</string>
+    <string name="failure_explain_no_receiver">Приёмник не выбран, поэтому отправлять было некуда.</string>
+    <string name="failure_explain_bluetooth_unavailable">Этот телефон не сообщает о поддержке Bluetooth.</string>
+    <string name="failure_explain_bluetooth_off">Bluetooth на этом телефоне выключен.</string>
+    <string name="failure_explain_permission_missing">У приложения нет разрешения на использование Bluetooth.</string>
+    <string name="failure_explain_not_paired">Приёмник больше не сопряжён с этим телефоном.</string>
+    <string name="failure_explain_receiver_unavailable">Не удалось связаться с приёмником. Убедитесь, что он включён, находится рядом и на нём включён Bluetooth.</string>
+    <string name="failure_explain_timed_out">Приёмник не ответил вовремя.</string>
+    <string name="failure_explain_receiver_rejected">Приёмник отказался принять файл или не смог его распознать.</string>
+    <string name="failure_explain_paused">После повторяющихся сбоев отправка приостановлена на несколько минут.</string>
+    <string name="failure_explain_unknown">Произошла непредвиденная ошибка. Подробности — в разделе «Диагностика».</string>
+    <string name="failure_action_open_bluetooth_settings">Открыть настройки Bluetooth</string>
+    <string name="failure_action_grant_permission">Предоставить разрешение</string>
+    <string name="failure_action_turn_on_bluetooth">Включить Bluetooth</string>
+    <string name="failure_action_compatibility_test">Отправить тест совместимости</string>
+    <string name="failure_action_retry_now">Повторить сейчас</string>
+    <string name="failure_action_open_diagnostics">Открыть диагностику</string>
+    <string name="failure_action_open_notification_access">Открыть настройки доступа к уведомлениям</string>
+    <string name="history_attempt">Попытка %1$d из %2$d</string>
+    <string name="history_attempt_reason">Попытка %1$d из %2$d · %3$s</string>
+    <string name="history_listener_disconnected">Android отключил слушатель уведомлений, поэтому новые уведомления не доходят до моста.</string>
+    <string name="history_listener_no_access">Доступ к уведомлениям отключён, поэтому уведомления не могут дойти до моста.</string>
+    <string name="history_retry_unavailable">Это уведомление больше нельзя отправить повторно. Оно хранится всего несколько минут.</string>
+    <string name="diagnostics_title">Диагностика</string>
+    <string name="diagnostics_intro">Отчёт содержит версию приложения, версию Android, модель телефона, настройки и технический статус. Подробности ошибок и журнал исключены, так как могут содержать личные данные. Проверьте отчёт, прежде чем делиться им. В него не входят содержимое уведомлений, имя и адрес приёмника и названия разрешённых приложений.</string>
+    <string name="diagnostics_copy_button">Скопировать диагностическую информацию</string>
+    <string name="diagnostics_copied">Диагностическая информация скопирована</string>
+    <string name="settings_dumbphone_mode">Режим «простого телефона»</string>
+    <string name="settings_dumbphone_mode_desc">Работает тихо: минимальное уведомление о состоянии, автоматическое переподключение и оповещение только при сбое передачи.</string>
+    <string name="channel_status_name">Состояние моста</string>
+    <string name="channel_status_quiet_name">Состояние моста (тихий режим)</string>
+    <string name="channel_error_name">Ошибки передачи</string>
+    <string name="foreground_notification_title">Notification Bridge работает</string>
+    <string name="foreground_notification_text">Ожидание уведомлений для пересылки по Bluetooth</string>
+    <string name="error_notification_title">Не удалось переслать уведомление</string>
+    <string name="error_notification_text">Убедитесь, что принимающее устройство включено, сопряжено и находится рядом. Нажмите, чтобы открыть приложение.</string>
+
+    <!-- Text length limit, test-content kinds -->
+    <string name="settings_text_length_title">Максимальная длина текста</string>
+    <string name="settings_text_length_short">Короткий (200 символов)</string>
+    <string name="settings_text_length_medium">Средний (700 символов)</string>
+    <string name="settings_text_length_long">Длинный (1500 символов)</string>
+    <string name="settings_text_length_xlong">Очень длинный (3000 символов)</string>
+    <string name="test_kind_title">Содержимое теста</string>
+    <string name="test_kind_short">Короткий текст</string>
+    <string name="test_kind_long">Длинный текст</string>
+    <string name="test_kind_special">Специальные символы</string>
+    <string name="test_kind_emoji">Эмодзи</string>
+
+    <!-- Message batching / cooldown -->
+    <string name="settings_batching_enabled">Группировать сообщения (пауза)</string>
+    <string name="settings_batching_desc">Ждёт перед отправкой, чтобы несколько сообщений подряд от одного контакта объединились в один файл.</string>
+    <string name="settings_batching_seconds">Ждать %1$d с перед отправкой</string>
+
+    <!-- Pagination -->
+
+    <!-- Auto-clear (retention) -->
+    <string name="settings_auto_clear_enabled">Автоматически очищать историю</string>
+    <string name="settings_auto_clear_desc">Удаляет записи старше заданного времени.</string>
+    <string name="settings_auto_clear_1h">Через 1 час</string>
+    <string name="settings_auto_clear_6h">Через 6 часов</string>
+    <string name="settings_auto_clear_24h">Через 24 часа</string>
+    <string name="settings_auto_clear_72h">Через 3 дня</string>
+    <string name="settings_auto_clear_7d">Через 7 дней</string>
+
+    <!-- Localized Bluetooth test-message samples -->
+    <string name="sample_source_name">Тестовый образец</string>
+    <string name="sample_short_title">Короткий тест</string>
+    <string name="sample_short_text">Тест.</string>
+    <string name="sample_long_title">Длинный тест</string>
+    <string name="sample_long_text">Это тестовый текст для проверки передачи длинных сообщений по Bluetooth. Он содержит несколько предложений и обычные символы. Это не настоящая переписка. Цель — проверить отправку, кодировку и отображение текста на принимающем устройстве. Конец тестового текста.</string>
+    <string name="sample_special_title">Диакритика и символы</string>
+    <string name="sample_special_text">Тестовые символы: á, é, í, ó, ú, ñ, ¿?, ¡!, €, —, № 42.</string>
+    <string name="sample_emoji_title">Тест эмодзи</string>
+    <string name="sample_emoji_text">Тестовые эмодзи: 😀 🎉 🌍 🚀 🍕.</string>
+    <plurals name="home_apps_selected">
+        <item quantity="one">Выбрано %1$d приложение</item>
+        <item quantity="few">Выбрано %1$d приложения</item>
+        <item quantity="many">Выбрано %1$d приложений</item>
+        <item quantity="other">Выбрано %1$d приложения</item>
+    </plurals>
+    <plurals name="home_queue_pending">
+        <item quantity="one">В ожидании: %1$d</item>
+        <item quantity="few">В ожидании: %1$d</item>
+        <item quantity="many">В ожидании: %1$d</item>
+        <item quantity="other">В ожидании: %1$d</item>
+    </plurals>
+    <plurals name="action_show_more">
+        <item quantity="one">Показать ещё %1$d</item>
+        <item quantity="few">Показать ещё %1$d</item>
+        <item quantity="many">Показать ещё %1$d</item>
+        <item quantity="other">Показать ещё %1$d</item>
+    </plurals>
+    <plurals name="home_readiness_attention">
+        <item quantity="one">Нужно исправить: %1$d</item>
+        <item quantity="few">Нужно исправить: %1$d</item>
+        <item quantity="many">Нужно исправить: %1$d</item>
+        <item quantity="other">Нужно исправить: %1$d</item>
+    </plurals>
+    <plurals name="history_detail_batched">
+        <item quantity="one">%1$d сообщение ожидает</item>
+        <item quantity="few">%1$d сообщения ожидают</item>
+        <item quantity="many">%1$d сообщений ожидают</item>
+        <item quantity="other">%1$d сообщения ожидают</item>
+    </plurals>
+    <plurals name="history_detail_combined">
+        <item quantity="one">%1$d сообщение объединено</item>
+        <item quantity="few">%1$d сообщения объединены</item>
+        <item quantity="many">%1$d сообщений объединено</item>
+        <item quantity="other">%1$d сообщения объединено</item>
+    </plurals>
+    <plurals name="backup_import_apps">
+        <item quantity="one">%1$d разрешённое приложение</item>
+        <item quantity="few">%1$d разрешённых приложения</item>
+        <item quantity="many">%1$d разрешённых приложений</item>
+        <item quantity="other">%1$d разрешённого приложения</item>
+    </plurals>
+    <string name="menu_more">Ещё</string>
+    <string name="menu_github_repo">Репозиторий на GitHub</string>
+    <string name="menu_report_issue">Сообщить о проблеме</string>
+    <string name="menu_get_themes">Получить новые темы</string>
+    <string name="settings_restore_defaults">Восстановить настройки по умолчанию</string>
+    <string name="restore_defaults_title">Восстановить настройки по умолчанию?</string>
+    <string name="restore_defaults_warning">Вы уверены? Удалённые данные восстановить невозможно.</string>
+    <string name="restore_defaults_scope">Разрешённые приложения, фильтры, приёмник, тема, язык и все остальные настройки вернутся к значениям по умолчанию, а мост будет выключен. История уведомлений не затрагивается.</string>
+    <string name="restore_defaults_confirm">Восстановить</string>
+    <string name="restore_defaults_done">Настройки по умолчанию восстановлены.</string>
+    <string name="restore_defaults_error">Настройки не восстановлены: %1$s</string>
+</resources>

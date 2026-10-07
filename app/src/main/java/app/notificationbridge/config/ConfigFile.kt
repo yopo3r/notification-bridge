@@ -65,7 +65,7 @@ object ConfigFile {
     const val LANGUAGE_SYSTEM = "system"
 
     /** The languages the app ships, matching the Settings language picker. */
-    val LANGUAGES = listOf("es", "en", "fr", "pt", "it", "nl", "de")
+    val LANGUAGES = listOf("de", "en", "es", "fr", "it", "nl", "pt", "zh", "ja", "ko", "ru")
 
     private const val THEME_PREFIX = "custom-theme."
 

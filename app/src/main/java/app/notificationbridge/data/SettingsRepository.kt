@@ -183,6 +183,21 @@ class SettingsRepository(context: Context) {
         }
     }
 
+    /**
+     * Erases every stored option so each one reads as its default again (see [settings]): the
+     * receiver, bridge switch, allowed apps, filters, batching, text length, theme and custom
+     * theme, dumbphone mode, auto-clear and the Test sample. Only the "onboarding completed"
+     * flag is kept, so a reset does not send the user back through the first-run tutorial.
+     * One DataStore transaction, so a reader never sees a half-reset state.
+     */
+    suspend fun resetToDefaults() {
+        appContext.dataStore.edit { p ->
+            val onboarding = p[K.onboardingCompleted]
+            p.clear()
+            if (onboarding != null) p[K.onboardingCompleted] = onboarding
+        }
+    }
+
     private suspend fun edit(key: Preferences.Key<Boolean>, value: Boolean) {
         appContext.dataStore.edit { it[key] = value }
     }

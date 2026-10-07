@@ -90,6 +90,10 @@
     <string name="language_italian">Italiano</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
 
 
     <!-- Dialogs / results -->
@@ -282,4 +286,15 @@
         <item quantity="one">%1$d allowed app</item>
         <item quantity="other">%1$d allowed apps</item>
     </plurals>
+    <string name="menu_more">More options</string>
+    <string name="menu_github_repo">GitHub repository</string>
+    <string name="menu_report_issue">Report an issue</string>
+    <string name="menu_get_themes">Get new themes</string>
+    <string name="settings_restore_defaults">Restore default options</string>
+    <string name="restore_defaults_title">Restore default options?</string>
+    <string name="restore_defaults_warning">Are you sure? Erased data cannot be recovered.</string>
+    <string name="restore_defaults_scope">Allowed apps, filters, receiver, theme, language and every other option will go back to their defaults, and the bridge will be turned off. Notification history is not affected.</string>
+    <string name="restore_defaults_confirm">Restore</string>
+    <string name="restore_defaults_done">Default options restored.</string>
+    <string name="restore_defaults_error">Options not restored: %1$s</string>
 </resources>

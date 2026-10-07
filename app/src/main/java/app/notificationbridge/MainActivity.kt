@@ -47,10 +47,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.PrimaryScrollableTabRow
@@ -86,6 +90,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
@@ -113,6 +118,7 @@ import app.notificationbridge.ui.InsetSurface
 import app.notificationbridge.ui.PageHeader
 import app.notificationbridge.ui.SectionHeading
 import app.notificationbridge.ui.StatusPill
+import app.notificationbridge.ui.WarningDialog
 import app.notificationbridge.ui.theme.NotificationBridgeTheme
 import app.notificationbridge.ui.verticalScrollbar
 import kotlin.math.roundToInt
@@ -219,6 +225,7 @@ fun BridgeApp(vm: MainViewModel) {
     // Activity, and the confirmation message must survive that.
     var resultMessage by rememberSaveable { mutableStateOf<String?>(null) }
     var showExportDialog by rememberSaveable { mutableStateOf(false) }
+    var showRestoreDefaultsDialog by rememberSaveable { mutableStateOf(false) }
     var exportReceiver by rememberSaveable { mutableStateOf(ReceiverExport.NAME_ONLY) }
     val pendingConfig by vm.pendingConfig.collectAsState()
     var showOnboardingManually by rememberSaveable { mutableStateOf(false) }
@@ -356,7 +363,10 @@ fun BridgeApp(vm: MainViewModel) {
     Scaffold(
         topBar = {
             Column {
-                TopAppBar(title = { Text(stringResource(R.string.app_name)) })
+                TopAppBar(
+                    title = { Text(stringResource(R.string.app_name)) },
+                    actions = { LinksMenu() }
+                )
                 BoxWithConstraints {
                     val tabRowContent: @Composable () -> Unit = {
                         tabLabels.forEachIndexed { index, label ->
@@ -476,6 +486,7 @@ fun BridgeApp(vm: MainViewModel) {
                         onLoadApps = vm::loadApps,
                         onShowTutorial = { showOnboardingManually = true },
                         onExportConfig = { showExportDialog = true },
+                        onRestoreDefaults = { showRestoreDefaultsDialog = true },
                         onImportConfig = {
                             importPicker.launch(arrayOf("text/plain", "application/octet-stream"))
                         },
@@ -529,6 +540,32 @@ fun BridgeApp(vm: MainViewModel) {
             dismissButton = {
                 TextButton(onClick = { showExportDialog = false }) {
                     Text(stringResource(R.string.dialog_cancel))
+                }
+            }
+        )
+    }
+
+    if (showRestoreDefaultsDialog) {
+        val restoredText = stringResource(R.string.restore_defaults_done)
+        val restoreErrorTemplate = stringResource(R.string.restore_defaults_error)
+        WarningDialog(
+            title = stringResource(R.string.restore_defaults_title),
+            warning = stringResource(R.string.restore_defaults_warning),
+            body = stringResource(R.string.restore_defaults_scope),
+            confirmText = stringResource(R.string.restore_defaults_confirm),
+            dismissText = stringResource(R.string.dialog_cancel),
+            onDismiss = { showRestoreDefaultsDialog = false },
+            onConfirm = {
+                showRestoreDefaultsDialog = false
+                vm.restoreDefaults { result ->
+                    resultMessage = result.fold(
+                        onSuccess = { restoredText },
+                        onFailure = { restoreErrorTemplate.format(it.message ?: "Unknown error") }
+                    )
+                    // Last: a language change recreates the Activity.
+                    if (result.isSuccess) {
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+                    }
                 }
             }
         )
@@ -927,6 +964,7 @@ fun SettingsScreen(
     onShowTutorial: () -> Unit,
     onExportConfig: () -> Unit,
     onImportConfig: () -> Unit,
+    onRestoreDefaults: () -> Unit,
     onImportCustomTheme: () -> Unit,
     onResetCustomTheme: () -> Unit
 ) {
@@ -1139,9 +1177,9 @@ fun SettingsScreen(
                 SectionHeading(stringResource(R.string.settings_language_title))
             }
             val currentLanguageTag = AppCompatDelegate.getApplicationLocales().get(0)?.language
-            item(key = "language_es") {
-                SettingsRadioOption(currentLanguageTag == "es", stringResource(R.string.language_spanish)) {
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("es"))
+            item(key = "language_de") {
+                SettingsRadioOption(currentLanguageTag == "de", stringResource(R.string.language_german)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("de"))
                 }
             }
             item(key = "language_en") {
@@ -1149,14 +1187,14 @@ fun SettingsScreen(
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
                 }
             }
+            item(key = "language_es") {
+                SettingsRadioOption(currentLanguageTag == "es", stringResource(R.string.language_spanish)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("es"))
+                }
+            }
             item(key = "language_fr") {
                 SettingsRadioOption(currentLanguageTag == "fr", stringResource(R.string.language_french)) {
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("fr"))
-                }
-            }
-            item(key = "language_pt") {
-                SettingsRadioOption(currentLanguageTag == "pt", stringResource(R.string.language_portuguese)) {
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("pt"))
                 }
             }
             item(key = "language_it") {
@@ -1169,9 +1207,29 @@ fun SettingsScreen(
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("nl"))
                 }
             }
-            item(key = "language_de") {
-                SettingsRadioOption(currentLanguageTag == "de", stringResource(R.string.language_german)) {
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("de"))
+            item(key = "language_pt") {
+                SettingsRadioOption(currentLanguageTag == "pt", stringResource(R.string.language_portuguese)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("pt"))
+                }
+            }
+            item(key = "language_zh") {
+                SettingsRadioOption(currentLanguageTag == "zh", stringResource(R.string.language_chinese_simplified)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("zh-CN"))
+                }
+            }
+            item(key = "language_ja") {
+                SettingsRadioOption(currentLanguageTag == "ja", stringResource(R.string.language_japanese)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ja"))
+                }
+            }
+            item(key = "language_ko") {
+                SettingsRadioOption(currentLanguageTag == "ko", stringResource(R.string.language_korean)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ko"))
+                }
+            }
+            item(key = "language_ru") {
+                SettingsRadioOption(currentLanguageTag == "ru", stringResource(R.string.language_russian)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ru"))
                 }
             }
         }
@@ -1227,6 +1285,15 @@ fun SettingsScreen(
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 ) {
                     Text(stringResource(R.string.settings_show_tutorial_button))
+                }
+            }
+            item(key = "restore_defaults_button") {
+                OutlinedButton(
+                    onClick = onRestoreDefaults,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text(stringResource(R.string.settings_restore_defaults))
                 }
             }
         }
@@ -1371,5 +1438,50 @@ fun Toggle(label: String, value: Boolean, onChange: (Boolean) -> Unit, descripti
             }
         }
         Switch(checked = value, onCheckedChange = null)
+    }
+}
+
+private const val URL_REPO = "https://github.com/yopo3r/notification-bridge"
+private const val URL_ISSUES = "https://github.com/yopo3r/notification-bridge/issues"
+private const val URL_THEMES = "https://github.com/yopo3r/notification-bridge-themes"
+
+/** Overflow menu in the top bar with links to the repository, issue tracker and themes repo. */
+@Composable
+private fun LinksMenu() {
+    val context = LocalContext.current
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val moreLabel = stringResource(R.string.menu_more)
+
+    /** A device without a browser must not crash the app. */
+    fun open(url: String) {
+        expanded = false
+        runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+    }
+
+    Box {
+        IconButton(
+            onClick = { expanded = true },
+            modifier = Modifier.semantics { contentDescription = moreLabel }
+        ) {
+            Text(
+                "\u22EE",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.clearAndSetSemantics { }
+            )
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.menu_github_repo)) },
+                onClick = { open(URL_REPO) }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.menu_report_issue)) },
+                onClick = { open(URL_ISSUES) }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.menu_get_themes)) },
+                onClick = { open(URL_THEMES) }
+            )
+        }
     }
 }

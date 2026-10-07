@@ -90,6 +90,10 @@
     <string name="language_italian">Italiano</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_german">Deutsch</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
 
 
     <!-- Dialogs / results -->
@@ -282,4 +286,15 @@
         <item quantity="one">%1$d aplicación permitida</item>
         <item quantity="other">%1$d aplicaciones permitidas</item>
     </plurals>
+    <string name="menu_more">Más opciones</string>
+    <string name="menu_github_repo">Repositorio en GitHub</string>
+    <string name="menu_report_issue">Reportar un problema</string>
+    <string name="menu_get_themes">Obtener temas nuevos</string>
+    <string name="settings_restore_defaults">Restaurar opciones predeterminadas</string>
+    <string name="restore_defaults_title">¿Restaurar opciones predeterminadas?</string>
+    <string name="restore_defaults_warning">¿Estás seguro? Los datos borrados no se pueden recuperar.</string>
+    <string name="restore_defaults_scope">Las apps permitidas, los filtros, el receptor, el tema, el idioma y el resto de las opciones volverán a sus valores predeterminados y el puente se apagará. El historial de notificaciones no se ve afectado.</string>
+    <string name="restore_defaults_confirm">Restaurar</string>
+    <string name="restore_defaults_done">Opciones predeterminadas restauradas.</string>
+    <string name="restore_defaults_error">No se pudieron restaurar las opciones: %1$s</string>
 </resources>

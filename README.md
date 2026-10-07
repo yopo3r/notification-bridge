@@ -252,8 +252,8 @@ Bluetooth pairing happens **from the system settings**, not from the app:
 Functional and in active use for its main use case: forwarding messaging, email and calls
 from an Android smartphone to an OBEX receiver (tested with an Alcatel 3080A). It's a
 personal/hobby project with a working, minimalist Compose UI (Home, Test, History, Settings,
-Diagnostics, About), first-run onboarding, light/dark/system theme, a 7-language picker
-(Spanish, English, French, Portuguese, Italian, Dutch, German), an in-memory transfer history,
+Diagnostics, About), first-run onboarding, light/dark/system theme, an 11-language picker
+(Spanish, English, French, Portuguese, Italian, Dutch, German, Japanese, Korean, Russian, Simplified Chinese), an in-memory transfer history,
 a diagnostics screen and an optional dumbphone mode.
 
 ## Repository structure
@@ -293,7 +293,7 @@ app/src/main/java/app/notificationbridge/
     ├── FailureClassifier.kt     Exception → FailureReason
     └── RetryBuffer.kt           Short-lived in-memory store behind "Retry now"
 
-app/src/main/res/values*/strings.xml   UI strings in 7 languages (es/en/fr/pt/it/nl/de)
+app/src/main/res/values*/strings.xml   UI strings in 11 languages (es/en/fr/pt/it/nl/de/ja/ko/ru/zh)
 app/src/main/res/xml/locales_config.xml  Declares supported locales for Android 13+
 app/src/test/java/...   Unit tests (plain JVM): formatter, duplicates, rate limit, history, diagnostics
 .github/workflows/ci.yml         Build + tests + lint on every push/PR
