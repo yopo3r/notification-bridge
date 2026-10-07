@@ -92,7 +92,7 @@ dark.surface: #24283B
 dark.error: #F7768E
 ```
 
-[`examples/tokyo-night.theme`](examples/tokyo-night.theme) is a complete example. More light and dark themes are available in the [notification-bridge-themes](https://github.com/yopo3r/notification-bridge-themes) repository.
+More light and dark themes are available in the [notification-bridge-themes](https://github.com/yopo3r/notification-bridge-themes) repository.
 
 ## Permissions
 
