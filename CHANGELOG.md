@@ -2,7 +2,7 @@
 
 All notable changes to Notification Bridge are listed here, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions roughly follow [Semantic Versioning](https://semver.org/). Below 1.0, a minor release can still change behavior.
 
-## [0.15.0] - Unreleased
+## [0.15.0] - 2026-10-07
 
 ### Added
 - vMessage as a second message format. Settings → Forwarding → Message format chooses between the plain text file (the default and the only format before) and a vMessage (`.vmg`, OBEX type `text/x-vmsg`) that compatible phones file in their SMS inbox. It follows the layout used by Nokia Series 40 phones: version 1.1, an unread inbox message, the app name as sender, and a UTF-8 body with the title and text. The Receiver tab's test send uses the selected format too.
