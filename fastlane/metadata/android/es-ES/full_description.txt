@@ -1,0 +1,26 @@
+Notification Bridge reenvía las notificaciones de tu smartphone a un segundo dispositivo por Bluetooth. Cada notificación se envía como un pequeño archivo de texto, o como un mensaje vMessage para los teléfonos que lo entienden, usando OBEX Object Push, el perfil de transferencia de archivos que los teléfonos básicos soportan desde hace veinte años. El teléfono receptor no necesita app, ni Internet, ni más configuración que el emparejamiento.
+
+Útil si quieres llevar un teléfono más simple, ahorrar batería o desconectarte, sin perder de vista tus notificaciones de WhatsApp, Telegram o correo ni las llamadas entrantes.
+
+<b>Funciones</b>
+• Reenvía las notificaciones de las apps que elijas, y las llamadas entrantes (nativas o VoIP).
+• Omite apps no seleccionadas, notificaciones silenciosas o en curso, y repeticiones.
+• Limita cada app a 10 envíos por minuto; agrupación opcional de una conversación en un solo archivo.
+• Reintenta los envíos fallidos y se pausa tras fallos repetidos.
+• Modo teléfono básico para uso desatendido: notificación de estado mínima, reconexión automática y aviso solo si un envío falla definitivamente.
+• Lista de requisitos, historial que explica los fallos e informe de diagnóstico que puedes copiar.
+• Exportación e importación de la configuración, temas de color personalizados, modo claro y oscuro.
+• 11 idiomas.
+
+<b>Privacidad</b>
+• Sin permiso de Internet, sin anuncios, sin analíticas, sin informes de fallos.
+• El texto de las notificaciones solo se envía al receptor Bluetooth que elijas. La app no lo cifra ni oculta los códigos de un solo uso, así que permite solo apps cuyas notificaciones no te importe tener en el receptor.
+• El contenido de las notificaciones nunca se escribe en disco; el historial guarda solo el nombre de la app y un título corto, en memoria.
+• El puente está apagado hasta que lo actives.
+
+<b>Conviene saber</b>
+• Necesita acceso a las notificaciones, que concedes en los ajustes del sistema.
+• Probada hasta ahora con un Alcatel 3080A. Otros teléfonos que acepten Bluetooth OBEX Object Push deberían funcionar.
+• No dependas de ella como único medio para recibir comunicaciones urgentes o críticas para la seguridad.
+
+Software libre bajo licencia MIT.

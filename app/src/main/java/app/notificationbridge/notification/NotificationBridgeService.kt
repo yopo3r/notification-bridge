@@ -11,7 +11,8 @@
  *   `MessagingStyle`/big-text/text-lines variants -, app label, category, ongoing/silent flags).
  * - Hand that data to [app.notificationbridge.queue.BridgeRuntime.enqueue], which owns all
  *   filtering policy (allowed apps, calls, duplicates, etc.) from that point on.
- * - Promote itself to a foreground service with a low-priority status notification, so the
+ * - While the bridge is enabled (and only then), promote itself to a foreground service with a
+ *   low-priority status notification, so the
  *   OS is less likely to kill the listener process while the app is in the background - this
  *   matters most on OEM skins (e.g. MIUI) with aggressive background-process management. In
  *   dumbphone mode that notification moves to a minimum-importance channel
@@ -38,6 +39,7 @@ package app.notificationbridge.notification
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
@@ -62,6 +64,8 @@ import java.util.concurrent.ConcurrentHashMap
 
 class NotificationBridgeService : NotificationListenerService() {
 
+    private data class ForegroundMode(val enabled: Boolean, val quiet: Boolean)
+
     private val serviceScope = CoroutineScope(
         SupervisorJob() + Dispatchers.Default
     )
@@ -74,15 +78,20 @@ class NotificationBridgeService : NotificationListenerService() {
         BridgeRuntime.setListenerConnected(true)
         BridgeRuntime.log("Notification listener connected")
 
-        // Re-post the foreground notification whenever dumbphone mode is toggled, so the switch
-        // between the normal and the minimal status notification takes effect immediately.
+        // The foreground status notification exists only while the bridge is enabled: with the
+        // bridge off (the default) the app has nothing to keep alive and shows nothing. It is
+        // re-posted whenever dumbphone mode is toggled, so the switch between the normal and the
+        // minimal status notification takes effect immediately.
         val repo = (application as BridgeApplication).settings
         settingsJob?.cancel()
         settingsJob = serviceScope.launch(Dispatchers.Main) {
             repo.settings
-                .map { it.dumbphoneMode }
+                .map { ForegroundMode(enabled = it.bridgeEnabled, quiet = it.dumbphoneMode) }
                 .distinctUntilChanged()
-                .collect { quiet -> startForegroundStatus(quiet) }
+                .collect { mode ->
+                    if (mode.enabled) startForegroundStatus(mode.quiet)
+                    else stopForeground(STOP_FOREGROUND_REMOVE)
+                }
         }
     }
 
@@ -93,6 +102,9 @@ class NotificationBridgeService : NotificationListenerService() {
         BridgeRuntime.setListenerConnected(false)
         BridgeRuntime.log("Notification listener disconnected")
         stopForeground(STOP_FOREGROUND_REMOVE)
+        // If the system (or an OEM battery manager) dropped the listener while access is still
+        // granted, ask Android to bind it again. Does nothing when the user revoked access.
+        runCatching { requestRebind(ComponentName(this, NotificationBridgeService::class.java)) }
     }
 
     override fun onDestroy() {

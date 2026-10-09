@@ -1,0 +1,26 @@
+Notification Bridge forwards your smartphone's notifications to a second device over Bluetooth. Each notification is sent as a small text file, or as a vMessage text message for phones that understand it, using OBEX Object Push, the file-transfer profile that basic phones have supported for twenty years. The receiving phone needs no app, no internet and no setup beyond pairing.
+
+Useful if you want to carry a simpler phone, save battery or disconnect, without losing sight of your WhatsApp, Telegram or email notifications and incoming calls.
+
+<b>Features</b>
+• Forwards notifications from the apps you choose, plus incoming calls (native or VoIP).
+• Skips apps you haven't selected, silent and ongoing notifications, and reposts.
+• Limits each app to 10 transfers per minute; optional batching of a conversation into one file.
+• Retries failed transfers and pauses after repeated failures.
+• Dumbphone mode for unattended use: minimal status notification, automatic reconnection, alert only when a transfer fails for good.
+• Readiness checklist, transfer history that explains failures, and a diagnostics report you can copy.
+• Configuration export and import, custom colour themes, light and dark mode.
+• 11 languages.
+
+<b>Privacy</b>
+• No Internet permission, no ads, no analytics, no crash reporting.
+• Notification text is sent only to the Bluetooth receiver you choose. The app does not encrypt it and does not hide one-time codes, so only allow apps whose notifications you are comfortable having on the receiver.
+• Notification content is never written to disk; history keeps only the app name and a short title, in memory.
+• The bridge is off until you turn it on.
+
+<b>Good to know</b>
+• Needs Notification access, which you grant in the system settings.
+• Tested so far with an Alcatel 3080A. Other phones that accept Bluetooth OBEX Object Push should work.
+• Do not rely on it as your only way to receive urgent or safety-critical communications.
+
+Free software under the MIT licence.

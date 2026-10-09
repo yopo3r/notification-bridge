@@ -1,0 +1,1 @@
+Forward notifications to a basic phone over Bluetooth, with no app on it

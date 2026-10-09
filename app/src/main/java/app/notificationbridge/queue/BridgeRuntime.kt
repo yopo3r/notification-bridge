@@ -58,11 +58,10 @@
  */
 package app.notificationbridge.queue
 
-import android.content.ComponentName
 import android.content.Context
 import android.annotation.SuppressLint
 import android.os.SystemClock
-import android.provider.Settings
+import androidx.core.app.NotificationManagerCompat
 import app.notificationbridge.BuildConfig
 import app.notificationbridge.bluetooth.ObexObjectPushClient
 import app.notificationbridge.data.SettingsRepository
@@ -278,7 +277,28 @@ object BridgeRuntime {
         val title: String?,
         val recordId: Long
     ) {
-        val messages = java.util.Collections.synchronizedList(mutableListOf<NotificationData>())
+        enum class Add { ADDED, FULL, CLOSED }
+
+        private val lock = Any()
+        private val items = mutableListOf<NotificationData>()
+        private var closed = false
+
+        val size: Int get() = synchronized(lock) { items.size }
+
+        /** Adds [n] unless the batch is full or was already flushed (see [close]). */
+        fun tryAdd(n: NotificationData, max: Int): Add = synchronized(lock) {
+            when {
+                closed -> Add.CLOSED
+                items.size >= max -> Add.FULL
+                else -> { items.add(n); Add.ADDED }
+            }
+        }
+
+        /** Takes the messages and refuses any later [tryAdd], so a late arrival can't be lost. */
+        fun close(): List<NotificationData> = synchronized(lock) {
+            closed = true
+            items.toList()
+        }
     }
 
     private val pendingBatches = java.util.concurrent.ConcurrentHashMap<String, PendingBatch>()
@@ -294,20 +314,14 @@ object BridgeRuntime {
             scope.launch { sendToQueue(item) }
             return
         }
-        var isNewBatch = false
-        val batch = pendingBatches.computeIfAbsent(key) {
-            isNewBatch = true
-            PendingBatch(n.packageName, n.appName, n.title, newRecordId())
-        }
-        if (batch.messages.size < MAX_BATCH_MESSAGES) {
-            batch.messages.add(n)
-        } else {
+        val (batch, isNewBatch, added) = joinBatch(key, n)
+        if (!added) {
             log("Batch for ${n.packageName} is full ($MAX_BATCH_MESSAGES), dropping one message")
         }
         publishBatchedCount()
         // One row per batch: it shows "combined into batch" while the cooldown runs, then the
         // same row moves on to queued / transferred with the final message count.
-        track(batch.recordId, batch.appName, batch.title, TransferStatus.BATCHED, messageCount = batch.messages.size)
+        track(batch.recordId, batch.appName, batch.title, TransferStatus.BATCHED, messageCount = batch.size)
 
         if (isNewBatch) {
             log("Batching started for ${n.packageName}: waiting ${cooldownSeconds}s")
@@ -318,10 +332,31 @@ object BridgeRuntime {
         }
     }
 
+    /**
+     * Adds [n] to the pending batch for [key], creating it if needed. A batch that is flushed
+     * between the lookup and the add refuses the message (it is closed, and was removed from the
+     * map before that), so the loop simply starts a fresh batch instead of losing the message.
+     * Returns the batch, whether it is new, and whether the message was kept (false when full).
+     */
+    private fun joinBatch(key: String, n: NotificationData): Triple<PendingBatch, Boolean, Boolean> {
+        while (true) {
+            var isNewBatch = false
+            val batch = pendingBatches.computeIfAbsent(key) {
+                isNewBatch = true
+                PendingBatch(n.packageName, n.appName, n.title, newRecordId())
+            }
+            when (batch.tryAdd(n, MAX_BATCH_MESSAGES)) {
+                PendingBatch.Add.ADDED -> return Triple(batch, isNewBatch, true)
+                PendingBatch.Add.FULL -> return Triple(batch, isNewBatch, false)
+                PendingBatch.Add.CLOSED -> Unit
+            }
+        }
+    }
+
     private suspend fun flushBatch(key: String) {
         val batch = pendingBatches.remove(key) ?: return
+        val messages = batch.close()
         publishBatchedCount()
-        val messages = batch.messages.toList()
         if (messages.isEmpty()) return
 
         val combined = if (messages.size == 1) {
@@ -339,7 +374,7 @@ object BridgeRuntime {
     }
 
     private fun publishBatchedCount() {
-        val total = pendingBatches.values.sumOf { it.messages.size }
+        val total = pendingBatches.values.sumOf { it.size }
         mutable.update { it.copy(batchedMessageCount = total) }
     }
 
@@ -595,11 +630,7 @@ object BridgeRuntime {
     fun pairedDevices() = ObexObjectPushClient(app, ::log).pairedDevices()
 
     fun hasNotificationAccess(context: Context): Boolean {
-        val flat = Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
-            ?: return false
-        return flat.split(':')
-            .mapNotNull(ComponentName::unflattenFromString)
-            .any { it.packageName == context.packageName }
+        return context.packageName in NotificationManagerCompat.getEnabledListenerPackages(context)
     }
 
     // Only protocol lines that report a response code qualify; the "OBEX object name: ..." line

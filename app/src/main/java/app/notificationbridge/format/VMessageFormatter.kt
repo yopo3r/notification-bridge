@@ -80,7 +80,7 @@ object VMessageFormatter {
     private fun bodyLines(notification: NotificationData, maxTextChars: Int): List<String> {
         val title = notification.title?.trim().orEmpty().take(80)
         val text = notification.text?.trim().orEmpty()
-            .ifBlank { "(Sin contenido visible)" }
+            .ifBlank { NotificationFormatter.NO_CONTENT }
             .take(maxTextChars.coerceAtLeast(1))
         val body = if (title.isBlank()) text else "$title\n$text"
         return body

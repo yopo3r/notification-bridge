@@ -32,6 +32,14 @@ object NotificationFormatter {
 
     /** Default cap on the notification body; overridable per transfer (see [BridgeSettings.maxTextChars]). */
     const val DEFAULT_MAX_TEXT_CHARS = 700
+    /**
+     * Stand-ins written into the file when a notification has no title or no visible text. They
+     * go to the receiver, whose language the app can't know, so they are plain English and live
+     * here, in one place, rather than in string resources (this class has no Android context).
+     */
+    const val NO_TITLE = "(no title)"
+    const val NO_CONTENT = "(no visible content)"
+
     private const val MAX_APP_LENGTH = 6
     private const val MAX_TITLE_LENGTH = 12
     private const val MAX_FILE_NAME_LENGTH = 36
@@ -49,13 +57,13 @@ object NotificationFormatter {
         val title = notification.title
             ?.trim()
             .orEmpty()
-            .ifBlank { "(Sin titulo)" }
+            .ifBlank { NO_TITLE }
             .take(80)
 
         val text = notification.text
             ?.trim()
             .orEmpty()
-            .ifBlank { "(Sin contenido visible)" }
+            .ifBlank { NO_CONTENT }
             .take(maxTextChars.coerceAtLeast(1))
 
         val time = SimpleDateFormat(

@@ -2,6 +2,31 @@
 
 All notable changes to Notification Bridge are listed here, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions roughly follow [Semantic Versioning](https://semver.org/). Below 1.0, a minor release can still change behavior.
 
+## [1.0.0] - 2026-10-08
+
+### Added
+- A disclosure dialog before the app opens Android's notification-access screen. It says that titles and text (which can include messages and one-time codes) are read, that they go only to the receiver over Bluetooth, and that the app neither encrypts them nor hides codes. Translated into all 11 languages.
+- `PRIVACY.md`, a standalone privacy policy for store listings.
+- Fastlane metadata (`fastlane/metadata/android`) in English and Spanish, with the store icon, feature graphic and screenshots, for F-Droid and for filling in Google Play.
+- Unit tests for `ObexProtocol`: packet and header encoding, response parsing, packet-size limits, and connection-id parsing with damaged headers.
+- `LICENSE-ARTWORK.md` and an Artwork section in the README: the logo, banner and tutorial illustrations were generated with Google Gemini and are dedicated to the public domain under CC0 1.0. The Bluetooth symbol in them is a trademark of the Bluetooth SIG and is excluded.
+- `.gitignore`, which keeps keystores and `release-signing.properties` out of version control.
+
+### Changed
+- The application ID is now `io.github.yopo3r.notificationbridge`. It is a different app to Android from `app.notificationbridge`, so earlier installs are not updated and must be reinstalled. The code namespace is unchanged.
+- The foreground service and its status notification now run only while Enable bridge is on, instead of whenever notification access is granted.
+- When a notification has no title or text, the file sent to the receiver says `(no title)` and `(no visible content)` instead of Spanish placeholders. Paired devices without a name show a translated "(unnamed)". Bluetooth error messages are in English.
+- `proguard-rules.pro` moved from the project root to `app/`, where Gradle looks for it (it was never read while minification was off).
+- Release builds are minified and their resources are shrunk. The release APK no longer carries the Android Gradle Plugin's dependency-metadata block (F-Droid requires this; the Play bundle keeps it).
+- `ObexProtocol.kt` and `ObexObjectPushClient.kt` are reformatted into readable Kotlin and commented. Behaviour is unchanged.
+- Notification access is detected with `NotificationManagerCompat.getEnabledListenerPackages` instead of parsing a system setting.
+- CONTRIBUTING and the README run `lintRelease` too and document `bundleRelease`.
+
+### Fixed
+- A message that arrived at the moment its batch was flushed could be lost and leave its History row stuck on "combined into batch". Batches are now closed under a lock and a late message starts a new one.
+- The Bluetooth watchdog's timeout flag is atomic, so a timeout is always classified as one.
+- If Android disconnects the notification listener while access is still granted, the app now asks it to rebind.
+
 ## [0.15.0] - 2026-10-07
 
 ### Added

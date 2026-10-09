@@ -239,6 +239,8 @@ fun BridgeApp(vm: MainViewModel) {
     var resultMessage by rememberSaveable { mutableStateOf<String?>(null) }
     var showExportDialog by rememberSaveable { mutableStateOf(false) }
     var showRestoreDefaultsDialog by rememberSaveable { mutableStateOf(false) }
+    // Shown before every trip to the system's notification-access screen: says what is read and where it goes.
+    var showAccessDisclosure by rememberSaveable { mutableStateOf(false) }
     var exportReceiver by rememberSaveable { mutableStateOf(ReceiverExport.NAME_ONLY) }
     val pendingConfig by vm.pendingConfig.collectAsState()
     var showOnboardingManually by rememberSaveable { mutableStateOf(false) }
@@ -420,13 +422,12 @@ fun BridgeApp(vm: MainViewModel) {
                             u = vm.homeState.collectAsState(initial = HomeRuntimeState(false, 0)).value,
                             readiness = vm.readiness.collectAsState().value,
                             onTest = { goToTab(1) },
-                            onNotificationAccess = {
-                                context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
-                            },
+                            onNotificationAccess = { showAccessDisclosure = true },
                             onSettings = { goToTab(3) },
                             onReadinessAction = { item ->
                                 when (item) {
-                                    ReadinessItem.NOTIFICATION_ACCESS,
+                                    ReadinessItem.NOTIFICATION_ACCESS -> showAccessDisclosure = true
+                                    // Already granted: the fix is toggling it off and on, no disclosure needed.
                                     ReadinessItem.LISTENER_CONNECTED ->
                                         openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
                                     ReadinessItem.BLUETOOTH_ENABLED -> requestPermissionsAndBluetooth()
@@ -489,8 +490,7 @@ fun BridgeApp(vm: MainViewModel) {
                                     FailureAction.RETRY_NOW ->
                                         if (record == null || !vm.retry(record.id)) resultMessage = retryUnavailableText
                                     FailureAction.OPEN_DIAGNOSTICS -> goToTab(4)
-                                    FailureAction.OPEN_NOTIFICATION_ACCESS ->
-                                        openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+                                    FailureAction.OPEN_NOTIFICATION_ACCESS -> showAccessDisclosure = true
                                 }
                             }
                         )
@@ -531,6 +531,30 @@ fun BridgeApp(vm: MainViewModel) {
                 OnboardingScreen(onFinished = { showOnboardingManually = false })
             }
         }
+    }
+
+    if (showAccessDisclosure) {
+        AlertDialog(
+            onDismissRequest = { showAccessDisclosure = false },
+            title = { Text(stringResource(R.string.access_disclosure_title)) },
+            text = {
+                Text(
+                    stringResource(R.string.access_disclosure_body),
+                    modifier = Modifier.verticalScroll(rememberScrollState())
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showAccessDisclosure = false
+                    openSystemScreen(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+                }) { Text(stringResource(R.string.access_disclosure_continue)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAccessDisclosure = false }) {
+                    Text(stringResource(R.string.access_disclosure_cancel))
+                }
+            }
+        )
     }
 
     if (showExportDialog) {

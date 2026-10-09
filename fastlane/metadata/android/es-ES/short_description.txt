@@ -1,0 +1,1 @@
+Reenvía notificaciones a un teléfono básico por Bluetooth, sin app en él

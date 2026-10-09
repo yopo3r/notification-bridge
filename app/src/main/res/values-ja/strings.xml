@@ -296,4 +296,9 @@
     <string name="restore_defaults_confirm">初期設定に戻す</string>
     <string name="restore_defaults_done">初期設定に戻しました。</string>
     <string name="restore_defaults_error">初期設定に戻せませんでした: %1$s</string>
+    <string name="access_disclosure_title">通知へのアクセスを許可する前に</string>
+    <string name="access_disclosure_body">Notification Bridge は、選択したアプリの通知のタイトルと本文を読み取ります。個人的なメッセージやワンタイムコードが含まれる場合があります。\n\nテキストは、選択した受信機にのみ Bluetooth で送信されます。このアプリにはインターネット接続の権限がありません。アプリはテキストを暗号化せず、ワンタイムコードも隠しません。受信機に表示されても問題ないアプリだけを選択してください。\n\nアクセスは、システム設定でいつでも取り消せます。</string>
+    <string name="access_disclosure_continue">続行</string>
+    <string name="access_disclosure_cancel">キャンセル</string>
+    <string name="device_unnamed">（名前なし）</string>
 </resources>

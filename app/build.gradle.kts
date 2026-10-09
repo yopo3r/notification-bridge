@@ -14,13 +14,16 @@ android {
     namespace = "app.notificationbridge"
     compileSdk = 37
     defaultConfig {
-        applicationId = "app.notificationbridge"
+        applicationId = "io.github.yopo3r.notificationbridge"
         minSdk = 25
         targetSdk = 37
         versionCode = 24
-        versionName = "0.15.0"
+        versionName = "1.0.0"
     }
     buildFeatures { compose = true; buildConfig = true }
+    // F-Droid rejects the opaque dependency-metadata signing block that AGP adds to APKs.
+    // Play can still receive it inside the bundle (used for SDK vulnerability alerts).
+    dependenciesInfo { includeInApk = false; includeInBundle = true }
     signingConfigs {
         if (releaseSigningFile.isFile) {
             create("release") {
@@ -35,7 +38,8 @@ android {
         debug { applicationIdSuffix = ".debug"; versionNameSuffix = "-debug" }
         release {
             if (releaseSigningFile.isFile) signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }

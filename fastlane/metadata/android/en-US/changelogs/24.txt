@@ -1,0 +1,2 @@
+First stable release. Forwards notifications to a basic phone over Bluetooth.
+Adds vMessage as a second message format, a Receiver tab, screenshot protection and an explanation of what is read before notification access is requested. The status notification now appears only while the bridge is on.

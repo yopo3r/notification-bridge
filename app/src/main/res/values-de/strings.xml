@@ -303,4 +303,9 @@
     <string name="restore_defaults_confirm">Wiederherstellen</string>
     <string name="restore_defaults_done">Standardoptionen wiederhergestellt.</string>
     <string name="restore_defaults_error">Optionen nicht wiederhergestellt: %1$s</string>
+    <string name="access_disclosure_title">Bevor du den Zugriff auf Benachrichtigungen erlaubst</string>
+    <string name="access_disclosure_body">Notification Bridge liest Titel und Text der Benachrichtigungen der von dir ausgewählten Apps. Dazu können private Nachrichten und Einmalcodes gehören.\n\nDer Text wird per Bluetooth an den von dir gewählten Empfänger gesendet und sonst nirgendwohin; die App hat keinen Internetzugriff. Die App verschlüsselt ihn nicht und blendet Einmalcodes nicht aus. Wähle daher nur Apps, deren Benachrichtigungen auf dem Empfänger in Ordnung für dich sind.\n\nDen Zugriff kannst du jederzeit in den Systemeinstellungen widerrufen.</string>
+    <string name="access_disclosure_continue">Weiter</string>
+    <string name="access_disclosure_cancel">Abbrechen</string>
+    <string name="device_unnamed">(unbenannt)</string>
 </resources>

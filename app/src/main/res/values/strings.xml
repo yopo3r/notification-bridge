@@ -303,4 +303,9 @@
     <string name="restore_defaults_confirm">Restaurar</string>
     <string name="restore_defaults_done">Opciones predeterminadas restauradas.</string>
     <string name="restore_defaults_error">No se pudieron restaurar las opciones: %1$s</string>
+    <string name="access_disclosure_title">Antes de dar acceso a las notificaciones</string>
+    <string name="access_disclosure_body">Notification Bridge lee el título y el texto de las notificaciones de las apps que selecciones. Pueden incluir mensajes privados y códigos de un solo uso.\n\nEl texto se envía por Bluetooth al receptor que elijas y a ningún otro lugar; la app no tiene acceso a Internet. La app no lo cifra ni oculta los códigos de un solo uso, así que selecciona solo apps cuyas notificaciones no te importe tener en el receptor.\n\nPuedes revocar el acceso en cualquier momento desde los ajustes del sistema.</string>
+    <string name="access_disclosure_continue">Continuar</string>
+    <string name="access_disclosure_cancel">Cancelar</string>
+    <string name="device_unnamed">(sin nombre)</string>
 </resources>

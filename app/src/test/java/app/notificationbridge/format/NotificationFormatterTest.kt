@@ -86,8 +86,8 @@ class NotificationFormatterTest {
         val body = NotificationFormatter.notificationToText(
             notification(title = null, text = null)
         )
-        assertTrue(body.contains("(Sin titulo)"))
-        assertTrue(body.contains("(Sin contenido visible)"))
+        assertTrue(body.contains(NotificationFormatter.NO_TITLE))
+        assertTrue(body.contains(NotificationFormatter.NO_CONTENT))
     }
 
     @Test

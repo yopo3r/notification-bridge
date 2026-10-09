@@ -303,4 +303,9 @@
     <string name="restore_defaults_confirm">Restore</string>
     <string name="restore_defaults_done">Default options restored.</string>
     <string name="restore_defaults_error">Options not restored: %1$s</string>
+    <string name="access_disclosure_title">Before you grant notification access</string>
+    <string name="access_disclosure_body">Notification Bridge reads the title and text of notifications from the apps you select. These can include private messages and one-time codes.\n\nThe text is sent over Bluetooth to the receiver you choose and nowhere else; the app has no Internet access. The app does not encrypt it or hide one-time codes, so only select apps whose notifications you are comfortable having on the receiver.\n\nYou can revoke access at any time in the system settings.</string>
+    <string name="access_disclosure_continue">Continue</string>
+    <string name="access_disclosure_cancel">Cancel</string>
+    <string name="device_unnamed">(unnamed)</string>
 </resources>

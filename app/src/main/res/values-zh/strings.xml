@@ -296,4 +296,9 @@
     <string name="restore_defaults_confirm">恢复</string>
     <string name="restore_defaults_done">已恢复默认选项。</string>
     <string name="restore_defaults_error">选项恢复失败：%1$s</string>
+    <string name="access_disclosure_title">授予通知访问权限之前</string>
+    <string name="access_disclosure_body">Notification Bridge 会读取你所选应用的通知标题和内容，其中可能包含私人消息和一次性验证码。\n\n这些文字只会通过蓝牙发送到你选择的接收设备，不会发往其他任何地方；本应用没有联网权限。应用不会加密这些文字，也不会隐藏一次性验证码，因此请只选择你愿意让其通知出现在接收设备上的应用。\n\n你可以随时在系统设置中撤销该权限。</string>
+    <string name="access_disclosure_continue">继续</string>
+    <string name="access_disclosure_cancel">取消</string>
+    <string name="device_unnamed">（无名称）</string>
 </resources>

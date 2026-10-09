@@ -317,4 +317,9 @@
     <string name="restore_defaults_confirm">Восстановить</string>
     <string name="restore_defaults_done">Настройки по умолчанию восстановлены.</string>
     <string name="restore_defaults_error">Настройки не восстановлены: %1$s</string>
+    <string name="access_disclosure_title">Прежде чем разрешить доступ к уведомлениям</string>
+    <string name="access_disclosure_body">Notification Bridge читает заголовок и текст уведомлений из выбранных вами приложений. Среди них могут быть личные сообщения и одноразовые коды.\n\nТекст отправляется по Bluetooth только на выбранное вами устройство-приёмник и больше никуда; у приложения нет доступа к интернету. Приложение не шифрует текст и не скрывает одноразовые коды, поэтому выбирайте только те приложения, уведомления которых вас устраивает видеть на приёмнике.\n\nДоступ можно отозвать в любой момент в системных настройках.</string>
+    <string name="access_disclosure_continue">Продолжить</string>
+    <string name="access_disclosure_cancel">Отмена</string>
+    <string name="device_unnamed">(без имени)</string>
 </resources>

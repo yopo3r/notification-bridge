@@ -303,4 +303,9 @@
     <string name="restore_defaults_confirm">Herstellen</string>
     <string name="restore_defaults_done">Standaardopties hersteld.</string>
     <string name="restore_defaults_error">Opties niet hersteld: %1$s</string>
+    <string name="access_disclosure_title">Voordat je toegang tot meldingen geeft</string>
+    <string name="access_disclosure_body">Notification Bridge leest de titel en tekst van meldingen van de apps die je selecteert. Daar kunnen privéberichten en eenmalige codes bij zitten.\n\nDe tekst wordt via Bluetooth naar de ontvanger gestuurd die je kiest en nergens anders heen; de app heeft geen internettoegang. De app versleutelt de tekst niet en verbergt eenmalige codes niet, dus selecteer alleen apps waarvan je de meldingen op de ontvanger acceptabel vindt.\n\nJe kunt de toegang op elk moment intrekken in de systeeminstellingen.</string>
+    <string name="access_disclosure_continue">Doorgaan</string>
+    <string name="access_disclosure_cancel">Annuleren</string>
+    <string name="device_unnamed">(naamloos)</string>
 </resources>

@@ -1,0 +1,2 @@
+Primera versión estable. Reenvía notificaciones a un teléfono básico por Bluetooth.
+Añade vMessage como segundo formato de mensaje, una pestaña Receptor, protección de capturas y una explicación de qué se lee antes de pedir el acceso a notificaciones. La notificación de estado ahora aparece solo mientras el puente está activo.

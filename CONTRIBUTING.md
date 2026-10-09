@@ -24,7 +24,7 @@ For anything bigger than a small tweak, open an issue that describes the use cas
 
 ```bash
 ./gradlew assembleDebug
-./gradlew testDebugUnitTest lintDebug
+./gradlew testDebugUnitTest lintDebug lintRelease
 python3 scripts/check_string_resources.py
 ```
 
@@ -37,7 +37,7 @@ The Python script exists because AAPT2's error for an unescaped apostrophe in a 
 1. Fork the repository and work on a branch with a descriptive name.
 2. Keep each pull request to one topic.
 3. If you change the Bluetooth or OBEX code or the notification pipeline, say in the description what you tested and on which devices.
-4. Run the three commands above before you open the pull request.
+4. Run the commands above before you open the pull request.
 5. Add or update unit tests for logic that doesn't depend on Bluetooth hardware. They live in `app/src/test/`.
 6. Follow the official Kotlin code style, and keep user-visible text in string resources instead of in the code.
 

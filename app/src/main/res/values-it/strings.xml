@@ -310,4 +310,9 @@
     <string name="restore_defaults_confirm">Ripristina</string>
     <string name="restore_defaults_done">Opzioni predefinite ripristinate.</string>
     <string name="restore_defaults_error">Opzioni non ripristinate: %1$s</string>
+    <string name="access_disclosure_title">Prima di concedere l\'accesso alle notifiche</string>
+    <string name="access_disclosure_body">Notification Bridge legge il titolo e il testo delle notifiche delle app che selezioni. Possono includere messaggi privati e codici monouso.\n\nIl testo viene inviato via Bluetooth al ricevitore che scegli e da nessun\'altra parte; l\'app non ha accesso a Internet. L\'app non lo cifra e non nasconde i codici monouso, quindi seleziona solo app le cui notifiche accetti di avere sul ricevitore.\n\nPuoi revocare l\'accesso in qualsiasi momento dalle impostazioni di sistema.</string>
+    <string name="access_disclosure_continue">Continua</string>
+    <string name="access_disclosure_cancel">Annulla</string>
+    <string name="device_unnamed">(senza nome)</string>
 </resources>

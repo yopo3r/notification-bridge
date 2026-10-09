@@ -103,7 +103,7 @@ More light and dark themes are available in the [notification-bridge-themes](htt
 | `BLUETOOTH_SCAN` (Android 12+) | Canceling any running discovery before connecting. Declared with `neverForLocation`, so the app doesn't need a location permission. |
 | `BLUETOOTH`, `BLUETOOTH_ADMIN` (Android 11 and lower) | The older equivalents of the two above. |
 | `POST_NOTIFICATIONS` (Android 13+) | The status notification and the failure alert. |
-| `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_CONNECTED_DEVICE` | Keeping the listener service in the foreground so the system is less likely to stop it. |
+| `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_CONNECTED_DEVICE` | Keeping the listener service in the foreground, with a status notification, while the bridge is enabled, so the system is less likely to stop it. |
 
 The app has no `INTERNET` permission and no analytics or telemetry. The only data that leaves the phone is the `.txt` or `.vmg` file sent over Bluetooth to the receiver you chose.
 
@@ -195,14 +195,14 @@ cd notification-bridge
 
 The APK ends up in `app/build/outputs/apk/debug/`. You can also open the folder in Android Studio and run it from there. The Gradle wrapper downloads the Gradle version the project needs, so nothing else has to be installed. The project compiles and targets Android SDK 37.
 
-Debug builds use the application ID `app.notificationbridge.debug`, so they install next to a release build instead of replacing it.
+Release builds use the application ID `io.github.yopo3r.notificationbridge`, and debug builds add `.debug`, so they install next to a release build instead of replacing it.
 
-`./gradlew assembleRelease` builds a release APK, which stays unsigned unless a signing configuration is found. To sign it, create `release-signing.properties` in the project root with `storeFile`, `storePassword`, `keyAlias` and `keyPassword`. Keep that file and the keystore out of version control.
+`./gradlew assembleRelease` builds a release APK and `./gradlew bundleRelease` an Android App Bundle (what Google Play takes). Both stay unsigned unless a signing configuration is found. Release builds are minified with R8 and have their resources shrunk, so test the release build on a device before publishing. To sign them, create `release-signing.properties` in the project root with `storeFile`, `storePassword`, `keyAlias` and `keyPassword`. Keep that file and the keystore out of version control.
 
 To run the checks:
 
 ```bash
-./gradlew testDebugUnitTest lintDebug
+./gradlew testDebugUnitTest lintDebug lintRelease
 python3 scripts/check_string_resources.py
 ```
 
@@ -283,7 +283,7 @@ For anything else, open an issue as described in [CONTRIBUTING.md](CONTRIBUTING.
 
 ## Privacy
 
-This section describes version 0.15.0 and can be checked against the source.
+This section describes version 1.0.0 and can be checked against the source.
 
 - Everything happens on the phone. The app has no `INTERNET` permission and no networking code, backend, analytics or crash reporting. The Bluetooth receiver you selected is the only place notification data is sent.
 - The app never writes notification content to disk. Jetpack DataStore stores settings only: the receiver's name and Bluetooth address, the package names of allowed apps, and preferences. Android cloud backup and device-to-device transfer are turned off for app data.
@@ -294,6 +294,8 @@ This section describes version 0.15.0 and can be checked against the source.
 - Copy diagnostic info produces a report with the app version, the Android version and device model, the on or off state of the settings, counts, and whether transfers failed, without exception text or timestamps. It leaves out notification titles and text, the receiver's name and address, and the names of allowed apps. Read it before posting it publicly anyway.
 
 What the receiver gets deserves a separate mention. The app connects through Android's secure RFCOMM socket, which requires a paired device, but it adds no encryption of its own. The receiver stores each notification as an ordinary text file or, with the vMessage format, as a text message in its inbox, and what happens to those files afterwards is outside the app's control. The app also doesn't try to recognize sensitive content such as one-time codes, so only allow apps whose notifications you are comfortable having on the receiver.
+
+Before it opens Android's notification-access screen, the app shows what it reads and where it sends it. The full policy, written for store listings, is in [PRIVACY.md](PRIVACY.md).
 
 To report a security problem, see [SECURITY.md](SECURITY.md).
 
@@ -309,6 +311,10 @@ Nothing in this disclaimer excludes or limits liability where the law doesn't al
 
 Bug reports, ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). The history of changes is in [CHANGELOG.md](CHANGELOG.md).
 
+## Artwork
+
+The logo, banner and first-run tutorial illustrations were generated with Google Gemini by the author. They are dedicated to the public domain under CC0 1.0, so anyone may reuse them with no rights reserved. The files covered, and what is excluded (the Bluetooth symbol is a trademark of the Bluetooth SIG), are listed in [LICENSE-ARTWORK.md](LICENSE-ARTWORK.md).
+
 ## License
 
-Released under the [MIT License](LICENSE).
+The source code is released under the [MIT License](LICENSE). The artwork is under CC0 1.0, as described above.
