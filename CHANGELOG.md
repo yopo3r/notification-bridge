@@ -2,6 +2,11 @@
 
 All notable changes to Notification Bridge are listed here, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions roughly follow [Semantic Versioning](https://semver.org/). Below 1.0, a minor release can still change behavior.
 
+## [1.1.0] - 2026-11-02
+
+### Fixed
+- The status notification, the failure alert and their channel names now follow the language chosen in the app, including on Android 12 and older (where a service ignored it) and right after the language is changed (the status notification is re-posted).
+
 ## [1.0.0] - 2026-10-08
 
 ### Added

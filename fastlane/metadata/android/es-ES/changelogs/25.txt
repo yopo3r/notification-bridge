@@ -1,0 +1,1 @@
+La notificación de estado, la alerta de fallo y los nombres de sus canales ahora siguen el idioma elegido en la app.

@@ -17,8 +17,8 @@ android {
         applicationId = "io.github.yopo3r.notificationbridge"
         minSdk = 25
         targetSdk = 37
-        versionCode = 24
-        versionName = "1.0.0"
+        versionCode = 25
+        versionName = "1.1.0"
     }
     buildFeatures { compose = true; buildConfig = true }
     // F-Droid rejects the opaque dependency-metadata signing block that AGP adds to APKs.

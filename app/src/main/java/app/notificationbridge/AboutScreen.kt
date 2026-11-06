@@ -1,5 +1,6 @@
 package app.notificationbridge
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,11 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.notificationbridge.ui.InsetSurface
@@ -28,6 +34,22 @@ fun AboutScreen() {
     ) {
         item {
             PageHeader(stringResource(R.string.tab_about))
+        }
+        item {
+            // The banner is dark-on-transparent artwork, so it sits on a fixed white card that
+            // stays readable in the dark theme too. It is decorative: the app name is right below.
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
+                color = Color.White
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.about_banner),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
+                    contentScale = ContentScale.FillWidth
+                )
+            }
         }
         item {
             InsetSurface {

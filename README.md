@@ -262,7 +262,6 @@ The formatter, the filters, the history helpers, configuration and theme parsing
 - Only OBEX Object Push is implemented, not the other profiles (contacts, synchronization and so on).
 - The transfer history is kept in memory and disappears when the app process ends.
 - An app that exceeds 10 notifications per minute has the extra ones dropped, not delayed. The queue holds at most 100 transfers, and anything beyond that is dropped too.
-- Below Android 13, the status and failure notifications may appear in the system language instead of the app language, because a service context doesn't follow per-app locales there.
 
 ## Troubleshooting
 
@@ -283,7 +282,7 @@ For anything else, open an issue as described in [CONTRIBUTING.md](CONTRIBUTING.
 
 ## Privacy
 
-This section describes version 1.0.0 and can be checked against the source.
+This section describes version 1.1.0 and can be checked against the source.
 
 - Everything happens on the phone. The app has no `INTERNET` permission and no networking code, backend, analytics or crash reporting. The Bluetooth receiver you selected is the only place notification data is sent.
 - The app never writes notification content to disk. Jetpack DataStore stores settings only: the receiver's name and Bluetooth address, the package names of allowed apps, and preferences. Android cloud backup and device-to-device transfer are turned off for app data.
