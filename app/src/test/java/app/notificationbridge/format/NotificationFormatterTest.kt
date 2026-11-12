@@ -73,6 +73,19 @@ class NotificationFormatterTest {
     }
 
     @Test
+    fun `file name is name then date then time`() {
+        val name = NotificationFormatter.generateFileName(
+            notification(title = "Hola", timestamp = 1_800_000_000_000L)
+        )
+        val parts = name.removeSuffix(".txt").split('_')
+        assertTrue("unexpected name: $name", parts.size >= 4)
+        val (date, time) = parts.takeLast(2)
+        assertTrue("bad date in $name", date.matches(Regex("\\d{8}")))
+        assertTrue("bad time in $name", time.matches(Regex("\\d{6}")))
+        assertTrue(name.contains("Hola"))
+    }
+
+    @Test
     fun `text body preserves unicode content`() {
         val body = NotificationFormatter.notificationToText(
             notification(title = "Café con Ñandú", text = "Reunión a las 3pm ✅ 你好")

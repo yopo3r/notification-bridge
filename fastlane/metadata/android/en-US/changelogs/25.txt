@@ -1,1 +1,1 @@
-The status notification, failure alert and their channel names now follow the language chosen in the app.
+The status notification, failure alert and their channel names now follow the language chosen in the app. Sent files are now named by name, date and time.

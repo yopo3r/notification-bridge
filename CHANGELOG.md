@@ -4,6 +4,9 @@ All notable changes to Notification Bridge are listed here, newest first. The fo
 
 ## [1.1.0] - 2026-11-02
 
+### Changed
+- Files sent to the receiver (`.txt` and `.vmg`) are now named in the order name, date, time, for example `WA_Maria_20261111_091105.txt`. The old running counter is gone; a repeat of the same name in the same second gets `_2`, `_3`, and so on. The name limit rose from 36 to 40 characters to make room for the date.
+
 ### Fixed
 - The status notification, the failure alert and their channel names now follow the language chosen in the app, including on Android 12 and older (where a service ignored it) and right after the language is changed (the status notification is re-posted).
 

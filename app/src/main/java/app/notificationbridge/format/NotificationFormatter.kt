@@ -26,7 +26,6 @@ import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.concurrent.atomic.AtomicLong
 
 object NotificationFormatter {
 
@@ -42,9 +41,14 @@ object NotificationFormatter {
 
     private const val MAX_APP_LENGTH = 6
     private const val MAX_TITLE_LENGTH = 12
-    private const val MAX_FILE_NAME_LENGTH = 36
+    private const val MAX_FILE_NAME_LENGTH = 40
 
-    private val counter = AtomicLong(0)
+    // Room kept for a "_N" suffix (up to "_99") that tells apart notifications with the same name
+    // in the same second.
+    private const val SUFFIX_RESERVE = 3
+
+    private var lastBaseName: String? = null
+    private var repeatCount = 0
 
     fun notificationToText(
         notification: NotificationData,
@@ -91,6 +95,12 @@ object NotificationFormatter {
             .toByteArray(Charsets.UTF_8)
     }
 
+    /**
+     * File name in the order name, date, time: `NAME_Title_20261111_091105.txt`. The name is the
+     * app abbreviation plus a shortened title. A repeat of the same name within the same second
+     * gets `_2`, `_3`, ... so a receiver never overwrites one file with another.
+     */
+    @Synchronized
     fun generateFileName(
         notification: NotificationData,
         extension: String = ".txt"
@@ -101,33 +111,27 @@ object NotificationFormatter {
             value = notification.title
                 ?.takeIf { it.isNotBlank() }
                 ?: "Notice",
-            maxLength = MAX_TITLE_LENGTH
+            maxLength = MAX_FILE_NAME_LENGTH
         )
 
-        val timestamp = SimpleDateFormat(
-            "HHmmss",
-            Locale.ROOT
-        ).format(Date(notification.timestamp))
+        val stamp = Date(notification.timestamp)
+        val date = SimpleDateFormat("yyyyMMdd", Locale.ROOT).format(stamp)
+        val time = SimpleDateFormat("HHmmss", Locale.ROOT).format(stamp)
 
-        val sequence = counter
-            .incrementAndGet()
-            .toString()
-            .padStart(3, '0')
-
-        val fixedLength =
-            app.length +
-                timestamp.length +
-                sequence.length +
-                extension.length +
-                3
-
-        val availableTitleLength =
-            (MAX_FILE_NAME_LENGTH - fixedLength)
-                .coerceAtLeast(1)
-
+        // app_ + title + _date_time + extension, with room kept for the repeat suffix.
+        val fixedLength = app.length + date.length + time.length + extension.length + 3 + SUFFIX_RESERVE
+        val availableTitleLength = (MAX_FILE_NAME_LENGTH - fixedLength).coerceAtLeast(1)
         val shortTitle = title.take(availableTitleLength)
 
-        return "${app}_${shortTitle}_${timestamp}_${sequence}$extension"
+        val base = "${app}_${shortTitle}_${date}_$time"
+        if (base == lastBaseName) {
+            repeatCount++
+        } else {
+            lastBaseName = base
+            repeatCount = 1
+        }
+        val suffix = if (repeatCount > 1) "_$repeatCount" else ""
+        return "$base$suffix$extension"
     }
 
     private fun applicationAbbreviation(

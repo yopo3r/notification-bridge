@@ -1,1 +1,1 @@
-La notificación de estado, la alerta de fallo y los nombres de sus canales ahora siguen el idioma elegido en la app.
+La notificación de estado, la alerta de fallo y los nombres de sus canales ahora siguen el idioma elegido en la app. Los archivos enviados se nombran por nombre, fecha y hora.
